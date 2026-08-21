@@ -16,7 +16,7 @@ type Slide = {
 
 const slides: Slide[] = [
   {
-    image: "/images/hero1.jpg",
+    image: "/images/hero1.webp",
     eyebrow: "OVLAŠĆENI DISTRIBUTER VESTA I TRIGANO",
     title: "SVE VRSTE AUTO PRIKOLICA NA JEDNOM MESTU",
     accent: "AUTO PRIKOLICA",
@@ -26,7 +26,7 @@ const slides: Slide[] = [
     secondaryAction: { label: "POZOVITE NAS", href: "tel:+381641334589" },
   },
   {
-    image: "/images/hero2.jpg",
+    image: "/images/hero2.webp",
     eyebrow: "VOZITE SA B KATEGORIJOM",
     title: "LAKE TERETNE I DVOOSOVINSKE PRIKOLICE",
     accent: "B KATEGORIJOM",
@@ -36,7 +36,7 @@ const slides: Slide[] = [
     secondaryAction: { label: "DVOOSOVINKE", href: "/prikolice" },
   },
   {
-    image: "/images/hero3.jpg",
+    image: "/images/hero3.webp",
     eyebrow: "PROFESIONALNI TRANSPORT",
     title: "PLATO, ŠLEP I NAUTIČKI PROGRAM",
     accent: "ŠLEP I NAUTIKA",
