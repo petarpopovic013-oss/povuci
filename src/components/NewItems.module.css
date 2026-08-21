@@ -1,0 +1,165 @@
+.section {
+  overflow: hidden;
+  padding: 100px 0;
+  background: #fff;
+}
+
+.carousel {
+  margin: 0 -15px;
+  padding-bottom: 30px;
+}
+
+.viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: 100%;
+  transition: transform 600ms ease;
+  will-change: transform;
+}
+
+.page {
+  display: flex;
+  min-width: 100%;
+}
+
+.slot {
+  min-width: 0;
+  flex: 1 1 0;
+  padding: 0 15px;
+}
+
+.productCard {
+  width: 100%;
+  text-align: center;
+}
+
+.imageWrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.imageWrap > img {
+  width: 100%;
+  height: auto;
+  transition: transform 200ms linear;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.8);
+  transition: opacity 400ms ease-in-out;
+}
+
+.actions {
+  position: absolute;
+  right: 0;
+  bottom: 30px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.actions a {
+  display: flex;
+  width: 95px;
+  height: 33px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--theme);
+  border-radius: 2px;
+  background: var(--theme);
+  color: #fff;
+  font-family: var(--font-raleway), sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 30px;
+  text-transform: capitalize;
+  transform: translateY(100px);
+  transition: all 200ms ease-in-out;
+}
+
+.actions a:nth-child(2) {
+  transition-delay: 100ms;
+}
+
+.actions a:hover {
+  background: transparent;
+  color: var(--theme);
+}
+
+.imageWrap:hover > img {
+  transform: scale(1.1);
+}
+
+.imageWrap:hover .overlay {
+  opacity: 1;
+}
+
+.imageWrap:hover .actions a {
+  transform: translateY(0);
+}
+
+.bio {
+  padding: 30px;
+  background: #fff;
+}
+
+.category {
+  display: block;
+  margin-bottom: 12px;
+  color: #666;
+  font-family: var(--font-ubuntu), sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  text-transform: capitalize;
+}
+
+.category:hover,
+.bio h3 a:hover {
+  color: var(--theme);
+}
+
+.bio h3 {
+  margin-bottom: 13px;
+  font-family: var(--font-raleway), sans-serif;
+  line-height: 20px;
+}
+
+.bio h3 a {
+  color: #373636;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+.price {
+  color: var(--theme);
+  font-family: var(--font-ubuntu), sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding: 60px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .imageWrap > img,
+  .overlay,
+  .actions a {
+    transition-duration: 0.01ms;
+  }
+}
