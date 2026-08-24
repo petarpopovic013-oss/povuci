@@ -21,7 +21,7 @@ export default function ContactPage() {
         </nav>
 
         {/* Section Header */}
-        <div className={styles.headerBlock}>
+        <div className={`${styles.headerBlock} reveal`}>
           <span className={styles.eyebrow}>DDM COMPANY • OVLAŠĆENI DISTRIBUTER</span>
           <h1 className={styles.title}>KONTAKT & LOKACIJA</h1>
           <p className={styles.subtitle}>
@@ -31,25 +31,32 @@ export default function ContactPage() {
         </div>
 
         {/* Top 2 Action Cards: Telefon & Instagram */}
-        <div className={styles.topCardsGrid}>
+        <div className={`${styles.topCardsGrid} reveal`}>
           {/* Card 1: Telefon */}
           <div className={styles.card}>
             <div className={styles.iconWrapper}>
               <PhoneIcon />
             </div>
             <h2 className={styles.cardTitle}>Pozovite Nas Direktno</h2>
-            <div className={styles.cardHighlight}>064 / 133 - 4589</div>
+            <div className={styles.cardHighlight}>
+              060 / 300 - 1633<br/>
+              <span style={{fontSize: "0.6em", color: "#666"}}>064 / 133 - 4589</span>
+            </div>
             <p className={styles.cardDesc}>
               Dostupni smo svakog radnog dana i subotom za sve informacije o modelima, fabričkim cenama i preuzimanju prikolica.
             </p>
             <div className={styles.cardActions}>
-              <a href="tel:+381641334589" className={styles.cardBtnPrimary}>
+              <a href="tel:+381603001633" className={styles.cardBtnPrimary}>
+                <PhoneIcon style={{ width: "16px", height: "16px" }} />
+                <span>POZOVI: 060 300 1633</span>
+              </a>
+              <a href="tel:+381641334589" className={styles.cardBtnPrimary} style={{background: "#333", color: "white", marginTop: "8px"}}>
                 <PhoneIcon style={{ width: "16px", height: "16px" }} />
                 <span>POZOVI: 064 133 4589</span>
               </a>
-              <div className={styles.socialRow}>
+              <div className={styles.socialRow} style={{marginTop: "8px"}}>
                 <a
-                  href="https://wa.me/381641334589"
+                  href="https://wa.me/381603001633"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.whatsappBtn}
@@ -58,7 +65,7 @@ export default function ContactPage() {
                   <span>WhatsApp</span>
                 </a>
                 <a
-                  href="viber://chat?number=%2B381641334589"
+                  href="viber://chat?number=%2B381603001633"
                   className={styles.viberBtn}
                 >
                   <span>Viber</span>
@@ -94,7 +101,7 @@ export default function ContactPage() {
         </div>
 
         {/* Google Maps Section */}
-        <div className={styles.mapSectionCard}>
+        <div className={`${styles.mapSectionCard} reveal`}>
           <div className={styles.mapHeader}>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
@@ -137,7 +144,11 @@ export default function ContactPage() {
               <span>Ponedeljak – Subota: 08:00 – 18:00 h</span>
             </div>
             <div className={styles.mapFooterItem}>
-              <strong>Direktan Telefon:</strong>
+              <strong>Glavni Telefon:</strong>
+              <span><a href="tel:+381603001633" style={{ color: "#d22e2e", fontWeight: "bold", textDecoration: "none" }}>060 / 300 - 1633</a></span>
+            </div>
+            <div className={styles.mapFooterItem}>
+              <strong>Drugi Telefon:</strong>
               <span><a href="tel:+381641334589" style={{ color: "#d22e2e", fontWeight: "bold", textDecoration: "none" }}>064 / 133 - 4589</a></span>
             </div>
           </div>

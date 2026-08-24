@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       : "Cena na upit";
 
   const title = `${trailer.title} | Fabrička Cena ${priceText} | Povuci.rs`;
-  const description = `${trailer.title} (${trailer.brand}) po fabričkoj ceni od ${priceText}. Garancija 24 meseca, homologacija i COC papiri za registraciju uključeni. Pozovite 064 133 4589.`;
+  const description = `${trailer.title} (${trailer.brand}) po fabričkoj ceni od ${priceText}. Garancija 24 meseca, homologacija i COC papiri za registraciju uključeni. Pozovite 060 300 1633.`;
 
   return {
     title,
@@ -156,7 +156,7 @@ export default async function TrailerPage({ params }: PageProps) {
         "@type": "Organization",
         name: "DDM Company — Povuci.rs",
         url: "https://povuci.rs",
-        telephone: "+381641334589",
+        telephone: "+381603001633",
       },
       shippingDetails: {
         "@type": "OfferShippingDetails",

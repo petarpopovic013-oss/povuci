@@ -119,10 +119,15 @@ export const metadata: Metadata = {
   },
 };
 
+import ScrollReveal from "../src/components/ScrollReveal";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="sr" className={`${openSans.variable} ${raleway.variable} ${ubuntu.variable}`}>
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <ScrollReveal />
+        {children}
+      </body>
     </html>
   );
 }

@@ -57,13 +57,13 @@ export default function BrandCatalog({
   return (
     <section className={styles.catalogSection}>
       <div className="site-container">
-        <div className={styles.header}>
+        <div className={`${styles.header} reveal`}>
           <span className={styles.brandBadge}>{badgeText}</span>
           <h1 className={styles.title}>{pageTitle}</h1>
           <p className={styles.description}>{pageSubtitle}</p>
         </div>
 
-        <div className={styles.filterBar}>
+        <div className={`${styles.filterBar} reveal`}>
           <div className={styles.filterRow}>
             <input
               type="text"
@@ -112,7 +112,7 @@ export default function BrandCatalog({
             <p>Pokušajte sa resetovanjem filtera ili pretrage.</p>
           </div>
         ) : (
-          <div className={styles.grid}>
+          <div className={`${styles.grid} reveal`}>
             {filteredTrailers.map((trailer) => (
               <article className={styles.card} key={trailer.id}>
                 {trailer.mainImageUrl ? (
@@ -200,7 +200,7 @@ export default function BrandCatalog({
                       Detalji
                     </Link>
                     <a
-                      href="tel:+381641334589"
+                      href="tel:+381603001633"
                       className={styles.callBtn}
                       aria-label={`Pozovite za model ${trailer.model}`}
                     >

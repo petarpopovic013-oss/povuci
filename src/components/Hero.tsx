@@ -23,7 +23,7 @@ const slides: Slide[] = [
     description:
       "DDM Company nudi kompletan asortiman novih auto prikolica po fabričkim cenama. Garancija 24 meseca, izdavanje COC dokumentacije i homologacije za brzu registraciju.",
     primaryAction: { label: "POGLEDAJ KATALOG", href: "/prikolice" },
-    secondaryAction: { label: "POZOVITE NAS", href: "tel:+381641334589" },
+    secondaryAction: { label: "POZOVITE NAS", href: "tel:+381603001633" },
   },
   {
     image: "/images/hero2.webp",

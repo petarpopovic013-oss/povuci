@@ -37,10 +37,10 @@ function UtilityBar() {
     <div className={styles.utilityBar}>
       <div className={styles.utilityContainer}>
         <div className={styles.contactLinks}>
-          <a href="tel:+381641334589" className={styles.topbarContactItem} aria-label="Pozovite nas: 064 / 133 - 4589">
+          <a href="tel:+381603001633" className={styles.topbarContactItem} aria-label="Pozovite nas: 060 / 300 - 1633">
             <PhoneIcon className={styles.topbarIcon} aria-hidden="true" />
             <span className={styles.contactText}>
-              <strong>064 / 133 - 4589</strong>
+              <strong>060 / 300 - 1633</strong>
             </span>
           </a>
         </div>
@@ -126,8 +126,8 @@ export default function Header() {
                 </li>
               ))}
             </ul>
-            <a className={styles.ctaHeaderBtn} href="tel:+381641334589" aria-label="Pozovite nas">
-              Pozovi 064/133-4589
+            <a className={styles.ctaHeaderBtn} href="tel:+381603001633" aria-label="Pozovite nas">
+              Pozovi 060/300-1633
             </a>
           </nav>
 
@@ -175,8 +175,8 @@ export default function Header() {
               </li>
             ))}
             <li className={styles.mobileTools}>
-              <a href="tel:+381641334589" onClick={() => setMenuOpen(false)}>
-                POZIV: 064 / 133 - 4589
+              <a href="tel:+381603001633" onClick={() => setMenuOpen(false)}>
+                POZIV: 060 / 300 - 1633
               </a>
               <Link href="/prikolice" onClick={() => setMenuOpen(false)}>
                 KATALOG PRIKOLICA

@@ -48,7 +48,7 @@ function ProductCard({ product }: { product: ProductItem }) {
         />
         <div className={styles.overlay}>
           <div className={styles.actions}>
-            <a href="tel:+381641334589">Pozovite</a>
+            <a href="tel:+381603001633">Pozovite</a>
             <Link href={detailUrl}>Detalji</Link>
           </div>
         </div>
@@ -101,13 +101,13 @@ export default function NewItems() {
   return (
     <section className={styles.section} id="new-items">
       <div className="site-container">
-        <div className="section-heading">
+        <div className="section-heading reveal">
           <p className="section-heading__eyebrow">NOVO U PONUDI</p>
           <h2>Izdvajamo Iz Ponude</h2>
         </div>
 
         <div
-          className={styles.carousel}
+          className={`${styles.carousel} reveal`}
           aria-label="Novo u ponudi"
           aria-roledescription="carousel"
         >

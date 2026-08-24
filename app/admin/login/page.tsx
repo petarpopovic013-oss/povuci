@@ -40,7 +40,7 @@ export default async function AdminLoginPage({
               type="password"
               required
               autoFocus
-              placeholder="Unesite šifru (1234)"
+              placeholder="Unesite šifru"
               className="admin-input"
             />
           </div>

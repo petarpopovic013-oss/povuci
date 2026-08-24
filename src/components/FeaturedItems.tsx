@@ -73,7 +73,7 @@ function ProductCard({ product }: { product: Product }) {
         />
         <div className={styles.productOverlay}>
           <div className={styles.productActions}>
-            <a href="tel:+381641334589">Pozovite</a>
+            <a href="tel:+381603001633">Pozovite</a>
             <Link href={detailUrl}>Detalji</Link>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default function FeaturedItems() {
     <section id="featuredItems" className={styles.section}>
       <div className="site-container">
         {/* 50/50 Brand Selector Split: TRIGANO vs VESTA */}
-        <div className={styles.brandSplitGrid}>
+        <div className={`${styles.brandSplitGrid} reveal`}>
           {/* Trigano 50% Card */}
           <Link href="/trigano" className={styles.brandCard}>
             <Image
@@ -169,13 +169,13 @@ export default function FeaturedItems() {
         </div>
 
         {/* Carousel: Najtraženiji Modeli */}
-        <div className="section-heading">
+        <div className="section-heading reveal">
           <p className="section-heading__eyebrow">NAŠA PONUDA</p>
           <h2>Najtraženiji Modeli</h2>
         </div>
 
         <div
-          className={styles.carousel}
+          className={`${styles.carousel} reveal`}
           aria-roledescription="carousel"
           aria-label="Najtraženiji modeli prikolica"
         >

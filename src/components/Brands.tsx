@@ -86,21 +86,21 @@ export default function Brands() {
   return (
     <section className={styles.brands} id="auto-kuke" aria-labelledby="auto-kuke-title">
       <div className="site-container">
-        <div className={`${styles.heading} section-heading`}>
+        <div className={`${styles.heading} section-heading reveal`}>
           <p className="section-heading__eyebrow">PROFESIONALNA UGRADNJA SA ATESTOM</p>
           <h2 id="auto-kuke-title">Ugradnja Auto Kuka</h2>
 
           <div className={styles.introduction}>
             <p className={styles.description}>{description}</p>
             <div className={styles.action}>
-              <a className="auto-button" href="tel:+381641334589">
-                Zakaži: 064/133-4589
+              <a className="auto-button" href="tel:+381603001633">
+                Zakaži: 060/300-1633
               </a>
             </div>
           </div>
         </div>
 
-        <div className={styles.rail} aria-roledescription="carousel" aria-label="Marke vozila za ugradnju kuka">
+        <div className={`${styles.rail} reveal`} aria-roledescription="carousel" aria-label="Marke vozila za ugradnju kuka">
           <div
             className={`${styles.track} ${animated ? styles.animated : ""}`}
             style={carouselStyle}

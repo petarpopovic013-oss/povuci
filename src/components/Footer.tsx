@@ -99,8 +99,8 @@ export default function Footer() {
               </div>
               <div className={styles.contactItem}>
                 <PhoneIcon className={styles.contactIcon} aria-hidden="true" />
-                <a href="tel:+381641334589" className={styles.phoneLink}>
-                  064 / 133 - 4589
+                <a href="tel:+381603001633" className={styles.phoneLink}>
+                  060 / 300 - 1633
                 </a>
               </div>
               <div className={styles.contactItem}>
@@ -121,7 +121,7 @@ export default function Footer() {
                 <span>Instagram</span>
               </a>
               <a
-                href="https://wa.me/381641334589"
+                href="https://wa.me/381603001633"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.whatsappBtn}
@@ -131,7 +131,7 @@ export default function Footer() {
                 <span>WhatsApp</span>
               </a>
               <a
-                href="tel:+381641334589"
+                href="tel:+381603001633"
                 className={styles.directCallBtn}
                 aria-label="Pozovite nas direktno"
               >

@@ -24,7 +24,7 @@ const organizationJsonLd = {
   image: "https://povuci.rs/povuci/vesta-light-23.webp",
   description:
     "Ovlašćeni distributer novih Vesta Trailers i Trigano auto prikolica u Srbiji. Fabričke cene, 24 meseca garancije i kompletna dokumentacija za brzu registraciju.",
-  telephone: "+381641334589",
+  telephone: "+381603001633",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Dr Svetislava Kasapinovića 9",

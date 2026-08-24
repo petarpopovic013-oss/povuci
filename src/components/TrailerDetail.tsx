@@ -317,16 +317,16 @@ export default function TrailerDetail({
               {/* CTA Buttons */}
               <div className={styles.ctaRow}>
                 <a
-                  href="tel:+381641334589"
+                  href="tel:+381603001633"
                   className={styles.phoneCallBtn}
-                  aria-label={`Pozovite za prikolicu ${trailer.title}`}
+                  aria-label="Pozovite za više informacija"
                 >
                   <PhoneIcon style={{ width: "18px", height: "18px" }} />
-                  <span>POZOVI: 064 133 4589</span>
+                  <span>POZOVI: 060 300 1633</span>
                 </a>
 
                 <a
-                  href={`https://wa.me/381641334589?text=${whatsappMessage}`}
+                  href={`https://wa.me/381603001633?text=${whatsappMessage}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.whatsappBtn}
@@ -431,7 +431,7 @@ export default function TrailerDetail({
 
         {/* Section: Optional Accessories with Exact Prices */}
         {trailer.options && trailer.options.length > 0 && (
-          <section className={styles.sectionCard}>
+          <section className={`${styles.sectionCard} reveal`}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Dodatna Oprema i Opcije</h2>
             </div>
@@ -456,7 +456,7 @@ export default function TrailerDetail({
 
         {/* Section: Full Description & Registration info */}
         {trailer.description && (
-          <section className={styles.sectionCard}>
+          <section className={`${styles.sectionCard} reveal`}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Opis Modela i Dokumentacija</h2>
             </div>
@@ -466,7 +466,7 @@ export default function TrailerDetail({
         )}
 
         {/* Section: Why choose us */}
-        <section className={styles.sectionCard}>
+        <section className={`${styles.sectionCard} reveal`}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Zašto Izabrati DDM Company?</h2>
           </div>
@@ -516,7 +516,7 @@ export default function TrailerDetail({
 
         {/* Section: Related Trailers */}
         {relatedTrailers.length > 0 && (
-          <section className={styles.sectionCard}>
+          <section className={`${styles.sectionCard} reveal`}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Slični Modeli Prikolica</h2>
             </div>
@@ -583,12 +583,12 @@ export default function TrailerDetail({
             </span>
           </div>
           <a
-            href="tel:+381641334589"
+            href="tel:+381603001633"
             className={styles.mobileCallBtn}
-            aria-label={`Pozovite za prikolicu ${trailer.title}`}
+            aria-label="Pozovite nas"
           >
             <PhoneIcon style={{ width: "16px", height: "16px" }} />
-            <span>Pozovi: 064 133 4589</span>
+            <span>Pozovi: 060 300 1633</span>
           </a>
         </div>
       </div>
