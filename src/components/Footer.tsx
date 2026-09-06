@@ -51,12 +51,11 @@ const categoryLinks = [
   { name: "Kiper i sandučarke", href: "/prikolice" },
 ];
 
-const infoLinks = [
-  { name: "Sve prikolice na lageru", href: "/prikolice" },
-  { name: "Fabrička garancija 2 godine", href: "/prikolice" },
-  { name: "COC i papiri za registraciju", href: "/kontakt" },
-  { name: "Euro auto kuke sa atestom", href: "/#auto-kuke" },
-  { name: "Lokacija Novi Sad & preuzimanje", href: "/kontakt" },
+const ddmGroupLinks = [
+  { name: "DDM Company", href: "https://ddmcompany.rs" },
+  { name: "DDM Rent a Car", href: "https://ddmrentacar.rs" },
+  { name: "Keeway Srbija", href: "https://keeway.rs" },
+  { name: "Morbidelli", href: "https://morbidelli.rs" },
 ];
 
 export default function Footer() {
@@ -171,16 +170,16 @@ export default function Footer() {
             </ul>
           </nav>
 
-          {/* Kolona 4: Informacije & Prednosti */}
-          <nav className={styles.linkWidget} aria-label="Informacije i prednosti">
-            <h2>Informacije</h2>
+          {/* Kolona 4: DDM Grupa */}
+          <nav className={styles.linkWidget} aria-label="DDM Grupa mreža">
+            <h2>DDM Grupa</h2>
             <ul>
-              {infoLinks.map((link) => (
+              {ddmGroupLinks.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href}>
+                  <a href={link.href} target="_blank" rel="noopener noreferrer">
                     <span aria-hidden="true">›</span>
                     {link.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
