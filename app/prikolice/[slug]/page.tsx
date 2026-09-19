@@ -8,6 +8,7 @@ import {
   getRelatedTrailers,
   getTrailerBySlug,
 } from "../../../src/lib/trailers";
+import { serializeJsonLd } from "../../../src/lib/seo";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -29,13 +30,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const priceText =
-    trailer.price_rsd > 0
-      ? `${trailer.price_rsd.toLocaleString("sr-RS")} RSD`
-      : "Cena na upit";
+  const hasPublishedPrice = trailer.price_rsd > 0;
+  const priceText = hasPublishedPrice
+    ? `${trailer.price_rsd.toLocaleString("sr-RS")} RSD`
+    : "Cena na upit";
 
-  const title = `${trailer.title} | Fabrička Cena ${priceText} | Povuci.rs`;
-  const description = `${trailer.title} (${trailer.brand}) po fabričkoj ceni od ${priceText}. Garancija 24 meseca, homologacija i COC papiri za registraciju uključeni. Pozovite 060 300 1633.`;
+  const title = `${trailer.title} | ${priceText}`;
+  const description = hasPublishedPrice
+    ? `${trailer.title} (${trailer.brand}) po fabričkoj ceni od ${priceText}. Garancija 24 meseca, homologacija i COC papiri za registraciju uključeni. Pozovite 060 300 1633.`
+    : `${trailer.title} (${trailer.brand}) — cena na upit. Garancija 24 meseca, homologacija i COC papiri za registraciju uključeni. Pozovite 060 300 1633.`;
 
   return {
     title,
@@ -49,14 +52,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: `https://povuci.rs/prikolice/${slug}`,
       type: "website",
       images: trailer.main_image_url
-        ? [
-            {
-              url: trailer.main_image_url,
-              width: 1200,
-              height: 630,
-              alt: trailer.title,
-            },
-          ]
+        ? [{ url: trailer.main_image_url, alt: trailer.title }]
         : [],
     },
     twitter: {
@@ -77,13 +73,20 @@ export default async function TrailerPage({ params }: PageProps) {
   }
 
   const related = await getRelatedTrailers(trailer, 3);
+  const productImages = (trailer.images || [])
+    .map((image) => image.image_url)
+    .filter((imageUrl): imageUrl is string => Boolean(imageUrl));
+
+  if (productImages.length === 0 && trailer.main_image_url) {
+    productImages.push(trailer.main_image_url);
+  }
 
   // Enhanced Product JSON-LD with additional properties
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: trailer.title,
-    image: trailer.images?.map((i) => i.image_url) || [trailer.main_image_url],
+    ...(productImages.length > 0 && { image: productImages }),
     description:
       trailer.description ||
       `${trailer.title} auto prikolica brenda ${trailer.brand} sa 24 meseca garancije.`,
@@ -140,32 +143,27 @@ export default async function TrailerPage({ params }: PageProps) {
           ]
         : []),
     ],
-    offers: {
-      "@type": "Offer",
-      url: `https://povuci.rs/prikolice/${trailer.slug}`,
-      priceCurrency: "RSD",
-      price: trailer.price_rsd > 0 ? trailer.price_rsd : undefined,
-      availability: "https://schema.org/InStock",
-      itemCondition: "https://schema.org/NewCondition",
-      priceValidUntil: new Date(
-        new Date().getFullYear(),
-        11,
-        31,
-      ).toISOString().split("T")[0],
-      seller: {
-        "@type": "Organization",
-        name: "DDM Company — Povuci.rs",
-        url: "https://povuci.rs",
-        telephone: "+381603001633",
-      },
-      shippingDetails: {
-        "@type": "OfferShippingDetails",
-        shippingDestination: {
-          "@type": "DefinedRegion",
-          addressCountry: "RS",
+    ...(trailer.price_rsd > 0 && {
+      offers: {
+        "@type": "Offer",
+        url: `https://povuci.rs/prikolice/${trailer.slug}`,
+        priceCurrency: "RSD",
+        price: trailer.price_rsd,
+        availability: "https://schema.org/InStock",
+        itemCondition: "https://schema.org/NewCondition",
+        priceValidUntil: new Date(
+          new Date().getFullYear(),
+          11,
+          31,
+        ).toISOString().split("T")[0],
+        seller: {
+          "@type": "Organization",
+          name: "DDM Company — Povuci.rs",
+          url: "https://povuci.rs",
+          telephone: "+381603001633",
         },
       },
-    },
+    }),
   };
 
   // BreadcrumbList JSON-LD
@@ -207,11 +205,11 @@ export default async function TrailerPage({ params }: PageProps) {
     <div id="top">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(productJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
       />
       <Header />
       <main>

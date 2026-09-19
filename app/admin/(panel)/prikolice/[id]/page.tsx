@@ -5,6 +5,7 @@ import { ALL_TRAILERS } from "@/data/trailers";
 import { getTrailerBySlug } from "@/lib/trailers";
 import type { PovuciTrailer } from "@/types/trailer";
 import { EditTrailerForm } from "./edit-form";
+import { ArrowIcon, ExternalLinkIcon } from "@/components/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +30,7 @@ export default async function EditTrailerPage({
     try {
       const { data } = await supabaseAdmin
         .from("povuci_trailers")
-        .select("*, images:povuci_trailer_images(*)")
+        .select("*, images:povuci_trailer_images(*), filter_categories:povuci_trailer_categories(category_id)")
         .eq("id", id)
         .maybeSingle();
       if (data) {
@@ -45,7 +46,7 @@ export default async function EditTrailerPage({
     try {
       const { data } = await supabaseAdmin
         .from("povuci_trailers")
-        .select("*, images:povuci_trailer_images(*)")
+        .select("*, images:povuci_trailer_images(*), filter_categories:povuci_trailer_categories(category_id)")
         .eq("slug", id)
         .maybeSingle();
       if (data) {
@@ -76,6 +77,7 @@ export default async function EditTrailerPage({
   const { data: categories } = await supabaseAdmin
     .from("povuci_categories")
     .select("id, name")
+    .eq("is_active", true)
     .order("sort_order", { ascending: true });
 
   return (
@@ -97,11 +99,16 @@ export default async function EditTrailerPage({
               className="admin-btn-secondary"
               style={{ fontSize: "13px" }}
             >
-              Pogledaj na Sajtu ↗
+              Pogledaj na Sajtu
+              <ExternalLinkIcon style={{ width: "14px", height: "14px" }} aria-hidden="true" />
             </Link>
           )}
           <Link href="/admin/prikolice" className="admin-btn-secondary" style={{ fontSize: "13px" }}>
-            ← Nazad na listu
+            <ArrowIcon
+              style={{ width: "14px", height: "14px", transform: "rotate(180deg)" }}
+              aria-hidden="true"
+            />
+            Nazad na listu
           </Link>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AlertIcon, CheckIcon, SaveIcon } from "@/components/icons";
+import { TrailerCategoryCheckboxes } from "@/components/TrailerCategoryCheckboxes";
 
 interface CreateTrailerFormProps {
   categories: { id: string; name: string }[] | null;
@@ -112,19 +113,7 @@ export function CreateTrailerForm({ categories }: CreateTrailerFormProps) {
           />
         </div>
 
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="category_id">
-            Kategorija Prikolice
-          </label>
-          <select id="category_id" name="category_id" className="admin-select">
-            <option value="">Izaberite kategoriju...</option>
-            {categories?.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <TrailerCategoryCheckboxes categories={categories} />
 
         <div className="admin-form-group">
           <label className="admin-form-label" htmlFor="price_rsd">

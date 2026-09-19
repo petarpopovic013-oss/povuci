@@ -4,7 +4,9 @@ import FeaturedItems from "../src/components/FeaturedItems";
 import Footer from "../src/components/Footer";
 import Header from "../src/components/Header";
 import Hero from "../src/components/Hero";
-import NewItems from "../src/components/NewItems";
+import TowbarModels from "../src/components/TowbarModels";
+import { FACEBOOK_URL, INSTAGRAM_URL } from "../src/lib/business-info";
+import { serializeJsonLd } from "../src/lib/seo";
 
 export const metadata: Metadata = {
   alternates: {
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
 // JSON-LD: Organization + LocalBusiness + WebSite (Sitelinks Search Box)
 const organizationJsonLd = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "LocalBusiness"],
+  "@type": ["Organization", "AutoPartsStore"],
   "@id": "https://povuci.rs/#organization",
   name: "DDM Company — Povuci.rs",
   alternateName: "Povuci.rs",
@@ -25,6 +27,22 @@ const organizationJsonLd = {
   description:
     "Ovlašćeni distributer novih Vesta Trailers i Trigano auto prikolica u Srbiji. Fabričke cene, 24 meseca garancije i kompletna dokumentacija za brzu registraciju.",
   telephone: "+381603001633",
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: "+381603001633",
+      contactType: "sales",
+      areaServed: "RS",
+      availableLanguage: ["sr"],
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: "+381641334589",
+      contactType: "sales",
+      areaServed: "RS",
+      availableLanguage: ["sr"],
+    },
+  ],
   address: {
     "@type": "PostalAddress",
     streetAddress: "Dr Svetislava Kasapinovića 9",
@@ -40,12 +58,20 @@ const organizationJsonLd = {
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
       opens: "08:00",
-      closes: "18:00",
+      closes: "16:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "08:00",
+      closes: "14:00",
     },
   ],
-  sameAs: ["https://www.instagram.com/ddmcompany.ns/"],
+  sameAs: [INSTAGRAM_URL, FACEBOOK_URL],
+  hasMap:
+    "https://www.google.com/maps/search/?api=1&query=Dr+Svetislava+Kasapinovica+9,+21000+Novi+Sad",
   priceRange: "$$",
   currenciesAccepted: "RSD",
   paymentAccepted: "Cash, Credit Card, Bank Transfer",
@@ -83,14 +109,6 @@ const websiteJsonLd = {
     "@id": "https://povuci.rs/#organization",
   },
   inLanguage: "sr",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: "https://povuci.rs/prikolice?q={search_term_string}",
-    },
-    "query-input": "required name=search_term_string",
-  },
 };
 
 export default function Home() {
@@ -98,18 +116,18 @@ export default function Home() {
     <div id="top">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(websiteJsonLd) }}
       />
       <Header />
       <main>
         <Hero />
         <FeaturedItems />
         <Brands />
-        <NewItems />
+        <TowbarModels />
       </main>
       <Footer />
     </div>

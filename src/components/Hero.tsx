@@ -111,9 +111,15 @@ export default function Hero() {
                 <GearIcon />
               </div>
               <p className={styles.eyebrow}>{slide.eyebrow}</p>
-              <h1 className={styles.title}>
-                <SlideTitle title={slide.title} accent={slide.accent} />
-              </h1>
+              {index === 1 ? (
+                <h1 className={styles.title}>
+                  <SlideTitle title={slide.title} accent={slide.accent} />
+                </h1>
+              ) : (
+                <h2 className={styles.title}>
+                  <SlideTitle title={slide.title} accent={slide.accent} />
+                </h2>
+              )}
               <p className={styles.description}>{slide.description}</p>
               <div className={styles.actions}>
                 <a

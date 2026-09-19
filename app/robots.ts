@@ -10,5 +10,6 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: "https://povuci.rs/sitemap.xml",
+    host: "https://povuci.rs",
   };
 }

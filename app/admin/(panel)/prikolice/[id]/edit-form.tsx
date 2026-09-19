@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AlertIcon, CheckIcon, SaveIcon } from "@/components/icons";
+import { TrailerCategoryCheckboxes } from "@/components/TrailerCategoryCheckboxes";
 import type { PovuciTrailer } from "@/types/trailer";
 
 interface EditTrailerFormProps {
@@ -130,24 +131,12 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
           />
         </div>
 
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="category_id">
-            Kategorija Prikolice
-          </label>
-          <select
-            id="category_id"
-            name="category_id"
-            defaultValue={trailer.category_id || ""}
-            className="admin-select"
-          >
-            <option value="">Izaberite kategoriju...</option>
-            {categories?.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <TrailerCategoryCheckboxes
+          categories={categories}
+          selectedCategoryIds={(trailer.filter_categories || []).map(
+            (category) => category.category_id
+          )}
+        />
 
         <div className="admin-form-group">
           <label className="admin-form-label" htmlFor="price_rsd">

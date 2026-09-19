@@ -1,21 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
-import { requireAdmin } from "@/lib/admin/session";
+import { hasAdminSession } from "@/lib/admin/session";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { optimizeImageToWebp } from "@/lib/images/optimize";
+import { revalidateCatalogPages } from "@/lib/admin/revalidate-catalog";
+import {
+  parseTrailerCategoryIds,
+  syncTrailerCategories,
+} from "@/lib/admin/trailer-categories";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {
-    await requireAdmin();
+    if (!(await hasAdminSession())) {
+      return NextResponse.json(
+        { success: false, error: "Niste prijavljeni." },
+        { status: 401 }
+      );
+    }
 
     const formData = await req.formData();
 
     const brand = (formData.get("brand") as string) || "Vesta";
     const model = (formData.get("model") as string) || "";
     const title = (formData.get("title") as string) || `${brand} ${model}`;
-    const categoryId = (formData.get("category_id") as string) || null;
+    const categoryIds = parseTrailerCategoryIds(formData);
+    if (categoryIds.length === 0) {
+      return NextResponse.json(
+        { success: false, error: "Izaberite najmanje jednu filter kategoriju." },
+        { status: 400 }
+      );
+    }
+    const categoryId = categoryIds[0];
     const priceRsd = parseFloat((formData.get("price_rsd") as string) || "0") || 0;
     const priceEur = formData.get("price_eur")
       ? parseFloat(formData.get("price_eur") as string)
@@ -180,6 +196,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (trailer?.id) {
+      await syncTrailerCategories(trailer.id, categoryIds);
+    }
+
     if (uploadedImages.length > 0 && trailer?.id) {
       const imagesToInsert = uploadedImages.map((img) => ({
         trailer_id: trailer.id,
@@ -192,12 +212,7 @@ export async function POST(req: NextRequest) {
       await supabaseAdmin.from("povuci_trailer_images").insert(imagesToInsert);
     }
 
-    revalidatePath("/");
-    revalidatePath("/vesta");
-    revalidatePath("/trigano");
-    revalidatePath("/prikolice");
-    revalidatePath("/admin");
-    revalidatePath("/admin/prikolice");
+    revalidateCatalogPages();
 
     return NextResponse.json({
       success: true,

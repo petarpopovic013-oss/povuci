@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  FacebookIcon,
   HeadsetIcon,
   InstagramIcon,
   LocationIcon,
@@ -8,7 +9,13 @@ import {
   ShieldIcon,
   TruckIcon,
   WhatsAppIcon,
+  ChevronIcon,
 } from "./icons";
+import {
+  BUSINESS_HOURS,
+  FACEBOOK_URL,
+  INSTAGRAM_URL,
+} from "../lib/business-info";
 import styles from "./Footer.module.css";
 
 const services = [
@@ -36,7 +43,7 @@ const services = [
 
 const navigationLinks = [
   { name: "Početna Strana", href: "/" },
-  { name: "Katalog Prikolica (68 modela)", href: "/prikolice" },
+  { name: "Kompletan katalog prikolica", href: "/prikolice" },
   { name: "Vesta Trailers Prikolice", href: "/vesta" },
   { name: "Trigano Prikolice", href: "/trigano" },
   { name: "Ugradnja Auto Kuka", href: "/#auto-kuke" },
@@ -44,11 +51,12 @@ const navigationLinks = [
 ];
 
 const categoryLinks = [
-  { name: "Lake teretne do 750kg (B kat.)", href: "/prikolice" },
-  { name: "Dvoosovinske prikolice", href: "/prikolice" },
+  { name: "Lake auto prikolice do 750 kg", href: "/prikolice" },
+  { name: "Cargo i teški teret", href: "/prikolice" },
   { name: "Plato i šlep prikolice", href: "/prikolice" },
-  { name: "Nautički program i čamci", href: "/prikolice" },
-  { name: "Kiper i sandučarke", href: "/prikolice" },
+  { name: "Nautika i čamci", href: "/prikolice" },
+  { name: "Kiper (hidraulika)", href: "/prikolice" },
+  { name: "Moto i ATV / UTV / Quad", href: "/prikolice" },
 ];
 
 const ddmGroupLinks = [
@@ -104,20 +112,34 @@ export default function Footer() {
               </div>
               <div className={styles.contactItem}>
                 <span className={styles.hoursDot} aria-hidden="true" />
-                <span>Pon – Sub: 08:00 – 18:00 h</span>
+                <span className={styles.hoursText}>
+                  <span>{BUSINESS_HOURS.weekdays}</span>
+                  <span>{BUSINESS_HOURS.saturday}</span>
+                  <span>{BUSINESS_HOURS.sunday}</span>
+                </span>
               </div>
             </div>
 
             <div className={styles.socialButtons}>
               <a
-                href="https://www.instagram.com/ddmcompany.ns/"
+                href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.instagramBtn}
-                aria-label="Zapratite nas na Instagramu"
+                aria-label="Posetite POVUCI.RS Instagram profil"
               >
                 <InstagramIcon style={{ width: "15px", height: "15px" }} />
                 <span>Instagram</span>
+              </a>
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.facebookBtn}
+                aria-label="Posetite POVUCI.RS Facebook stranicu"
+              >
+                <FacebookIcon style={{ width: "15px", height: "15px" }} aria-hidden="true" />
+                <span>Facebook</span>
               </a>
               <a
                 href="https://wa.me/381603001633"
@@ -147,7 +169,7 @@ export default function Footer() {
               {navigationLinks.map((link) => (
                 <li key={link.name}>
                   <Link href={link.href}>
-                    <span aria-hidden="true">›</span>
+                    <span aria-hidden="true"><ChevronIcon /></span>
                     {link.name}
                   </Link>
                 </li>
@@ -162,7 +184,7 @@ export default function Footer() {
               {categoryLinks.map((link) => (
                 <li key={link.name}>
                   <Link href={link.href}>
-                    <span aria-hidden="true">›</span>
+                    <span aria-hidden="true"><ChevronIcon /></span>
                     {link.name}
                   </Link>
                 </li>
@@ -177,7 +199,7 @@ export default function Footer() {
               {ddmGroupLinks.map((link) => (
                 <li key={link.name}>
                   <a href={link.href} target="_blank" rel="noopener noreferrer">
-                    <span aria-hidden="true">›</span>
+                    <span aria-hidden="true"><ChevronIcon /></span>
                     {link.name}
                   </a>
                 </li>

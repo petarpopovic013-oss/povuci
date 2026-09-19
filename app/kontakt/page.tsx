@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Header from "../../src/components/Header";
 import Footer from "../../src/components/Footer";
 import ContactPage from "../../src/components/ContactPage";
+import { FACEBOOK_URL, INSTAGRAM_URL } from "../../src/lib/business-info";
+import { serializeJsonLd } from "../../src/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Kontakt & Lokacija | DDM Company - Povuci.rs",
+  title: "Kontakt i Lokacija | DDM Company",
   description:
-    "Kontaktirajte DDM Company za kupovinu novih Vesta i Trigano auto prikolica. Adresa: Dr Svetislava Kasapinovića 9, 21000 Novi Sad. Telefon: 060 3001633, Instagram @ddmcompany.ns.",
+    "Kontaktirajte DDM Company za kupovinu novih Vesta i Trigano auto prikolica. Adresa: Dr Svetislava Kasapinovića 9, 21000 Novi Sad. Telefon: 060 3001633, Instagram @povuci.rs i Facebook POVUCI.RS.",
   alternates: {
     canonical: "https://povuci.rs/kontakt",
   },
@@ -18,18 +20,25 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/povuci/vesta-light-23.webp",
-        width: 1200,
-        height: 630,
+        width: 622,
+        height: 359,
         alt: "DDM Company - Kontakt lokacija Novi Sad",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kontakt i Lokacija | DDM Company",
+    description:
+      "Kontakt, radno vreme i lokacija prodajnog mesta Povuci.rs u Novom Sadu.",
+    images: ["/povuci/vesta-light-23.webp"],
   },
 };
 
 // JSON-LD: LocalBusiness for Contact page
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "AutoPartsStore",
   "@id": "https://povuci.rs/#organization",
   name: "DDM Company — Povuci.rs",
   image: "https://povuci.rs/icon-512.png",
@@ -57,13 +66,20 @@ const localBusinessJsonLd = {
         "Wednesday",
         "Thursday",
         "Friday",
-        "Saturday",
       ],
       opens: "08:00",
-      closes: "18:00",
+      closes: "16:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "08:00",
+      closes: "14:00",
     },
   ],
-  sameAs: ["https://www.instagram.com/ddmcompany.ns/"],
+  sameAs: [INSTAGRAM_URL, FACEBOOK_URL],
+  hasMap:
+    "https://www.google.com/maps/search/?api=1&query=Dr+Svetislava+Kasapinovica+9,+21000+Novi+Sad",
   priceRange: "$$",
   currenciesAccepted: "RSD",
   paymentAccepted: "Cash, Credit Card, Bank Transfer",
@@ -97,11 +113,11 @@ export default function KontaktRoute() {
     <div id="top">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(localBusinessJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
       />
       <Header />
       <main>

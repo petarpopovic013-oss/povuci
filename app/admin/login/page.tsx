@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { hasAdminSession } from "@/lib/admin/session";
 import { loginAction } from "../actions";
 import "../admin.css";
+import { ArrowIcon } from "@/components/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -46,13 +47,20 @@ export default async function AdminLoginPage({
           </div>
 
           <button type="submit" className="admin-btn-primary" style={{ justifyContent: "center" }}>
-            Prijavi se na panel →
+            Prijavi se na panel
+            <ArrowIcon style={{ width: "16px", height: "16px" }} aria-hidden="true" />
           </button>
         </form>
 
         <div style={{ marginTop: "24px", textAlign: "center" }}>
           <Link href="/" style={{ color: "#959da8", fontSize: "13px", textDecoration: "none" }}>
-            ← Nazad na početnu stranicu
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <ArrowIcon
+                style={{ width: "14px", height: "14px", transform: "rotate(180deg)" }}
+                aria-hidden="true"
+              />
+              Nazad na početnu stranicu
+            </span>
           </Link>
         </div>
       </div>

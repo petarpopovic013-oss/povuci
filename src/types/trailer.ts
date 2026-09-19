@@ -19,6 +19,7 @@ export interface PovuciTrailer {
   brand: TrailerBrand;
   category_id: string | null;
   category?: PovuciCategory;
+  filter_categories?: { category_id: string }[];
   model: string;
   slug: string;
   title: string;

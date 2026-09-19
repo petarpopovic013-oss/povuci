@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { CreateTrailerForm } from "./create-form";
+import { ArrowIcon } from "@/components/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +13,7 @@ export default async function NovaPrikolicaPage({
   const { data: categories } = await supabaseAdmin
     .from("povuci_categories")
     .select("id, name")
+    .eq("is_active", true)
     .order("sort_order", { ascending: true });
 
   const { error } = await searchParams;
@@ -27,7 +29,11 @@ export default async function NovaPrikolicaPage({
         </div>
 
         <Link href="/admin/prikolice" className="admin-btn-secondary">
-          ← Nazad na listu
+          <ArrowIcon
+            style={{ width: "15px", height: "15px", transform: "rotate(180deg)" }}
+            aria-hidden="true"
+          />
+          Nazad na listu
         </Link>
       </div>
 

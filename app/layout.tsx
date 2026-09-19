@@ -33,7 +33,7 @@ const ubuntu = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://povuci.rs"),
   title: {
-    default: "Povuci.rs | Prodaja Auto Prikolica | Vesta & Trigano",
+    default: "Auto Prikolice i Auto Kuke | Povuci.rs Novi Sad",
     template: "%s | Povuci.rs",
   },
   description:
@@ -62,9 +62,14 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "DDM Company" }],
   creator: "DDM Company",
-  publisher: "Povuci.rs",
+  publisher: "DDM Company — Povuci.rs",
+  applicationName: "Povuci.rs",
+  category: "Auto prikolice i auto kuke",
   alternates: {
     canonical: "https://povuci.rs",
+    languages: {
+      "sr-Latn-RS": "https://povuci.rs",
+    },
   },
   formatDetection: {
     email: false,
@@ -87,21 +92,21 @@ export const metadata: Metadata = {
     locale: "sr_RS",
     url: "https://povuci.rs",
     siteName: "Povuci.rs",
-    title: "Povuci.rs | Prodaja Auto Prikolica | Vesta & Trigano",
+    title: "Auto Prikolice i Auto Kuke | Povuci.rs Novi Sad",
     description:
       "Zvanični distributer novih Vesta i Trigano auto prikolica u Srbiji po fabričkim cenama sa 24 meseca garancije.",
     images: [
       {
         url: "/povuci/vesta-light-23.webp",
-        width: 1200,
-        height: 630,
+        width: 622,
+        height: 359,
         alt: "Povuci.rs Auto Prikolice",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Povuci.rs | Prodaja Auto Prikolica | Vesta & Trigano",
+    title: "Auto Prikolice i Auto Kuke | Povuci.rs Novi Sad",
     description:
       "Zvanični distributer novih Vesta i Trigano auto prikolica u Srbiji po fabričkim cenama.",
     images: ["/povuci/vesta-light-23.webp"],
@@ -123,7 +128,7 @@ import ScrollReveal from "../src/components/ScrollReveal";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="sr" className={`${openSans.variable} ${raleway.variable} ${ubuntu.variable}`}>
+    <html lang="sr-Latn" className={`${openSans.variable} ${raleway.variable} ${ubuntu.variable}`}>
       <body suppressHydrationWarning>
         <ScrollReveal />
         {children}

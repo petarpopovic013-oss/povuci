@@ -3,8 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { ALL_TRAILERS } from "../data/trailers";
-import { CheckIcon } from "./icons";
+import type { CatalogTrailer } from "../data/trailers";
+import {
+  getFilterCategoryName,
+  getTrailerFilterCategoryIds,
+  TRAILER_FILTER_CATEGORIES,
+} from "../lib/trailer-filter-categories";
 import styles from "./BrandCatalog.module.css";
 
 interface BrandCatalogProps {
@@ -12,6 +16,7 @@ interface BrandCatalogProps {
   pageTitle: string;
   pageSubtitle: string;
   badgeText: string;
+  trailers: CatalogTrailer[];
 }
 
 export default function BrandCatalog({
@@ -19,23 +24,24 @@ export default function BrandCatalog({
   pageTitle,
   pageSubtitle,
   badgeText,
+  trailers,
 }: BrandCatalogProps) {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [onlyB, setOnlyB] = useState<boolean>(false);
 
   const brandTrailers = useMemo(() => {
     return brandFilter
-      ? ALL_TRAILERS.filter((t) => t.brand === brandFilter)
-      : ALL_TRAILERS;
-  }, [brandFilter]);
+      ? trailers.filter((t) => t.brand === brandFilter)
+      : trailers;
+  }, [brandFilter, trailers]);
 
   const categories = useMemo(() => {
-    const map = new Map<string, string>();
-    brandTrailers.forEach((t) => {
-      map.set(t.categoryId, t.categoryName);
-    });
-    return Array.from(map.entries()).map(([id, name]) => ({ id, name }));
+    return TRAILER_FILTER_CATEGORIES.map((category) => ({
+      ...category,
+      count: brandTrailers.filter((trailer) =>
+        getTrailerFilterCategoryIds(trailer).includes(category.id)
+      ).length,
+    })).filter((category) => category.count > 0);
   }, [brandTrailers]);
 
   const filteredTrailers = useMemo(() => {
@@ -46,13 +52,14 @@ export default function BrandCatalog({
         trailer.model.toLowerCase().includes(search.toLowerCase());
 
       const matchCat =
-        selectedCategory === "all" || trailer.categoryId === selectedCategory;
+        selectedCategory === "all" ||
+        getTrailerFilterCategoryIds(trailer).includes(
+          selectedCategory as ReturnType<typeof getTrailerFilterCategoryIds>[number]
+        );
 
-      const matchB = !onlyB || trailer.isBCategory;
-
-      return matchSearch && matchCat && matchB;
+      return matchSearch && matchCat;
     });
-  }, [brandTrailers, search, selectedCategory, onlyB]);
+  }, [brandTrailers, search, selectedCategory]);
 
   return (
     <section className={styles.catalogSection}>
@@ -88,20 +95,9 @@ export default function BrandCatalog({
                   className={`${styles.catBtn} ${selectedCategory === c.id ? styles.catBtnActive : ""}`}
                   onClick={() => setSelectedCategory(c.id)}
                 >
-                  {c.name}
+                  {c.name} ({c.count})
                 </button>
               ))}
-              <button
-                type="button"
-                className={`${styles.catBtn} ${onlyB ? styles.catBtnActive : ""}`}
-                onClick={() => setOnlyB((prev) => !prev)}
-                style={{ display: "inline-flex", alignItems: "center" }}
-              >
-                {onlyB && (
-                  <CheckIcon style={{ width: "13px", height: "13px", marginRight: "6px" }} aria-hidden="true" />
-                )}
-                {onlyB ? "Samo B kategorija" : "B kategorija (do 750kg)"}
-              </button>
             </div>
           </div>
         </div>
@@ -112,7 +108,7 @@ export default function BrandCatalog({
             <p>Pokušajte sa resetovanjem filtera ili pretrage.</p>
           </div>
         ) : (
-          <div className={`${styles.grid} reveal`}>
+          <div className={styles.grid}>
             {filteredTrailers.map((trailer) => (
               <article className={styles.card} key={trailer.id}>
                 {trailer.mainImageUrl ? (
@@ -136,7 +132,11 @@ export default function BrandCatalog({
                 )}
 
                 <div className={styles.cardHeader}>
-                  <span className={styles.categoryTag}>{trailer.categoryName}</span>
+                  {getTrailerFilterCategoryIds(trailer).map((categoryId) => (
+                    <span className={styles.categoryTag} key={categoryId}>
+                      {getFilterCategoryName(categoryId)}
+                    </span>
+                  ))}
                   {trailer.isBCategory && (
                     <span className={styles.bCatBadge}>B kategorija</span>
                   )}

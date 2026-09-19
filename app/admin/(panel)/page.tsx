@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import { PlusIcon } from "@/components/icons";
+import { ArrowIcon, PlusIcon } from "@/components/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -75,7 +75,8 @@ export default async function AdminDashboardPage() {
           </div>
 
           <Link href="/admin/prikolice" className="admin-btn-secondary">
-            Pogledaj sve prikolice →
+            Pogledaj sve prikolice
+            <ArrowIcon style={{ width: "15px", height: "15px" }} aria-hidden="true" />
           </Link>
         </div>
 

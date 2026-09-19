@@ -2,11 +2,20 @@
 
 import Link from "next/link";
 import {
+  FacebookIcon,
   InstagramIcon,
   LocationIcon,
   PhoneIcon,
   WhatsAppIcon,
+  ExternalLinkIcon,
 } from "./icons";
+import {
+  BUSINESS_HOURS,
+  FACEBOOK_LABEL,
+  FACEBOOK_URL,
+  INSTAGRAM_HANDLE,
+  INSTAGRAM_URL,
+} from "../lib/business-info";
 import styles from "./ContactPage.module.css";
 
 export default function ContactPage() {
@@ -30,7 +39,7 @@ export default function ContactPage() {
           </p>
         </div>
 
-        {/* Top 2 Action Cards: Telefon & Instagram */}
+        {/* Kontakt kanali */}
         <div className={`${styles.topCardsGrid} reveal`}>
           {/* Card 1: Telefon */}
           <div className={styles.card}>
@@ -81,20 +90,46 @@ export default function ContactPage() {
             </div>
             <h2 className={styles.cardTitle}>Instagram Profil</h2>
             <div className={styles.cardHighlight} style={{ color: "#bc1888" }}>
-              @ddmcompany.ns
+              {INSTAGRAM_HANDLE}
             </div>
             <p className={styles.cardDesc}>
               Zapratite naš zvanični Instagram profil za najnovije isporuke, video snimke detalja prikolica i aktuelne popuste.
             </p>
             <div className={styles.cardActions}>
               <a
-                href="https://www.instagram.com/ddmcompany.ns/"
+                href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.cardBtnPrimary} ${styles.cardBtnInstagram}`}
               >
                 <InstagramIcon style={{ width: "18px", height: "18px" }} />
                 <span>ZAPRATI NA INSTAGRAMU</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Card 3: Facebook */}
+          <div className={styles.card}>
+            <div className={`${styles.iconWrapper} ${styles.facebookIconWrapper}`}>
+              <FacebookIcon aria-hidden="true" />
+            </div>
+            <h2 className={styles.cardTitle}>Facebook Stranica</h2>
+            <div className={styles.cardHighlight} style={{ color: "#1877f2" }}>
+              {FACEBOOK_LABEL}
+            </div>
+            <p className={styles.cardDesc}>
+              Pratite POVUCI.RS na Facebooku za aktuelnu ponudu, nove modele,
+              isporuke i obaveštenja.
+            </p>
+            <div className={styles.cardActions}>
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.cardBtnPrimary} ${styles.cardBtnFacebook}`}
+              >
+                <FacebookIcon style={{ width: "18px", height: "18px" }} aria-hidden="true" />
+                <span>PRATITE NAS NA FACEBOOKU</span>
               </a>
             </div>
           </div>
@@ -119,7 +154,8 @@ export default function ContactPage() {
               rel="noopener noreferrer"
               className={styles.openMapsBtn}
             >
-              <span>Otvori u Google Maps ↗</span>
+              <span>Otvori u Google Maps</span>
+              <ExternalLinkIcon style={{ width: "15px", height: "15px" }} aria-hidden="true" />
             </a>
           </div>
 
@@ -141,7 +177,11 @@ export default function ContactPage() {
             </div>
             <div className={styles.mapFooterItem}>
               <strong>Radno Vreme:</strong>
-              <span>Ponedeljak – Subota: 08:00 – 18:00 h</span>
+              <span className={styles.hoursList}>
+                <span>{BUSINESS_HOURS.weekdays}</span>
+                <span>{BUSINESS_HOURS.saturday}</span>
+                <span>{BUSINESS_HOURS.sunday}</span>
+              </span>
             </div>
             <div className={styles.mapFooterItem}>
               <strong>Glavni Telefon:</strong>

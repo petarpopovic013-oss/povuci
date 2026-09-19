@@ -100,6 +100,11 @@ export default function Brands() {
           </div>
         </div>
 
+        <div className={`${styles.vehicleCoverage} reveal`}>
+          <strong>Ugradnja za sve tipove vozila</strong>
+          <span>Putnička, SUV, 4x4 i dostavna vozila — bez obzira na marku i model.</span>
+        </div>
+
         <div className={`${styles.rail} reveal`} aria-roledescription="carousel" aria-label="Marke vozila za ugradnju kuka">
           <div
             className={`${styles.track} ${animated ? styles.animated : ""}`}

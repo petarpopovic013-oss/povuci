@@ -2,6 +2,7 @@ import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { AlertIcon, CheckIcon, EditIcon, PlusIcon } from "@/components/icons";
 import { DeleteTrailerButton } from "./delete-button";
+import { getFilterCategoryName } from "@/lib/trailer-filter-categories";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +17,7 @@ export default async function AdminPrikoliceListPage({
 
   let query = supabaseAdmin
     .from("povuci_trailers")
-    .select("id, brand, model, title, price_rsd, status, gross_weight_kg, payload_capacity_kg, internal_length_mm, internal_width_mm, is_b_category, axles_count, created_at")
+    .select("id, brand, model, title, price_rsd, status, gross_weight_kg, payload_capacity_kg, internal_length_mm, internal_width_mm, is_b_category, axles_count, created_at, filter_categories:povuci_trailer_categories(category_id)")
     .order("created_at", { ascending: false });
 
   if (brandFilter) {
@@ -98,6 +99,7 @@ export default async function AdminPrikoliceListPage({
                 <th>Masa / Nosivost</th>
                 <th>Dimenzije sanduka</th>
                 <th>Osovine</th>
+                <th>Filteri</th>
                 <th>Cena (RSD)</th>
                 <th>Akcije</th>
               </tr>
@@ -126,6 +128,15 @@ export default async function AdminPrikoliceListPage({
                       : "-"}
                   </td>
                   <td>{t.axles_count === 2 ? "2 osovine" : "1 osovina"}</td>
+                  <td>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
+                      {(t.filter_categories || []).map((category) => (
+                        <span className="admin-badge-vesta" key={category.category_id}>
+                          {getFilterCategoryName(category.category_id)}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
                   <td style={{ color: "#ff5252", fontWeight: "700" }}>
                     {t.price_rsd ? `${t.price_rsd.toLocaleString("sr-RS")} RSD` : "Poziv"}
                   </td>

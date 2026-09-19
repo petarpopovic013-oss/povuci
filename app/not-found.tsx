@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
+import { ArrowIcon } from "../src/components/icons";
 
 export default function NotFound() {
   return (
@@ -21,7 +22,11 @@ export default function NotFound() {
 
           <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
             <Link href="/" className="auto-button" style={{ width: "auto", padding: "0 28px" }}>
-              ← Početna Strana
+              <ArrowIcon
+                style={{ width: "16px", height: "16px", transform: "rotate(180deg)" }}
+                aria-hidden="true"
+              />
+              Početna Strana
             </Link>
             <Link
               href="/prikolice"

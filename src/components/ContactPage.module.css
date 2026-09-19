@@ -64,7 +64,7 @@
 
 .topCardsGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
   margin-bottom: 40px;
 }
@@ -139,6 +139,15 @@
 
 .card:hover .instagramIconWrapper {
   box-shadow: 0 8px 20px rgba(188, 24, 136, 0.3);
+}
+
+.facebookIconWrapper {
+  background: #1877f2;
+  color: #ffffff;
+}
+
+.card:hover .facebookIconWrapper {
+  box-shadow: 0 8px 20px rgba(24, 119, 242, 0.3);
 }
 
 .cardTitle {
@@ -235,6 +244,16 @@
 .cardBtnInstagram:hover {
   filter: brightness(1.08);
   box-shadow: 0 8px 22px rgba(188, 24, 136, 0.4);
+}
+
+.cardBtnFacebook {
+  background: #1877f2;
+  box-shadow: 0 4px 14px rgba(24, 119, 242, 0.25);
+}
+
+.cardBtnFacebook:hover {
+  background: #1168d8;
+  box-shadow: 0 8px 22px rgba(24, 119, 242, 0.4);
 }
 
 .socialRow {
@@ -393,6 +412,18 @@
 .mapFooterItem span {
   color: #6b7280;
   line-height: 1.4;
+}
+
+.hoursList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+@media (max-width: 1100px) {
+  .topCardsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 768px) {

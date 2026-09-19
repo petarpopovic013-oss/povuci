@@ -7,6 +7,7 @@ export interface CatalogTrailer {
   title: string;
   categoryId: string;
   categoryName: string;
+  categoryIds?: string[];
   priceRsd: number;
   grossWeightKg: number;
   curbWeightKg: number | null;
@@ -1380,5 +1381,26 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "hasTilt": true,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/trigano/trigano-p202/1.webp",
     "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nFrancuske kompanije TRIGANO\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ...\n\n\nKarakteristike prikolice P202:\nUkupna masa: 750 kg\nTežina prikolice: 168 kg\nNosivost: 582 kg\nUnutrašnje dimenzije: 2050x1220x390 mm\nSpoljašnje dimenzije: 3120x1680 mm\nČelična felna R13 sa gumom: 165/70 R13\nVešanje: torziona osovina\nPrikolica ima mogućnost kipovanja\nPod prikolice: vodootporni šper protivklizajući\nStranice prikolice: pocinkovani lim\nŠasija: toplocinkovana\nPrednja i zadnja stranica se otvaraju i skidaju\nBočne stranice se mogu skinuti\nPrikolica se isporučuje sa pomoćnim točkićem\nČetiri tačke za vezivanje tereta\n\nCENA PRIKOLICE - 94.000,00 din\n\nDodatne opcije:\nCerada prekrivka - 9.400\nArnjevi i cerada visine 80cm - 35.100\nRezervni točak - 8.800\nNosač rezervnog točka - 4.000\nRam iznad prednje stranice - 6.900\nDuple stranice - 19.900\nPotporne stope par - 8.200\n\nCene su u dinarima sa PDV-om\nNa slikama se mogu videti dodatne opcije,\nali se prikolica isporučuje bez istih ! ! !\n\nZadržavamo pravo promena cena bez\npredhodne najave."
+  },
+  {
+    "id": "static-vesta-plato-2617",
+    "brand": "Vesta",
+    "model": "Plato 2617",
+    "slug": "vesta-plato-2617",
+    "title": "Vesta Plato 2617",
+    "categoryId": "plato-slep",
+    "categoryName": "Plato i Šlep Prikolice",
+    "categoryIds": ["moto-atv", "plato-slep"],
+    "priceRsd": 207215,
+    "grossWeightKg": 1300,
+    "curbWeightKg": 277,
+    "payloadCapacityKg": 1023,
+    "axlesCount": 1,
+    "isBCategory": false,
+    "isBraked": true,
+    "dimensions": "2630x1670 mm",
+    "hasTilt": false,
+    "mainImageUrl": "https://vesta-trailers.com/wp-content/uploads/2026/07/vesta-trailers-plato-2617-5.jpg",
+    "description": "Vesta Plato 2617 je jednoosovinska kočiona plato prikolica bruto mase 1300 kg. Korisna nosivost je 1023 kg, a tovarni prostor 2630 x 1670 mm. Cena uključuje PDV; za konačnu ponudu kontaktirajte prodaju."
   }
 ];

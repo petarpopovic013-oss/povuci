@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "../types/autoshop";
+import { ArrowIcon } from "./icons";
 import styles from "./FeaturedItems.module.css";
 
 const products: Product[] = [
@@ -140,7 +141,8 @@ export default function FeaturedItems() {
                 Kompletan asortiman: sandučarke, dvoosovinke, kiperi i šlep program po fabričkim cenama.
               </p>
               <span className={styles.brandButton}>
-                Pogledaj Trigano Ponudu ➔
+                Pogledaj Trigano Ponudu
+                <ArrowIcon style={{ width: "16px", height: "16px" }} aria-hidden="true" />
               </span>
             </div>
           </Link>
@@ -162,7 +164,8 @@ export default function FeaturedItems() {
                 Vrhunske toplocinkovane lake, teretne, plato, nautičke i cargo prikolice.
               </p>
               <span className={styles.brandButton}>
-                Pogledaj Vesta Ponudu ➔
+                Pogledaj Vesta Ponudu
+                <ArrowIcon style={{ width: "16px", height: "16px" }} aria-hidden="true" />
               </span>
             </div>
           </Link>

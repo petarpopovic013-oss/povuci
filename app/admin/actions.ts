@@ -1,10 +1,17 @@
 "use server";
 
+import { createHash, timingSafeEqual } from "node:crypto";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import { createAdminSession, deleteAdminSession, requireAdmin } from "@/lib/admin/session";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { optimizeImageToWebp } from "@/lib/images/optimize";
+import { revalidateCatalogPages } from "@/lib/admin/revalidate-catalog";
+
+function passwordsMatch(received: string, expected: string) {
+  const receivedHash = createHash("sha256").update(received).digest();
+  const expectedHash = createHash("sha256").update(expected).digest();
+  return timingSafeEqual(receivedHash, expectedHash);
+}
 
 export async function loginAction(formData: FormData) {
   const password = formData.get("password") as string;
@@ -16,7 +23,8 @@ export async function loginAction(formData: FormData) {
 
   const effectivePassword = adminPassword || "1234";
 
-  if (!password || password !== effectivePassword) {
+  if (!password || !passwordsMatch(password, effectivePassword)) {
+    await new Promise((resolve) => setTimeout(resolve, 750));
     redirect("/admin/login?error=Pogrešna+administratorska+šifra");
   }
 
@@ -182,12 +190,7 @@ export async function createTrailerAction(formData: FormData) {
     }
   }
 
-  revalidatePath("/");
-  revalidatePath("/vesta");
-  revalidatePath("/trigano");
-  revalidatePath("/prikolice");
-  revalidatePath("/admin");
-  revalidatePath("/admin/prikolice");
+  revalidateCatalogPages();
 
   redirect("/admin/prikolice?success=Prikolica+uspešno+dodata");
 }
@@ -383,12 +386,7 @@ export async function updateTrailerAction(formData: FormData) {
       await supabaseAdmin.from("povuci_trailer_images").insert(imagesToInsert);
     }
 
-    revalidatePath("/");
-    revalidatePath("/vesta");
-    revalidatePath("/trigano");
-    revalidatePath("/prikolice");
-    revalidatePath("/admin");
-    revalidatePath("/admin/prikolice");
+    revalidateCatalogPages();
   } catch (err: unknown) {
     if (err && typeof err === "object" && "digest" in err && String(err.digest).startsWith("NEXT_REDIRECT")) {
       throw err;
@@ -426,11 +424,6 @@ export async function deleteTrailerAction(id: string) {
     redirect(`/admin/prikolice?error=${encodeURIComponent(error.message)}`);
   }
 
-  revalidatePath("/");
-  revalidatePath("/vesta");
-  revalidatePath("/trigano");
-  revalidatePath("/prikolice");
-  revalidatePath("/admin");
-  revalidatePath("/admin/prikolice");
+  revalidateCatalogPages();
   redirect("/admin/prikolice?success=Prikolica+uspešno+obrisana");
 }

@@ -1,52 +1,56 @@
 import type { MetadataRoute } from "next";
-import { ALL_TRAILERS } from "../src/data/trailers";
+import { getAllTrailerSlugs, getCatalogTrailers } from "../src/lib/trailers";
+import { absoluteUrl } from "../src/lib/seo";
 
-const BASE_URL = "https://povuci.rs";
+export const revalidate = 3600;
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
-  // Static pages
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: BASE_URL,
-      lastModified: now,
+      url: absoluteUrl("/"),
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: `${BASE_URL}/prikolice`,
-      lastModified: now,
+      url: absoluteUrl("/prikolice"),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}/vesta`,
-      lastModified: now,
+      url: absoluteUrl("/vesta"),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/trigano`,
-      lastModified: now,
+      url: absoluteUrl("/trigano"),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/kontakt`,
-      lastModified: now,
+      url: absoluteUrl("/kontakt"),
       changeFrequency: "monthly",
       priority: 0.7,
     },
   ];
 
-  // Dynamic trailer pages — all 68 models
-  const trailerRoutes: MetadataRoute.Sitemap = ALL_TRAILERS.map((trailer) => ({
-    url: `${BASE_URL}/prikolice/${trailer.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly" as const,
-    priority: 0.6,
-  }));
+  const [slugs, catalogTrailers] = await Promise.all([
+    getAllTrailerSlugs(),
+    getCatalogTrailers(),
+  ]);
+  const imageBySlug = new Map(
+    catalogTrailers.map((trailer) => [trailer.slug, trailer.mainImageUrl])
+  );
+
+  const trailerRoutes: MetadataRoute.Sitemap = slugs.map((slug) => {
+    const imageUrl = imageBySlug.get(slug);
+
+    return {
+      url: absoluteUrl(`/prikolice/${slug}`),
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+      ...(imageUrl && { images: [absoluteUrl(imageUrl)] }),
+    };
+  });
 
   return [...staticRoutes, ...trailerRoutes];
 }
