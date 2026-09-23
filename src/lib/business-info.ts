@@ -1,7 +1,7 @@
 export const INSTAGRAM_URL = "https://www.instagram.com/povuci.rs/";
 export const INSTAGRAM_HANDLE = "@povuci.rs";
 
-export const FACEBOOK_URL = "https://www.facebook.com/povuci.rs/";
+export const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61594077118830&ref=1";
 export const FACEBOOK_LABEL = "POVUCI.RS";
 
 export const BUSINESS_HOURS = {
