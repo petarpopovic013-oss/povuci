@@ -11,8 +11,14 @@ export const metadata: Metadata = {
     "Kompletan asortiman TRIGANO prikolica: C, D, P serije, dvoosovinke, kiperi, nautički program i šlep prikolice po fabričkim cenama sa 24 meseca garancije.",
   alternates: {
     canonical: "https://povuci.rs/trigano",
+    languages: {
+      "sr-Latn-RS": "https://povuci.rs/trigano",
+    },
   },
   openGraph: {
+    type: "website",
+    locale: "sr_RS",
+    siteName: "Povuci.rs",
     title: "Trigano Prikolice | Ovlašćeni Distributer",
     description:
       "Kompletan asortiman TRIGANO prikolica po fabričkim cenama sa 24 meseca garancije i kompletnom dokumentacijom za registraciju.",
@@ -39,6 +45,7 @@ export const metadata: Metadata = {
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": "https://povuci.rs/trigano#breadcrumb",
   itemListElement: [
     {
       "@type": "ListItem",
@@ -63,18 +70,35 @@ export default async function TriganoPage() {
   const collectionJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
+    "@id": "https://povuci.rs/trigano#collection",
     name: "Trigano — Kompletan Asortiman Prikolica",
     description:
       "Svi modeli TRIGANO auto prikolica: sandučarke, dvoosovinke, kiperi, nautičke i šlep prikolice po fabričkim cenama.",
     url: "https://povuci.rs/trigano",
+    inLanguage: "sr-Latn",
+    breadcrumb: { "@id": "https://povuci.rs/trigano#breadcrumb" },
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: currentTriganoTrailers.length,
       itemListElement: currentTriganoTrailers.map((trailer, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: `https://povuci.rs/prikolice/${trailer.slug}`,
-        name: trailer.title,
+        item: {
+          "@type": "Product",
+          name: trailer.title,
+          url: `https://povuci.rs/prikolice/${trailer.slug}`,
+          ...(trailer.mainImageUrl && { image: trailer.mainImageUrl }),
+          brand: { "@type": "Brand", name: trailer.brand },
+          ...(trailer.priceRsd > 0 && {
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "RSD",
+              price: trailer.priceRsd,
+              availability: "https://schema.org/InStock",
+              url: `https://povuci.rs/prikolice/${trailer.slug}`,
+            },
+          }),
+        },
       })),
     },
   };

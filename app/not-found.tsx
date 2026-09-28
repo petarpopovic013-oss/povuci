@@ -1,7 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import { ArrowIcon } from "../src/components/icons";
+
+export const metadata: Metadata = {
+  title: "Stranica nije pronađena",
+  description: "Tražena stranica ne postoji ili je premeštena.",
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+  },
+};
 
 export default function NotFound() {
   return (

@@ -69,6 +69,7 @@ export const metadata: Metadata = {
     canonical: "https://povuci.rs",
     languages: {
       "sr-Latn-RS": "https://povuci.rs",
+      "x-default": "https://povuci.rs",
     },
   },
   formatDetection: {
@@ -111,6 +112,7 @@ export const metadata: Metadata = {
       "Zvanični distributer novih Vesta i Trigano auto prikolica u Srbiji po fabričkim cenama.",
     images: ["/povuci/vesta-light-23.webp"],
   },
+  referrer: "origin-when-cross-origin",
   robots: {
     index: true,
     follow: true,

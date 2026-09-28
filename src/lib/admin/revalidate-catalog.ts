@@ -8,6 +8,7 @@ export function revalidateCatalogPages(): void {
   revalidatePath("/trigano");
   revalidatePath("/prikolice");
   revalidatePath("/prikolice/[slug]", "page");
+  revalidatePath("/prikolice/kategorija/[category]", "page");
   revalidatePath("/sitemap.xml");
   revalidatePath("/admin");
   revalidatePath("/admin/prikolice");

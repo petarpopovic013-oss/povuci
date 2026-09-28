@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { getAllTrailerSlugs, getCatalogTrailers } from "../src/lib/trailers";
+import { TRAILER_FILTER_CATEGORIES } from "../src/lib/trailer-filter-categories";
+import { getSitemapTrailers } from "../src/lib/trailers";
 import { absoluteUrl } from "../src/lib/seo";
 
 export const revalidate = 3600;
@@ -33,24 +34,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  const [slugs, catalogTrailers] = await Promise.all([
-    getAllTrailerSlugs(),
-    getCatalogTrailers(),
-  ]);
-  const imageBySlug = new Map(
-    catalogTrailers.map((trailer) => [trailer.slug, trailer.mainImageUrl])
+  const categoryRoutes: MetadataRoute.Sitemap = TRAILER_FILTER_CATEGORIES.map(
+    (category) => ({
+      url: absoluteUrl(`/prikolice/kategorija/${category.id}`),
+      changeFrequency: "weekly" as const,
+      priority: 0.75,
+    })
   );
 
-  const trailerRoutes: MetadataRoute.Sitemap = slugs.map((slug) => {
-    const imageUrl = imageBySlug.get(slug);
+  const trailers = await getSitemapTrailers();
 
-    return {
-      url: absoluteUrl(`/prikolice/${slug}`),
+  const trailerRoutes: MetadataRoute.Sitemap = trailers.map((trailer) => ({
+      url: absoluteUrl(`/prikolice/${trailer.slug}`),
       changeFrequency: "weekly" as const,
       priority: 0.6,
-      ...(imageUrl && { images: [absoluteUrl(imageUrl)] }),
-    };
-  });
+      ...(trailer.updatedAt && { lastModified: new Date(trailer.updatedAt) }),
+      ...(trailer.imageUrls.length > 0 && {
+        images: trailer.imageUrls.map(absoluteUrl),
+      }),
+    }));
 
-  return [...staticRoutes, ...trailerRoutes];
+  return [...staticRoutes, ...categoryRoutes, ...trailerRoutes];
 }

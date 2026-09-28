@@ -51,12 +51,12 @@ const navigationLinks = [
 ];
 
 const categoryLinks = [
-  { name: "Lake auto prikolice do 750 kg", href: "/prikolice" },
-  { name: "Cargo i teški teret", href: "/prikolice" },
-  { name: "Plato i šlep prikolice", href: "/prikolice" },
-  { name: "Nautika i čamci", href: "/prikolice" },
-  { name: "Kiper (hidraulika)", href: "/prikolice" },
-  { name: "Moto i ATV / UTV / Quad", href: "/prikolice" },
+  { name: "Lake auto prikolice do 750 kg", href: "/prikolice/kategorija/lake-teretne" },
+  { name: "Cargo i teški teret", href: "/prikolice/kategorija/cargo-teske" },
+  { name: "Plato i šlep prikolice", href: "/prikolice/kategorija/plato-slep" },
+  { name: "Nautika i čamci", href: "/prikolice/kategorija/nautika-camci" },
+  { name: "Kiper (hidraulika)", href: "/prikolice/kategorija/kiper" },
+  { name: "Moto i ATV / UTV / Quad", href: "/prikolice/kategorija/moto-atv" },
 ];
 
 const ddmGroupLinks = [

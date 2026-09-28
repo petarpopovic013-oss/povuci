@@ -2,6 +2,16 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.povuci.rs" }],
+        destination: "https://povuci.rs/:path*",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
@@ -36,11 +46,17 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/admin/:path*",
-        headers: [{ key: "Cache-Control", value: "private, no-store" }],
+        headers: [
+          { key: "Cache-Control", value: "private, no-store" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+        ],
       },
       {
         source: "/api/admin/:path*",
-        headers: [{ key: "Cache-Control", value: "private, no-store" }],
+        headers: [
+          { key: "Cache-Control", value: "private, no-store" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+        ],
       },
     ];
   },

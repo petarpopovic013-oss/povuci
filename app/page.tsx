@@ -11,6 +11,10 @@ import { serializeJsonLd } from "../src/lib/seo";
 export const metadata: Metadata = {
   alternates: {
     canonical: "https://povuci.rs",
+    languages: {
+      "sr-Latn-RS": "https://povuci.rs",
+      "x-default": "https://povuci.rs",
+    },
   },
 };
 

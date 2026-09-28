@@ -11,8 +11,14 @@ export const metadata: Metadata = {
     "Kompletan katalog auto prikolica Vesta Trailers i Trigano: lake, cargo, plato, šlep, nautika, moto i kiper prikolice sa fabričkim cenama i garancijom.",
   alternates: {
     canonical: "https://povuci.rs/prikolice",
+    languages: {
+      "sr-Latn-RS": "https://povuci.rs/prikolice",
+    },
   },
   openGraph: {
+    type: "website",
+    locale: "sr_RS",
+    siteName: "Povuci.rs",
     title: "Sve Auto Prikolice | Vesta & Trigano Katalog",
     description:
       "Pregledajte kompletnu ponudu novih auto prikolica brendova Vesta Trailers i Trigano po fabričkim cenama.",
@@ -38,6 +44,7 @@ export const metadata: Metadata = {
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": "https://povuci.rs/prikolice#breadcrumb",
   itemListElement: [
     {
       "@type": "ListItem",
@@ -59,18 +66,35 @@ export default async function PrikolicePage() {
   const collectionJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
+    "@id": "https://povuci.rs/prikolice#collection",
     name: "Kompletan Katalog Auto Prikolica — Povuci.rs",
     description:
       "Katalog novih auto prikolica Vesta Trailers i Trigano po fabričkim cenama sa 24 meseca garancije.",
     url: "https://povuci.rs/prikolice",
+    inLanguage: "sr-Latn",
+    breadcrumb: { "@id": "https://povuci.rs/prikolice#breadcrumb" },
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: trailers.length,
       itemListElement: trailers.map((trailer, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: `https://povuci.rs/prikolice/${trailer.slug}`,
-        name: trailer.title,
+        item: {
+          "@type": "Product",
+          name: trailer.title,
+          url: `https://povuci.rs/prikolice/${trailer.slug}`,
+          ...(trailer.mainImageUrl && { image: trailer.mainImageUrl }),
+          brand: { "@type": "Brand", name: trailer.brand },
+          ...(trailer.priceRsd > 0 && {
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "RSD",
+              price: trailer.priceRsd,
+              availability: "https://schema.org/InStock",
+              url: `https://povuci.rs/prikolice/${trailer.slug}`,
+            },
+          }),
+        },
       })),
     },
   };

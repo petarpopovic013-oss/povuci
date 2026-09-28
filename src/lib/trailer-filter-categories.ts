@@ -1,12 +1,48 @@
 import type { CatalogTrailer } from "@/data/trailers";
 
 export const TRAILER_FILTER_CATEGORIES = [
-  { id: "lake-teretne", name: "Lake auto prikolice do 750 kg" },
-  { id: "cargo-teske", name: "Cargo i teški teret" },
-  { id: "nautika-camci", name: "Nautika i čamci" },
-  { id: "kiper", name: "Kiper (hidraulika)" },
-  { id: "moto-atv", name: "Moto i ATV / UTV / Quad / Buggy" },
-  { id: "plato-slep", name: "Plato i šlep prikolice" },
+  {
+    id: "lake-teretne",
+    name: "Lake auto prikolice do 750 kg",
+    seoTitle: "Lake Auto Prikolice do 750 kg",
+    seoDescription:
+      "Lake auto prikolice do 750 kg za B kategoriju. Uporedite Vesta i Trigano modele, dimenzije, nosivost, opremu i fabričke cene.",
+  },
+  {
+    id: "cargo-teske",
+    name: "Cargo i teški teret",
+    seoTitle: "Cargo i Teretne Auto Prikolice",
+    seoDescription:
+      "Cargo i teške teretne prikolice za profesionalni prevoz. Pogledajte nosivost, dimenzije, broj osovina i cene dostupnih modela.",
+  },
+  {
+    id: "nautika-camci",
+    name: "Nautika i čamci",
+    seoTitle: "Prikolice za Čamce i Nautiku",
+    seoDescription:
+      "Nautičke prikolice za čamce, glisere i jet ski sa valjcima, skijama i vitlom. Pregledajte Vesta i Trigano modele i fabričke cene.",
+  },
+  {
+    id: "kiper",
+    name: "Kiper (hidraulika)",
+    seoTitle: "Kiper Prikolice sa Hidraulikom",
+    seoDescription:
+      "Kiper auto prikolice sa hidrauličnim podizanjem za jednostavan istovar tereta. Tehničke specifikacije, fotografije i aktuelne cene.",
+  },
+  {
+    id: "moto-atv",
+    name: "Moto i ATV / UTV / Quad / Buggy",
+    seoTitle: "Prikolice za Moto, ATV, Quad i UTV",
+    seoDescription:
+      "Prikolice i platforme za siguran prevoz motocikala, ATV, UTV, quad i buggy vozila. Uporedite dimenzije, nosivost i opremu.",
+  },
+  {
+    id: "plato-slep",
+    name: "Plato i šlep prikolice",
+    seoTitle: "Plato i Šlep Prikolice za Vozila",
+    seoDescription:
+      "Plato i šlep prikolice za prevoz automobila, radnih mašina i tereta. Pogledajte dimenzije platforme, nosivost i cene modela.",
+  },
 ] as const;
 
 export type TrailerFilterCategoryId =
@@ -116,4 +152,8 @@ export function getFilterCategoryName(categoryId: string): string {
     TRAILER_FILTER_CATEGORIES.find((category) => category.id === categoryId)?.name ??
     categoryId
   );
+}
+
+export function getTrailerFilterCategory(categoryId: string) {
+  return TRAILER_FILTER_CATEGORIES.find((category) => category.id === categoryId);
 }

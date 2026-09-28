@@ -8,7 +8,12 @@ import {
   getRelatedTrailers,
   getTrailerBySlug,
 } from "../../../src/lib/trailers";
-import { serializeJsonLd } from "../../../src/lib/seo";
+import {
+  absoluteUrl,
+  compactText,
+  getTrailerSeoDescription,
+  serializeJsonLd,
+} from "../../../src/lib/seo";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -25,8 +30,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!trailer) {
     return {
-      title: "Prikolica nije pronađena | Povuci.rs",
+      title: "Prikolica nije pronađena",
       description: "Traženi model prikolice nije pronađen u našem katalogu.",
+      robots: { index: false, follow: false },
     };
   }
 
@@ -35,31 +41,51 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ? `${trailer.price_rsd.toLocaleString("sr-RS")} RSD`
     : "Cena na upit";
 
-  const title = `${trailer.title} | ${priceText}`;
-  const description = hasPublishedPrice
-    ? `${trailer.title} (${trailer.brand}) po fabričkoj ceni od ${priceText}. Garancija 24 meseca, homologacija i COC papiri za registraciju uključeni. Pozovite 060 300 1633.`
-    : `${trailer.title} (${trailer.brand}) — cena na upit. Garancija 24 meseca, homologacija i COC papiri za registraciju uključeni. Pozovite 060 300 1633.`;
+  const title = `${trailer.title} – Cena i specifikacije`;
+  const socialTitle = `${trailer.title} | ${priceText} | Povuci.rs`;
+  const description = getTrailerSeoDescription({
+    title: trailer.title,
+    brand: trailer.brand,
+    priceRsd: trailer.price_rsd,
+  });
+  const canonical = absoluteUrl(`/prikolice/${trailer.slug}`);
 
   return {
     title,
     description,
     alternates: {
-      canonical: `https://povuci.rs/prikolice/${slug}`,
+      canonical,
+      languages: {
+        "sr-Latn-RS": canonical,
+      },
     },
     openGraph: {
-      title,
+      title: socialTitle,
       description,
-      url: `https://povuci.rs/prikolice/${slug}`,
+      url: canonical,
       type: "website",
+      locale: "sr_RS",
+      siteName: "Povuci.rs",
       images: trailer.main_image_url
         ? [{ url: trailer.main_image_url, alt: trailer.title }]
         : [],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${trailer.title} | ${priceText}`,
+      title: socialTitle,
       description,
       images: trailer.main_image_url ? [trailer.main_image_url] : [],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
     },
   };
 }
@@ -81,22 +107,32 @@ export default async function TrailerPage({ params }: PageProps) {
     productImages.push(trailer.main_image_url);
   }
 
-  // Enhanced Product JSON-LD with additional properties
+  const productUrl = absoluteUrl(`/prikolice/${trailer.slug}`);
+  const productId = `${productUrl}#product`;
+  const breadcrumbId = `${productUrl}#breadcrumb`;
+  const structuredDescription = compactText(
+    trailer.description ||
+      `${trailer.title} auto prikolica brenda ${trailer.brand} sa 24 meseca garancije.`
+  );
+
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": productId,
+    url: productUrl,
     name: trailer.title,
     ...(productImages.length > 0 && { image: productImages }),
-    description:
-      trailer.description ||
-      `${trailer.title} auto prikolica brenda ${trailer.brand} sa 24 meseca garancije.`,
-    sku: trailer.slug,
+    description: structuredDescription,
+    sku: trailer.sku || trailer.slug,
     mpn: trailer.model || trailer.slug,
     brand: {
       "@type": "Brand",
       name: trailer.brand,
     },
     category: trailer.category?.name || "Auto Prikolice",
+    mainEntityOfPage: {
+      "@id": productUrl,
+    },
     ...(trailer.gross_weight_kg && {
       weight: {
         "@type": "QuantitativeValue",
@@ -124,6 +160,15 @@ export default async function TrailerPage({ params }: PageProps) {
             },
           ]
         : []),
+      ...(trailer.is_braked !== undefined
+        ? [
+            {
+              "@type": "PropertyValue",
+              name: "Kočiona prikolica",
+              value: trailer.is_braked ? "Da" : "Ne",
+            },
+          ]
+        : []),
       ...(trailer.internal_length_mm && trailer.internal_width_mm
         ? [
             {
@@ -146,18 +191,21 @@ export default async function TrailerPage({ params }: PageProps) {
     ...(trailer.price_rsd > 0 && {
       offers: {
         "@type": "Offer",
-        url: `https://povuci.rs/prikolice/${trailer.slug}`,
+        "@id": `${productUrl}#offer`,
+        url: productUrl,
         priceCurrency: "RSD",
         price: trailer.price_rsd,
         availability: "https://schema.org/InStock",
         itemCondition: "https://schema.org/NewCondition",
-        priceValidUntil: new Date(
-          new Date().getFullYear(),
-          11,
-          31,
-        ).toISOString().split("T")[0],
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: trailer.price_rsd,
+          priceCurrency: "RSD",
+          valueAddedTaxIncluded: trailer.vat_included,
+        },
         seller: {
           "@type": "Organization",
+          "@id": "https://povuci.rs/#organization",
           name: "DDM Company — Povuci.rs",
           url: "https://povuci.rs",
           telephone: "+381603001633",
@@ -166,39 +214,60 @@ export default async function TrailerPage({ params }: PageProps) {
     }),
   };
 
-  // BreadcrumbList JSON-LD
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": breadcrumbId,
     itemListElement: [
       {
         "@type": "ListItem",
         position: 1,
         name: "Početna",
-        item: "https://povuci.rs",
+        item: absoluteUrl("/"),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Prikolice",
-        item: "https://povuci.rs/prikolice",
+        item: absoluteUrl("/prikolice"),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: trailer.brand === "Vesta" ? "Vesta Prikolice" : "Trigano Prikolice",
         item:
-          trailer.brand === "Vesta"
-            ? "https://povuci.rs/vesta"
-            : "https://povuci.rs/trigano",
+          trailer.brand === "Vesta" ? absoluteUrl("/vesta") : absoluteUrl("/trigano"),
       },
       {
         "@type": "ListItem",
         position: 4,
         name: trailer.title,
-        item: `https://povuci.rs/prikolice/${trailer.slug}`,
+        item: productUrl,
       },
     ],
+  };
+  const webPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": productUrl,
+    url: productUrl,
+    name: `${trailer.title} – Cena i specifikacije`,
+    description: getTrailerSeoDescription({
+      title: trailer.title,
+      brand: trailer.brand,
+      priceRsd: trailer.price_rsd,
+    }),
+    inLanguage: "sr-Latn",
+    isPartOf: {
+      "@id": "https://povuci.rs/#website",
+    },
+    breadcrumb: {
+      "@id": breadcrumbId,
+    },
+    mainEntity: {
+      "@id": productId,
+    },
+    ...(trailer.updated_at && { dateModified: trailer.updated_at }),
   };
 
   return (
@@ -210,6 +279,10 @@ export default async function TrailerPage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(webPageJsonLd) }}
       />
       <Header />
       <main>

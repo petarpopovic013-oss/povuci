@@ -7,6 +7,8 @@ const publicHtmlRoutes = [
   "/trigano",
   "/kontakt",
   "/prikolice/vesta-light-23",
+  "/prikolice/trigano-39750",
+  "/prikolice/kategorija/lake-teretne",
 ];
 
 const failures = [];
@@ -35,24 +37,56 @@ function getAttribute(tag, attribute) {
 function inspectHtml(path, html) {
   const title = html.match(/<title>([^<]+)<\/title>/i)?.[1]?.trim();
   const description = html.match(/<meta[^>]+name=["']description["'][^>]*>/i)?.[0];
-  const canonical = html.match(/<link[^>]+rel=["']canonical["'][^>]*>/i)?.[0];
+  const canonicalTags = html.match(/<link[^>]+rel=["']canonical["'][^>]*>/gi) || [];
+  const canonical = canonicalTags[0];
+  const descriptionContent = getAttribute(description || "", "content") || "";
   const h1Count = (html.match(/<h1\b/gi) || []).length;
 
   assert(Boolean(title), `${path}: nema title`);
   assert(!title?.includes("| Povuci.rs | Povuci.rs"), `${path}: dupliran naziv sajta u title`);
-  assert(Boolean(description && getAttribute(description, "content")), `${path}: nema meta description`);
+  assert((title?.length || 0) <= 80, `${path}: title je predugačak (${title?.length || 0})`);
+  assert(Boolean(descriptionContent), `${path}: nema meta description`);
+  assert(descriptionContent.length <= 180, `${path}: meta description je predugačak (${descriptionContent.length})`);
+  assert(canonicalTags.length === 1, `${path}: očekivan je jedan canonical, pronađeno ${canonicalTags.length}`);
   assert(Boolean(canonical && getAttribute(canonical, "href")), `${path}: nema canonical URL`);
   assert(getAttribute(canonical || "", "href")?.startsWith("https://povuci.rs"), `${path}: canonical nije na produkcijskom domenu`);
   assert(h1Count === 1, `${path}: očekivan je tačno jedan H1, pronađeno ${h1Count}`);
+  assert(/<html[^>]+lang=["']sr-Latn["']/i.test(html), `${path}: html lang nije sr-Latn`);
   assert(!html.includes("placeholder.supabase.co"), `${path}: placeholder Supabase URL je završio u HTML-u`);
+  assert(!/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(html), `${path}: javna stranica ima noindex`);
+
+  for (const property of ["og:title", "og:description", "og:url", "og:image"]) {
+    assert(
+      new RegExp(`<meta[^>]+property=["']${property}["'][^>]+content=["'][^"']+`, "i").test(html),
+      `${path}: nedostaje ${property}`
+    );
+  }
+  assert(/<meta[^>]+name=["']twitter:card["'][^>]+content=["']summary_large_image["']/i.test(html), `${path}: nedostaje Twitter card`);
 
   const jsonLdBlocks = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
+  const jsonLdTypes = [];
   for (const [, jsonLd] of jsonLdBlocks) {
     try {
-      JSON.parse(jsonLd);
+      const parsed = JSON.parse(jsonLd);
+      const types = Array.isArray(parsed["@type"]) ? parsed["@type"] : [parsed["@type"]];
+      jsonLdTypes.push(...types.filter(Boolean));
     } catch {
       fail(`${path}: pronađen neispravan JSON-LD`);
     }
+  }
+
+  if (path === "/") {
+    assert(jsonLdTypes.includes("Organization"), `${path}: nedostaje Organization JSON-LD`);
+    assert(jsonLdTypes.includes("WebSite"), `${path}: nedostaje WebSite JSON-LD`);
+  }
+  if (path === "/prikolice" || path === "/vesta" || path === "/trigano" || path.startsWith("/prikolice/kategorija/")) {
+    assert(jsonLdTypes.includes("CollectionPage"), `${path}: nedostaje CollectionPage JSON-LD`);
+    assert(jsonLdTypes.includes("BreadcrumbList"), `${path}: nedostaje BreadcrumbList JSON-LD`);
+  }
+  if (/^\/prikolice\/[^/]+$/.test(path)) {
+    assert(jsonLdTypes.includes("Product"), `${path}: nedostaje Product JSON-LD`);
+    assert(jsonLdTypes.includes("BreadcrumbList"), `${path}: nedostaje BreadcrumbList JSON-LD`);
+    assert(jsonLdTypes.includes("WebPage"), `${path}: nedostaje WebPage JSON-LD`);
   }
 }
 
@@ -66,6 +100,7 @@ for (const path of publicHtmlRoutes) {
 const admin = await request("/admin/login");
 assert(admin.response.status === 200, `/admin/login: očekivan 200, dobijen ${admin.response.status}`);
 assert(/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(admin.body), "/admin/login: nedostaje noindex");
+assert(admin.response.headers.get("x-robots-tag")?.includes("noindex"), "/admin/login: nedostaje X-Robots-Tag noindex");
 
 const unauthorizedCreate = await request("/api/admin/trailers/create", {
   method: "POST",
@@ -82,9 +117,31 @@ assert(robots.body.includes("Sitemap: https://povuci.rs/sitemap.xml"), "/robots.
 const sitemap = await request("/sitemap.xml");
 assert(sitemap.response.status === 200, `/sitemap.xml: dobijen ${sitemap.response.status}`);
 const sitemapLocations = [...sitemap.body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-assert(sitemapLocations.length >= 60, `/sitemap.xml: očekivano najmanje 60 URL-ova, pronađeno ${sitemapLocations.length}`);
+assert(sitemapLocations.length >= 75, `/sitemap.xml: očekivano najmanje 75 URL-ova, pronađeno ${sitemapLocations.length}`);
+assert(new Set(sitemapLocations).size === sitemapLocations.length, "/sitemap.xml: pronađeni duplirani URL-ovi");
 assert(sitemapLocations.every((url) => url.startsWith("https://povuci.rs/")), "/sitemap.xml: pronađen URL van produkcijskog domena");
 assert(sitemapLocations.every((url) => !url.includes("/admin") && !url.includes("/api/")), "/sitemap.xml: pronađena interna ruta");
+assert((sitemap.body.match(/<image:image>/g) || []).length >= 400, "/sitemap.xml: očekivano najmanje 400 product slika");
+assert((sitemap.body.match(/<lastmod>/g) || []).length >= 60, "/sitemap.xml: nedostaju datumi izmene modela");
+for (const category of ["lake-teretne", "cargo-teske", "nautika-camci", "kiper", "moto-atv", "plato-slep"]) {
+  assert(sitemapLocations.includes(`https://povuci.rs/prikolice/kategorija/${category}`), `/sitemap.xml: nedostaje kategorija ${category}`);
+}
+
+for (const location of sitemapLocations) {
+  const url = new URL(location);
+  const path = `${url.pathname}${url.search}`;
+  if (checked.has(path)) continue;
+  const { response, body } = await request(path);
+  checked.add(path);
+  assert(response.status === 200, `${path}: sitemap URL vraća ${response.status}`);
+  if (response.status === 200) inspectHtml(path, body);
+}
+
+const trigano39750 = await request("/prikolice/trigano-39750");
+assert(trigano39750.body.includes("Karakteristike prikolice TP39750"), "/prikolice/trigano-39750: opis nije kompletan");
+for (let imageIndex = 1; imageIndex <= 9; imageIndex += 1) {
+  assert(trigano39750.body.includes(`trigano-39750/${imageIndex}.webp`), `/prikolice/trigano-39750: nedostaje slika ${imageIndex}`);
+}
 
 const manifest = await request("/manifest.webmanifest");
 assert(manifest.response.status === 200, `/manifest.webmanifest: dobijen ${manifest.response.status}`);

@@ -193,7 +193,6 @@ export const getCatalogTrailers = cache(async (): Promise<CatalogTrailer[]> => {
 });
 
 export async function getAllTrailerSlugs(): Promise<string[]> {
-  const slugsSet = new Set<string>();
   try {
     const { data, error } = await supabaseAdmin
       .from("povuci_trailers")
@@ -201,28 +200,64 @@ export async function getAllTrailerSlugs(): Promise<string[]> {
 
     if (error) throw error;
 
-    const databaseSlugs = new Set(
-      (data || []).map((row) => row.slug).filter((slug): slug is string => Boolean(slug))
-    );
-
-    for (const row of data || []) {
-      if (row.slug && row.status === "available") slugsSet.add(row.slug);
-    }
-
-    for (const trailer of ALL_TRAILERS) {
-      if (trailer.slug && !databaseSlugs.has(trailer.slug)) {
-        slugsSet.add(trailer.slug);
-      }
-    }
+    return (data || [])
+      .filter((row) => row.status === "available")
+      .map((row) => row.slug)
+      .filter((slug): slug is string => Boolean(slug));
   } catch (err) {
     console.warn("Error fetching slugs from Supabase:", err);
-    for (const trailer of ALL_TRAILERS) {
-      if (trailer.slug) slugsSet.add(trailer.slug);
-    }
+    return ALL_TRAILERS.map((trailer) => trailer.slug).filter(Boolean);
   }
-
-  return Array.from(slugsSet);
 }
+
+export interface SitemapTrailer {
+  slug: string;
+  updatedAt: string | null;
+  imageUrls: string[];
+}
+
+export const getSitemapTrailers = cache(async (): Promise<SitemapTrailer[]> => {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("povuci_trailers")
+      .select(`
+        slug, updated_at, main_image_url,
+        images:povuci_trailer_images(image_url, sort_order)
+      `)
+      .eq("status", "available")
+      .order("sort_order", { ascending: true })
+      .order("title", { ascending: true });
+
+    if (error) throw error;
+
+    return (data || []).map((trailer) => {
+      const relatedImages = [...(trailer.images || [])]
+        .sort((a, b) => a.sort_order - b.sort_order)
+        .map((image) => image.image_url)
+        .filter((imageUrl): imageUrl is string => Boolean(imageUrl));
+      const imageUrls = Array.from(
+        new Set(
+          [trailer.main_image_url, ...relatedImages].filter(
+            (imageUrl): imageUrl is string => Boolean(imageUrl)
+          )
+        )
+      );
+
+      return {
+        slug: trailer.slug,
+        updatedAt: trailer.updated_at,
+        imageUrls,
+      };
+    });
+  } catch (error) {
+    console.warn("Supabase sitemap fetch error, using static catalog:", error);
+    return ALL_TRAILERS.map((trailer) => ({
+      slug: trailer.slug,
+      updatedAt: null,
+      imageUrls: trailer.mainImageUrl ? [trailer.mainImageUrl] : [],
+    }));
+  }
+});
 
 export const getTrailerBySlug = cache(async (slug: string): Promise<PovuciTrailer | null> => {
   // Try fetching complete object from Supabase first
@@ -261,6 +296,10 @@ export const getTrailerBySlug = cache(async (slug: string): Promise<PovuciTraile
         options,
       };
     }
+
+    // A successful database lookup with no row means the model no longer exists.
+    // Do not revive deleted products from the static emergency fallback.
+    return null;
   } catch (err) {
     console.warn("Supabase fetch trailer by slug error:", err);
   }
@@ -284,7 +323,8 @@ export async function getRelatedTrailers(
   currentTrailer: PovuciTrailer,
   limit: number = 3
 ): Promise<CatalogTrailer[]> {
-  const sameCategory = ALL_TRAILERS.filter(
+  const catalogTrailers = await getCatalogTrailers();
+  const sameCategory = catalogTrailers.filter(
     (t) =>
       t.slug !== currentTrailer.slug &&
       t.categoryId === currentTrailer.category_id
@@ -294,7 +334,7 @@ export async function getRelatedTrailers(
     return sameCategory.slice(0, limit);
   }
 
-  const sameBrand = ALL_TRAILERS.filter(
+  const sameBrand = catalogTrailers.filter(
     (t) =>
       t.slug !== currentTrailer.slug &&
       t.brand === currentTrailer.brand &&
@@ -303,7 +343,7 @@ export async function getRelatedTrailers(
 
   const combined = [...sameCategory, ...sameBrand];
   if (combined.length < limit) {
-    const others = ALL_TRAILERS.filter(
+    const others = catalogTrailers.filter(
       (t) =>
         t.slug !== currentTrailer.slug && !combined.some((c) => c.slug === t.slug)
     );

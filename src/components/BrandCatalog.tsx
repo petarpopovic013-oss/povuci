@@ -8,6 +8,7 @@ import {
   getFilterCategoryName,
   getTrailerFilterCategoryIds,
   TRAILER_FILTER_CATEGORIES,
+  type TrailerFilterCategoryId,
 } from "../lib/trailer-filter-categories";
 import styles from "./BrandCatalog.module.css";
 
@@ -17,6 +18,7 @@ interface BrandCatalogProps {
   pageSubtitle: string;
   badgeText: string;
   trailers: CatalogTrailer[];
+  initialCategory?: TrailerFilterCategoryId | "all";
 }
 
 export default function BrandCatalog({
@@ -25,9 +27,10 @@ export default function BrandCatalog({
   pageSubtitle,
   badgeText,
   trailers,
+  initialCategory = "all",
 }: BrandCatalogProps) {
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
 
   const brandTrailers = useMemo(() => {
     return brandFilter

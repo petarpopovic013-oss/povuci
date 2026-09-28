@@ -8,11 +8,17 @@ import { serializeJsonLd } from "../../src/lib/seo";
 export const metadata: Metadata = {
   title: "Kontakt i Lokacija | DDM Company",
   description:
-    "Kontaktirajte DDM Company za kupovinu novih Vesta i Trigano auto prikolica. Adresa: Dr Svetislava Kasapinovića 9, 21000 Novi Sad. Telefon: 060 3001633, Instagram @povuci.rs i Facebook POVUCI.RS.",
+    "Kontaktirajte DDM Company za Vesta i Trigano auto prikolice. Dr Svetislava Kasapinovića 9, Novi Sad. Telefon 060 300 1633. Radno vreme i lokacija.",
   alternates: {
     canonical: "https://povuci.rs/kontakt",
+    languages: {
+      "sr-Latn-RS": "https://povuci.rs/kontakt",
+    },
   },
   openGraph: {
+    type: "website",
+    locale: "sr_RS",
+    siteName: "Povuci.rs",
     title: "Kontakt & Lokacija | DDM Company",
     description:
       "Posetite nas ili pozovite: 060 300 1633. Dr Svetislava Kasapinovića 9, 21000 Novi Sad. Ovlašćena prodaja Vesta i Trigano prikolica.",
