@@ -100,7 +100,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-marine-4000/1.webp",
-    "description": "Nova auto prikolica - Fabričke cene ! ! !  \nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ... 1.     \n\n\n   MARINE 4000"
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nMARINE 4000\nTEHNIČKE KARAKTERISTIKE:\nTroosovinska prikolica\nUkupna masa: 3500 kg\nTežina prikolice: 900 kg\nNosivost: 2600 kg\nDimenzije prihvata plovila: 8630x2500 mm\nSpoljašnje dimenzije: 8910-9585x2500x1643 mm\nTočkovi: 185 R14C\nVešanje: tri kočene osovine, 1350 kg po osovini\nValjci za oslanjanje plovila\nV-ruda\n\nSTANDARDNA OPREMA:\nPomoćni točkić, mehaničko vitlo, INOX sajle kočnica, LED signalizacija, dva podmetača za točkove.\n\nDODATNE OPCIJE:\nRezervni točak, INOX blatobrani, amortizeri, električno vitlo sa baterijom.\n\nCENA PRIKOLICE - 750.000,00 din\nCene su u dinarima sa PDV-om. Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "bcb5e85d-31b9-43a6-ae00-fdc4d5d68b0d",
@@ -120,7 +120,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-marine-5000/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ...\n\n\nTEHNIČKE KARAKTERISTIKE:"
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nMARINE 5000\nTEHNIČKE KARAKTERISTIKE:\nTroosovinska prikolica\nUkupna masa: 3500 kg\nTežina prikolice: 1020 kg\nNosivost: 2480 kg\nDimenzije prihvata plovila: 9730x2500 mm\nSpoljašnje dimenzije: 10011-10690x2500x1643 mm\nTočkovi: 185 R14C\nVešanje: tri kočene osovine, 1800 kg po osovini\nValjci za oslanjanje plovila\nV-ruda\n\nSTANDARDNA OPREMA:\nPomoćni točkić, mehaničko vitlo, INOX sajle kočnica, LED signalizacija, dva podmetača za točkove.\n\nDODATNE OPCIJE:\nRezervni točak, INOX blatobrani, amortizeri, električno vitlo sa baterijom.\n\nCENA PRIKOLICE - 900.000,00 din\nCene su u dinarima sa PDV-om. Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "75aecee9-d6d9-4f09-a3da-949b26951bd2",
@@ -180,7 +180,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-light-20w/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Light 20W:\nNosivost: 570 kg\nTežina prikolice: 180 kg\nUkupna masa: 750 kg\nUnutrašnje dimenzije: 2020x1310x386 mm\nSpoljašnje dimenzije: 3137x1750x915 mm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: jedna nekočena torziona osovina nosivosti 750 kg\n7-pinski priključak; utovarna visina 530 mm\nStranice: laminirana šperploča; šasija: pocinkovana\nPrikolica ima mogućnost kipovanja\n\nCENA PRIKOLICE - 109.880,00 din\nDodatne opcije: rezervni točak sa nosačem 15.400; cerada prekrivka 9.900; perforirani lim 25.700; mrežasta ograda 41.000; arnjevi i cerada 35.800.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "d7a3362d-5512-4a88-b9d2-d2b7764e3510",
@@ -220,7 +220,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-light-20/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Light 20:\nNosivost: 587 kg\nTežina prikolice: 163 kg\nUkupna masa: 750 kg\nUnutrašnje dimenzije: 2019x1310x373 mm\nSpoljašnje dimenzije: 3137x1770x903 mm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: jedna nekočena torziona osovina nosivosti 750 kg\n7-pinski priključak; utovarna visina 530 mm\nStranice: pocinkovani lim; šasija: pocinkovana\nPrikolica ima mogućnost kipovanja\n\nCENA PRIKOLICE - 98.600,00 din\nDodatne opcije: duple stranice 18.500; rezervni točak sa nosačem 15.400; cerada prekrivka 9.900; mrežasta ograda 41.000.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "029f42e0-eb3b-4a71-ac5d-bfe3aaae8029",
@@ -260,7 +260,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-light-17/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Light 17:\nNosivost: 606 kg\nTežina prikolice: 144 kg\nUkupna masa: 750 kg\nUnutrašnje dimenzije: 1719x1130x373 mm\nSpoljašnje dimenzije: 2837x1590x903 mm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: jedna nekočena torziona osovina nosivosti 750 kg\n7-pinski priključak; utovarna visina 530 mm\nStranice: pocinkovani lim\nŠasija: pocinkovana\nPrikolica ima mogućnost kipovanja\n\nCENA PRIKOLICE - 89.430,00 din\nDodatne opcije: arnjevi i cerada 33.000; cerada prekrivka 8.200; duple stranice 16.700; mrežasta ograda 36.000.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "c9adc5d5-53d9-410b-8164-a7b975d6fad7",
@@ -280,7 +280,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-light-25w/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Light 25W:\nNosivost: 550 kg\nTežina prikolice: 200 kg\nUkupna masa: 750 kg\nUnutrašnje dimenzije: 2519x1356x386 mm\nSpoljašnje dimenzije: 3719x1795x908 mm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: jedna nekočena torziona osovina nosivosti 750 kg\n7-pinski priključak; utovarna visina 530 mm\nStranice: laminirana šperploča; šasija: pocinkovana\nPrikolica ima mogućnost kipovanja\n\nCENA PRIKOLICE - 115.620,00 din\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "6b53951c-2aee-4ed4-9256-18394868fc66",
@@ -360,7 +360,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/trigano/trigano-39750/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nFrancuske kompanije TRIGANO\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik Francuske kompanije TRIGANO.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice TP39750:\nUkupna masa: 1300 kg\nTežina prikolice: 370 kg\nNosivost: 930 kg\nDimenzije platforme: 361x185x11 mm\nSpoljašnje dimenzije: 540x237 mm\nČelična felna R13 sa gumom: 165/R13\nVešanje: nosivost osovine 1300 kg\nŠasija: toplocinkovana\nPrikolica se isporučuje sa pomoćnim točkićem Fi60\nKnott naletna kočnica sa ručnom kočnicom\n\nCENA PRIKOLICE - 280.800,00 din\nCene su u dinarima sa PDV-om.\nNa slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! !\nZadržavamo pravo promena cena bez prethodne najave."
   },
   {
     "id": "f66772a4-0541-4aa0-83a2-3224b1322b48",
@@ -420,7 +420,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-cargo-25-w-1-3t/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice CARGO 25 W:\nUkupna masa: 1300 kg\nTežina prikolice: 278 kg\nNosivost: 1022 kg\nUnutrašnje dimenzije: 2510x1350x370 mm\nSpoljašnje dimenzije: 3930x1870 mm\nČelična felna R13 sa gumom: 165/R13\nVešanje: torziona osovina\nPod prikolice: vodootporni šper protivklizajući\nStranice: ram od toplocinkovanih cevi i vodootporni šper\nŠasija: toplocinkovana\nPrednja i zadnja stranica se otvaraju\nBočne stranice se mogu skinuti\nČetiri tačke vezivanja tereta\nPrikolica se isporučuje sa pomoćnim točkićem\n\nCENA PRIKOLICE - 220.500,00 din\nDodatne opcije: arnjevi i cerada visine 80 cm 39.000; rezervni točak sa nosačem 16.100; grifovana ograda 49.000; potporne stope u paru 8.200.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promena cena bez prethodne najave."
   },
   {
     "id": "7da48fec-aee0-44d6-87c7-0ad1b9c3b1a1",
@@ -520,7 +520,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-cargo-25-wda-1-7t/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Cargo 25 WDA:\nUkupna masa: 1700 kg\nTežina prikolice: 338 kg\nNosivost: 1362 kg\nUnutrašnje dimenzije: 2510x1350x370 mm\nSpoljašnje dimenzije: 3933x1870x911 mm\nČelična felna R13 sa gumom: 165/R13\nVešanje: dve torzione osovine (900 kg po osovini)\nPod prikolice: vodootporni šper protivklizajući\nStranice: ram od toplocinkovanih cevi i vodootporni šper\nŠasija: toplocinkovana\nPrednja i zadnja stranica se otvaraju\nBočne stranice se mogu skinuti\nČetiri tačke vezivanja tereta\nPrikolica se isporučuje sa pomoćnim točkićem\n\nCENA PRIKOLICE - 259.350,00 din\nDodatne opcije: arnjevi i cerada visine 80 cm 39.000; rezervni točak sa nosačem 16.100; grifovana ograda 49.000; potporne stope u paru 8.200.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promena cena bez prethodne najave."
   },
   {
     "id": "a962e1b1-c3d4-45f1-bc13-214a24516748",
@@ -540,7 +540,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-moto-750-3/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Moto 750-3:\nUkupna masa: 750 kg\nTežina prikolice: 168 kg\nNosivost: 582 kg\nDimenzije utovarnog prostora: 197 (218) x 145 cm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: jedna nekočena osovina nosivosti 750 kg\nTri nosača za motocikl\nRampa je dostupna kao dodatna opcija\n\nCENA PRIKOLICE - 126.000,00 din\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "9994c91b-23b5-4923-866a-f89b0d48e17b",
@@ -580,7 +580,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": "450.0x205.0 mm",
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-transporter-45g-3-5t/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ...\n\n\nKarakteristike prikolice Transporter 45 3.5t:\nUkupna masa: 3500 kg\nTežina prikolice: 744 kg\nNosivot: 2756 kg\nUnutrašnje dimenzije: 450x205 mm  \nSpoljašnje dimenzije: 619x208x103"
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Transporter 45 3.5t:\nUkupna masa: 3500 kg\nTežina prikolice: 744 kg\nNosivost: 2756 kg\nUnutrašnje dimenzije: 450x205 mm\nSpoljašnje dimenzije: 619x208x103 mm\nČelična felna R13 sa gumom: 185/R13C\nVešanje: dve torzione osovine Knott (1800 kg po osovini)\nPrikolica se isporučuje sa pomoćnim točkićem\n\nCENA PRIKOLICE - 470.400,00 din\nDodatne opcije: rezervni točak sa nosačem 15.500; amortizeri za osovine 14.000.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promena cena bez prethodne najave."
   },
   {
     "id": "ed6d75aa-5b91-4a15-b7a0-82156120ee8a",
@@ -640,7 +640,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-light-25/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Light 25:\nUkupna masa: 750 kg\nTežina prikolice: 184 kg\nNosivost: 566 kg\nUnutrašnje dimenzije: 2510x1350x370 mm\nSpoljašnje dimenzije: 3730x1870 mm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: torziona osovina\nPod prikolice: vodootporni šper protivklizajući\nStranice prikolice i šasija: toplocinkovane\nPrednja i zadnja stranica se otvaraju; bočne se skidaju\nČetiri tačke vezivanja tereta; pomoćni točkić\nPrikolica ima mogućnost kipovanja\n\nCENA PRIKOLICE - 113.720,00 din\nDodatne opcije: arnjevi i cerada 39.000; rezervni točak sa nosačem 15.400; nosač rezervnog točka 7.400; grifovana ograda 49.000; potporne stope 8.200.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "e65c2e5e-5e1c-4d3f-b7d6-31f29b53539e",
@@ -660,7 +660,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-plato-3015/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Plato 3015:\nUkupna masa: 750 kg\nTežina prikolice: 233 kg\nNosivost: 517 kg\nUnutrašnje dimenzije: 3000x1500 mm\nSpoljašnje dimenzije: 4390x1990 mm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: torziona osovina\nPrikolica ima mogućnost kipovanja\nPod prikolice: vodootporni šper protivklizajući\nŠasija: toplocinkovana\nČetiri tačke vezivanja tereta\nPrikolica se isporučuje sa pomoćnim točkićem\n\nCENA PRIKOLICE - 172.850,00 din\nDodatne opcije: rezervni točak sa nosačem 15.400; potporne stope 8.200 u paru.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "52c23d86-569b-4841-b28c-0b6893ab076e",
@@ -720,7 +720,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-light-25-da/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Light 25 DA:\nUkupna masa: 750 kg\nTežina prikolice: 230 kg\nNosivost: 520 kg (prava nosivost 1000 kg)\nUnutrašnje dimenzije: 2510x1350x370 mm\nSpoljašnje dimenzije: 3730x1870 mm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: dve torzione osovine\nPod prikolice: vodootporni šper protivklizajući\nStranice prikolice i šasija: toplocinkovane\nPrednja i zadnja stranica se otvaraju; bočne se skidaju\nČetiri tačke vezivanja tereta; pomoćni točkić\n\nCENA PRIKOLICE - 133.670,00 din\nDodatne opcije: arnjevi i cerada 39.000; rezervni točak sa nosačem 10.900; nosač rezervnog točka 4.500; grifovana ograda 49.000; stabilizator Knott 4.200.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "28c477ae-ddd1-45bf-bf7e-b06f85aec7b1",
@@ -780,7 +780,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-plato-3017/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Plato 3017:\nUkupna masa: 750 kg\nTežina prikolice: 251 kg\nNosivost: 499 kg\nUnutrašnje dimenzije: 3000x1700 mm\nSpoljašnje dimenzije: 4390x2170 mm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: torziona osovina\nPrikolica ima mogućnost kipovanja\nPod prikolice: vodootporni šper protivklizajući\nŠasija: toplocinkovana\nČetiri tačke vezivanja tereta\nPrikolica se isporučuje sa pomoćnim točkićem\n\nCENA PRIKOLICE - 180.670,00 din\nDodatne opcije: rezervni točak sa nosačem 15.400; potporne stope 8.200 u paru.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "ddb93318-ba9d-40fa-a905-5af5d444ed97",
@@ -800,7 +800,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-light-25-wda/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Light 25 WDA:\nUkupna masa: 750 kg\nTežina prikolice: 256 kg\nNosivost: 494 kg (prava nosivost 1000 kg)\nUnutrašnje dimenzije: 2510x1350x370 mm\nSpoljašnje dimenzije: 3730x1870 mm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: dve torzione osovine\nPod prikolice: vodootporni šper protivklizajući\nStranice: ram od toplocinkovanih cevi i vodootporni šper\nŠasija: toplocinkovana\nPrednja i zadnja stranica se otvaraju; bočne se skidaju\nČetiri tačke vezivanja tereta; pomoćni točkić\n\nCENA PRIKOLICE - 135.680,00 din\nDodatne opcije: arnjevi i cerada 39.000; rezervni točak sa nosačem 15.400; nosač rezervnog točka 7.800; grifovana ograda 49.000; potporne stope 8.200.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "b1208bee-4bb3-4757-9d4d-424a60dc318a",
@@ -860,7 +860,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-light-23-da/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice Light 23 DA:\nUkupna masa: 750 kg\nTežina prikolice: 228 kg\nNosivost: 522 kg (prava nosivost 1000 kg)\nUnutrašnje dimenzije: 2320x1310x370 mm\nSpoljašnje dimenzije: 3390x1770 mm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: dve torzione osovine\nPod prikolice: vodootporni šper protivklizajući\nStranice prikolice i šasija: toplocinkovane\nPrednja i zadnja stranica se otvaraju; bočne stranice se skidaju\nČetiri tačke vezivanja tereta; pomoćni točkić\n\nCENA PRIKOLICE - 118.480,00 din\nDodatne opcije: cerada prekrivka 10.800; arnjevi i cerada 38.000; rezervni točak sa nosačem 15.400; nosač rezervnog točka 7.400; grifovana ograda 44.000; potporne stope 8.200.\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "ce376b85-8ed8-402f-b914-3fede9de0f4f",
@@ -880,7 +880,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/trigano/trigano-tp39600-kiper/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nFrancuske kompanije TRIGANO\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik Francuske kompanije TRIGANO.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice TP39600 KIPER:\nUkupna masa: 2500 kg\nTežina prikolice: 550 kg\nNosivost: 1950 kg\nUnutrašnje dimenzije: 2560x1480x300 mm\nSpoljašnje dimenzije: 3850x1600 mm\nČelična felna R13 sa gumom: 155/70 R13\nVešanje: dve torzione AL-KO osovine\nPod prikolice: vodootporni šper protivklizajući\nStranice prikolice: pocinkovani lim\nŠasija: toplocinkovana\nHidraulična pumpa za kipovanje\nPrednja i zadnja stranica se otvaraju i skidaju\nBočne stranice se mogu skinuti i otvaraju se radi utovara viljuškarom\nPrikolica se isporučuje sa pomoćnim točkićem Fi60\nAL-KO naletna kočnica sa ručnom kočnicom\n\nCENA PRIKOLICE - 397.000,00 din\nDodatne opcije: rezervni točak sa nosačem 11.200; nosač rezervnog točka 4.000.\nCene su u dinarima sa PDV-om.\nNa slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! !\nZadržavamo pravo promena cena bez prethodne najave."
   },
   {
     "id": "f7ede6dd-2bbd-4800-8364-188bfc4e1779",
@@ -960,7 +960,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/trigano/trigano-tp34352-kiper/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nFrancuske kompanije TRIGANO\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik Francuske kompanije TRIGANO.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice TP34352 (KIPER 2C250):\nUkupna masa: 1500 kg\nTežina prikolice: 450 kg\nNosivost: 1050 kg\nUnutrašnje dimenzije: 2530x1340x550 mm\nSpoljašnje dimenzije: 3900x1840 mm\nČelična felna R13 sa gumom: 155/70 R13\nVešanje: dve torzione AL-KO osovine\nPod prikolice: vodootporni šper protivklizajući\nStranice prikolice: toplocinkovani deblji lim\nŠasija: toplocinkovana\nHidraulična pumpa za kipovanje\nPrednja i zadnja stranica se otvaraju i skidaju\nBočne stranice su fiksne\nPrikolica se isporučuje sa pomoćnim točkićem Fi60\nČetiri tačke za vezivanje tereta, zavarene za šasiju\nAL-KO naletna kočnica sa ručnom kočnicom\n\nCENA PRIKOLICE - 330.000,00 din\nDodatne opcije: cerada prekrivka 13.400; arnjevi i cerada visine 80 cm 38.000; rezervni točak 8.800; nosač rezervnog točka 4.000; ram za ceradu 6.900; nadogradnja od grifovane žice 60 cm 34.700; nadogradnja od perforiranog lima 35 cm 30.500; rampa 37.000; potporne stope u paru 8.200.\nCene su u dinarima sa PDV-om.\nNa slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! !\nZadržavamo pravo promena cena bez prethodne najave."
   },
   {
     "id": "69738d86-4063-4a82-8b98-e86d0d41ae5a",
@@ -1000,7 +1000,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/vesta/vesta-uno-20/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nVESTA Trailers proizvođača VESTA Trailers.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik VESTA Trailers proizvođača iz Kumana.\nGarancija na prikolice je 24 meseca. Prikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice UNO 20:\nUkupna masa: 750 kg\nTežina prikolice: 118 kg\nNosivost: 632 kg\nUnutrašnje dimenzije: 2000x1040x300 mm\nSpoljašnje dimenzije: 2860x1460 mm\nČelična felna R13 sa gumom: 155/80 R13\nVešanje: torziona osovina Knott\nPrikolica nema mogućnost kipovanja\nPod prikolice: vodootporni šper protivklizajući\nStranice prikolice: pocinkovani lim\nŠasija: toplocinkovana\nZadnja stranica se otvara; bočne stranice su fiksne\nPrikolica se isporučuje bez pomoćnog točkića\n\nCENA PRIKOLICE - 85.040,00 din\nCene su u dinarima sa PDV-om. Na slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! ! Zadržavamo pravo promene cene bez prethodne najave."
   },
   {
     "id": "32bede7d-d497-45bc-9da9-236ba2c4407d",
@@ -1020,7 +1020,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/trigano/trigano-tp39560-kiper/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nFrancuske kompanije TRIGANO\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik Francuske kompanije TRIGANO.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice TP39560 KIPER:\nUkupna masa: 750 kg\nTežina prikolice: 335 kg\nNosivost: 415 kg (prava nosivost 1165 kg)\nUnutrašnje dimenzije: 2530x1470x300 mm\nSpoljašnje dimenzije: 3650x1590 mm\nČelična felna R13 sa gumom: 155/70 R13\nVešanje: dve torzione osovine Knott\nPod prikolice: vodootporni šper protivklizajući\nStranice prikolice: pocinkovani lim\nŠasija: toplocinkovana\nHidraulična pumpa za kipovanje\nSve četiri stranice se mogu skinuti\nBočne stranice se otvaraju radi utovara viljuškarom\nPrikolica se isporučuje sa pomoćnim točkićem\n\nCENA PRIKOLICE - 229.500,00 din\nDodatne opcije: rezervni točak 8.800; nosač rezervnog točka 4.000; duple stranice 28.000; potporne stope u paru 5.300.\nCene su u dinarima sa PDV-om.\nNa slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! !\nZadržavamo pravo promena cena bez prethodne najave."
   },
   {
     "id": "4abaf97a-b32e-4624-b035-0857cb7ab20a",
@@ -1120,7 +1120,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/trigano/trigano-tp39550/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nFrancuske kompanije TRIGANO\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik Francuske kompanije TRIGANO.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice TP39550:\nUkupna masa: 750 kg\nTežina prikolice: 305 kg\nNosivost: 445 kg (prava nosivost 1195 kg)\nUnutrašnje dimenzije: 2530x1470x300 mm\nSpoljašnje dimenzije: 3650x1590 mm\nČelična felna R13 sa gumom: 155/70 R13\nVešanje: dve torzione osovine Knott\nPod prikolice: vodootporni šper protivklizajući\nStranice prikolice: pocinkovani lim\nŠasija: toplocinkovana\nSve četiri stranice se mogu skinuti\nBočne stranice se otvaraju radi utovara viljuškarom\nPrikolica se isporučuje sa pomoćnim točkićem\n\nCENA PRIKOLICE - 211.500,00 din\nDodatne opcije: rezervni točak 8.800; nosač rezervnog točka 4.000; duple stranice 28.000; potporne stope u paru 8.200.\nCene su u dinarima sa PDV-om.\nNa slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! !\nZadržavamo pravo promena cena bez prethodne najave."
   },
   {
     "id": "4fe777b4-ef2a-413b-9b5e-d21ead3f874e",
@@ -1160,7 +1160,7 @@ export const ALL_TRAILERS: CatalogTrailer[] = [
     "dimensions": null,
     "hasTilt": false,
     "mainImageUrl": "https://obtjnbhzitkuvvlabjrb.supabase.co/storage/v1/object/public/povuci-trailer-images/trigano/trigano-tp32650-platforma/1.webp",
-    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik\nFrancuske kompanije TRIGANO\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima\nza registraciju: homologacija, COC, ..."
+    "description": "NOVA auto prikolica - Fabričke cene ! ! !\nDDM Company je ovlašćen predstavnik Francuske kompanije TRIGANO.\nGarancija na prikolice je 24 meseca.\nPrikolice se isporučuju sa svim papirima za registraciju: homologacija, COC, . . .\n\nKarakteristike prikolice TP32650 PLATFORMA:\nUkupna masa: 2500 kg\nTežina prikolice: 600 kg\nNosivost: 1900 kg\nDimenzije platforme: 4060x2150 mm\nSpoljašnje dimenzije: 5560x2210 mm\nČelična felna R10 sa gumom: 195/55 R10\nVešanje: dve torzione osovine Knott\nPod prikolice: vodootporni šper protivklizajući\nPrednja ogradica: toplocinkovana\nŠasija: toplocinkovana\nPrikolica se isporučuje sa pomoćnim točkićem Fi60\nOsam tačaka za vezivanje tereta\nKnott naletna kočnica sa ručnom kočnicom\n\nCENA PRIKOLICE - 388.500,00 din\nCene su u dinarima sa PDV-om.\nNa slikama se mogu videti dodatne opcije, ali se prikolica isporučuje bez istih ! ! !\nZadržavamo pravo promena cena bez prethodne najave."
   },
   {
     "id": "464f32c6-c6df-4dfb-8169-74000b6939c8",

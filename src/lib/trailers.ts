@@ -233,13 +233,15 @@ export const getTrailerBySlug = cache(async (slug: string): Promise<PovuciTraile
         *,
         images:povuci_trailer_images(*),
         options:povuci_trailer_options(*),
-        category:povuci_categories(*),
+        category:povuci_categories!povuci_trailers_category_id_fkey(*),
         filter_categories:povuci_trailer_categories(category_id)
       `)
       .eq("slug", slug)
       .maybeSingle();
 
-    if (!error && trailer) {
+    if (error) throw error;
+
+    if (trailer) {
       if (trailer.status !== "available") return null;
 
       // If DB has trailer, sort images
