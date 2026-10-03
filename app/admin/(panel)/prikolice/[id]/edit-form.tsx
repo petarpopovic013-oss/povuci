@@ -4,9 +4,10 @@ import { useState, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AlertIcon, CheckIcon, SaveIcon } from "@/components/icons";
+import { AlertIcon, CheckIcon, SaveIcon, TrashIcon } from "@/components/icons";
 import { TrailerCategoryCheckboxes } from "@/components/TrailerCategoryCheckboxes";
 import type { PovuciTrailer } from "@/types/trailer";
+import { deleteTrailerImageAction } from "../../../actions";
 
 interface EditTrailerFormProps {
   trailer: PovuciTrailer;
@@ -16,12 +17,55 @@ interface EditTrailerFormProps {
 export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [deletingImageId, setDeletingImageId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-
-  const images = (trailer.images || []).sort(
-    (a, b) => (a.sort_order || 0) - (b.sort_order || 0)
+  const [images, setImages] = useState(() =>
+    [...(trailer.images || [])].sort(
+      (a, b) => (a.sort_order || 0) - (b.sort_order || 0)
+    )
   );
+
+  async function handleDeleteImage(imageId: string, isMain: boolean) {
+    const confirmed = window.confirm(
+      isMain
+        ? "Da li želite da obrišete glavnu fotografiju? Sledeća fotografija će automatski postati glavna."
+        : "Da li želite da obrišete ovu fotografiju?"
+    );
+
+    if (!confirmed) return;
+
+    setDeletingImageId(imageId);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      const result = await deleteTrailerImageAction(trailer.id, imageId);
+
+      if (!result.success) {
+        throw new Error(result.error || "Fotografija nije mogla biti obrisana.");
+      }
+
+      setImages((currentImages) =>
+        currentImages
+          .filter((image) => image.id !== imageId)
+          .map((image) => ({
+            ...image,
+            is_main: image.id === result.mainImageId,
+          }))
+      );
+      setSuccess(result.message || "Fotografija je uspešno obrisana.");
+      router.refresh();
+    } catch (deleteError) {
+      setError(
+        deleteError instanceof Error
+          ? deleteError.message
+          : "Fotografija nije mogla biti obrisana."
+      );
+    } finally {
+      setDeletingImageId(null);
+    }
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -478,53 +522,43 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
 
       <h3 className="admin-form-section-title">6. Fotografije Prikolice</h3>
 
-      {images.length > 0 && (
-        <div style={{ marginBottom: "20px" }}>
-          <div style={{ fontSize: "13px", color: "#959da8", marginBottom: "10px" }}>
+      {images.length > 0 ? (
+        <div className="admin-image-section">
+          <div className="admin-image-section-label">
             Trenutne fotografije ({images.length}):
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
+          <div className="admin-image-grid">
             {images.map((img, idx) => (
               <div
                 key={img.id || idx}
-                style={{
-                  position: "relative",
-                  width: "110px",
-                  height: "80px",
-                  borderRadius: "6px",
-                  overflow: "hidden",
-                  border: img.is_main ? "2px solid #d22e2e" : "1px solid #2e3440",
-                  background: "#121418",
-                }}
+                className={`admin-image-card${img.is_main ? " is-main" : ""}`}
               >
-                <Image
-                  src={img.image_url}
-                  alt={`Slika ${idx + 1}`}
-                  fill
-                  sizes="110px"
-                  style={{ objectFit: "cover" }}
-                />
-                {img.is_main && (
-                  <span
-                    style={{
-                      position: "absolute",
-                      bottom: "2px",
-                      left: "2px",
-                      background: "#d22e2e",
-                      color: "#fff",
-                      fontSize: "9px",
-                      padding: "1px 4px",
-                      borderRadius: "2px",
-                      fontWeight: "700",
-                    }}
-                  >
-                    GLAVNA
-                  </span>
-                )}
+                <div className="admin-image-preview">
+                  <Image
+                    src={img.image_url}
+                    alt={`Slika ${idx + 1}`}
+                    fill
+                    sizes="(max-width: 600px) 45vw, 160px"
+                    style={{ objectFit: "cover" }}
+                  />
+                  {img.is_main && <span className="admin-image-main-badge">GLAVNA</span>}
+                </div>
+                <button
+                  type="button"
+                  className="admin-image-delete-btn"
+                  onClick={() => handleDeleteImage(img.id, img.is_main)}
+                  disabled={loading || deletingImageId !== null}
+                  aria-label={`Obriši fotografiju ${idx + 1}`}
+                >
+                  <TrashIcon aria-hidden="true" />
+                  <span>{deletingImageId === img.id ? "Brisanje..." : "Obriši"}</span>
+                </button>
               </div>
             ))}
           </div>
         </div>
+      ) : (
+        <div className="admin-image-empty">Ova prikolica trenutno nema fotografije.</div>
       )}
 
       <div className="admin-form-group">
@@ -577,9 +611,13 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
         </Link>
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || deletingImageId !== null}
           className="admin-btn-primary"
-          style={{ minWidth: "180px", opacity: loading ? 0.7 : 1, cursor: loading ? "wait" : "pointer" }}
+          style={{
+            minWidth: "180px",
+            opacity: loading || deletingImageId !== null ? 0.7 : 1,
+            cursor: loading || deletingImageId !== null ? "wait" : "pointer",
+          }}
         >
           <SaveIcon style={{ width: "16px", height: "16px" }} aria-hidden="true" />
           <span>{loading ? "Čuvanje izmena..." : "Sačuvaj Izmene"}</span>

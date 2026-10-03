@@ -409,6 +409,96 @@
   height: 16px;
 }
 
+.admin-image-section {
+  margin-bottom: 24px;
+}
+
+.admin-image-section-label {
+  margin-bottom: 12px;
+  color: var(--admin-text-muted);
+  font-size: 13px;
+}
+
+.admin-image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+}
+
+.admin-image-card {
+  overflow: hidden;
+  border: 1px solid var(--admin-card-border);
+  border-radius: 8px;
+  background: var(--admin-input-bg);
+}
+
+.admin-image-card.is-main {
+  border-color: var(--admin-primary);
+  box-shadow: 0 0 0 1px var(--admin-primary);
+}
+
+.admin-image-preview {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #0b0d10;
+}
+
+.admin-image-main-badge {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  background: var(--admin-primary);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.admin-image-delete-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 10px;
+  border: 0;
+  border-top: 1px solid var(--admin-card-border);
+  background: transparent;
+  color: #ff6b6b;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.admin-image-delete-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.admin-image-delete-btn:hover:not(:disabled) {
+  background: var(--admin-primary);
+  color: #fff;
+}
+
+.admin-image-delete-btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.admin-image-empty {
+  margin-bottom: 24px;
+  padding: 18px;
+  border: 1px dashed var(--admin-input-border);
+  border-radius: 7px;
+  color: var(--admin-text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
 /* Login Page Layout */
 .admin-login {
   display: flex;
