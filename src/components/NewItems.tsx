@@ -27,9 +27,8 @@ const products: ProductItem[] = ALL_TRAILERS.slice(0, 12).map((t) => ({
 }));
 
 function getVisibleItems(width: number) {
-  if (width <= 480) return 1;
-  if (width <= 600) return 2;
-  if (width <= 991) return 3;
+  if (width <= 700) return 1;
+  if (width <= 991) return 2;
   return 4;
 }
 
@@ -44,7 +43,7 @@ function ProductCard({ product }: { product: ProductItem }) {
           alt={product.name}
           width={270}
           height={326}
-          sizes="(max-width: 480px) calc(100vw - 30px), (max-width: 600px) 50vw, (max-width: 991px) 33vw, 263px"
+          sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 991px) 50vw, 263px"
         />
         <div className={styles.overlay}>
           <div className={styles.actions}>

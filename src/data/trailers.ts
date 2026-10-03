@@ -9,14 +9,21 @@ export interface CatalogTrailer {
   categoryName: string;
   categoryIds?: string[];
   priceRsd: number;
-  grossWeightKg: number;
+  grossWeightKg: number | null;
   curbWeightKg: number | null;
   payloadCapacityKg: number | null;
-  axlesCount: number;
+  axlesCount: number | null;
   isBCategory: boolean;
   isBraked: boolean;
   dimensions: string | null;
   hasTilt: boolean;
+  cargoSpaceDimensions?: string | null;
+  externalDimensions?: string | null;
+  tiltType?: "mechanical" | "hydraulic" | null;
+  wheelSpecs?: string | null;
+  floorType?: string | null;
+  chassis?: string | null;
+  warrantyMonths?: number | null;
   mainImageUrl?: string | null;
   description?: string | null;
 }

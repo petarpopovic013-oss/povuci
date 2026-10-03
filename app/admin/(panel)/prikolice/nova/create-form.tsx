@@ -171,351 +171,104 @@ export function CreateTrailerForm({ categories }: CreateTrailerFormProps) {
         </div>
       </div>
 
-      {/* 2. Osobine i filteri */}
-      <h3 className="admin-form-section-title">2. Osobine i Karakteristike</h3>
-      <div
-        className="admin-form-grid"
-        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}
-      >
+      <h3 className="admin-form-section-title">2. Javne Karakteristike</h3>
+      <p className="admin-header-desc">
+        Prazna vrednost se neće prikazivati na sajtu. Polja su poređana kao na javnoj stranici.
+      </p>
+      <div className="admin-form-grid">
         <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="axles_count">
-            Broj Osovina
-          </label>
-          <select id="axles_count" name="axles_count" defaultValue="1" className="admin-select">
-            <option value="1">1 osovina (jednoosovinka)</option>
-            <option value="2">2 osovine (dvoosovinka)</option>
-            <option value="3">3 osovine (troosovinka)</option>
+          <label className="admin-form-label" htmlFor="cargo_space_dimensions">Tovarni prostor</label>
+          <input id="cargo_space_dimensions" name="cargo_space_dimensions" type="text" placeholder="npr. 2530 × 1340 × 550 mm" className="admin-input" />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="external_dimensions">Spoljašnje dimenzije</label>
+          <input id="external_dimensions" name="external_dimensions" type="text" placeholder="npr. 3720 × 1850 mm" className="admin-input" />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="gross_weight_kg">Ukupna masa (kg)</label>
+          <input id="gross_weight_kg" name="gross_weight_kg" type="number" step="0.1" placeholder="npr. 750" className="admin-input" />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="curb_weight_kg">Masa prikolice (kg)</label>
+          <input id="curb_weight_kg" name="curb_weight_kg" type="number" step="0.1" placeholder="npr. 168" className="admin-input" />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="axles_count">Broj osovina</label>
+          <select id="axles_count" name="axles_count" defaultValue="" className="admin-select">
+            <option value="">Nije navedeno</option>
+            <option value="1">1 osovina</option>
+            <option value="2">2 osovine</option>
+            <option value="3">3 osovine</option>
           </select>
         </div>
-
-        <div
-          className="admin-form-group"
-          style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "24px" }}
-        >
-          <input
-            id="is_b_category"
-            name="is_b_category"
-            type="checkbox"
-            defaultChecked
-            style={{ width: "18px", height: "18px", accentColor: "#d22e2e" }}
-          />
-          <label
-            className="admin-form-label"
-            htmlFor="is_b_category"
-            style={{ margin: 0, cursor: "pointer" }}
-          >
-            B kategorija (do 750kg bruto)
-          </label>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="tilt_type">Kip</label>
+          <select id="tilt_type" name="tilt_type" defaultValue="" className="admin-select">
+            <option value="">Bez kipa</option>
+            <option value="mechanical">Mehanički</option>
+            <option value="hydraulic">Hidraulični</option>
+          </select>
         </div>
-
-        <div
-          className="admin-form-group"
-          style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "24px" }}
-        >
-          <input
-            id="is_braked"
-            name="is_braked"
-            type="checkbox"
-            style={{ width: "18px", height: "18px", accentColor: "#d22e2e" }}
-          />
-          <label
-            className="admin-form-label"
-            htmlFor="is_braked"
-            style={{ margin: 0, cursor: "pointer" }}
-          >
-            Kočioni sistem (kočiona)
-          </label>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="wheel_specs">Točkovi</label>
+          <input id="wheel_specs" name="wheel_specs" type="text" placeholder="npr. 155/80 R13" className="admin-input" />
         </div>
-
-        <div
-          className="admin-form-group"
-          style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "24px" }}
-        >
-          <input
-            id="has_tilt"
-            name="has_tilt"
-            type="checkbox"
-            style={{ width: "18px", height: "18px", accentColor: "#d22e2e" }}
-          />
-          <label
-            className="admin-form-label"
-            htmlFor="has_tilt"
-            style={{ margin: 0, cursor: "pointer" }}
-          >
-            Kipovanje tereta (kiper)
-          </label>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="floor_type">Pod</label>
+          <input id="floor_type" name="floor_type" type="text" placeholder="Ostavite prazno ako prikolica nema pod" className="admin-input" />
         </div>
-
-        <div
-          className="admin-form-group"
-          style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "24px" }}
-        >
-          <input
-            id="has_support_wheel"
-            name="has_support_wheel"
-            type="checkbox"
-            defaultChecked
-            style={{ width: "18px", height: "18px", accentColor: "#d22e2e" }}
-          />
-          <label
-            className="admin-form-label"
-            htmlFor="has_support_wheel"
-            style={{ margin: 0, cursor: "pointer" }}
-          >
-            Pomoćni točkić uključen
-          </label>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="chassis">Konstrukcija šasije</label>
+          <input id="chassis" name="chassis" type="text" placeholder="npr. Toplocinkovana" className="admin-input" />
         </div>
-
-        <div
-          className="admin-form-group"
-          style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "24px" }}
-        >
-          <input
-            id="has_winch"
-            name="has_winch"
-            type="checkbox"
-            style={{ width: "18px", height: "18px", accentColor: "#d22e2e" }}
-          />
-          <label
-            className="admin-form-label"
-            htmlFor="has_winch"
-            style={{ margin: 0, cursor: "pointer" }}
-          >
-            Čekrk sa nosačem
-          </label>
-        </div>
-
-        <div
-          className="admin-form-group"
-          style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "24px" }}
-        >
-          <input
-            id="has_ramps"
-            name="has_ramps"
-            type="checkbox"
-            style={{ width: "18px", height: "18px", accentColor: "#d22e2e" }}
-          />
-          <label
-            className="admin-form-label"
-            htmlFor="has_ramps"
-            style={{ margin: 0, cursor: "pointer" }}
-          >
-            Navozne rampe / staze
-          </label>
-        </div>
-
-        <div
-          className="admin-form-group"
-          style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "24px" }}
-        >
-          <input
-            id="is_featured"
-            name="is_featured"
-            type="checkbox"
-            style={{ width: "18px", height: "18px", accentColor: "#d22e2e" }}
-          />
-          <label
-            className="admin-form-label"
-            htmlFor="is_featured"
-            style={{ margin: 0, cursor: "pointer" }}
-          >
-            Istaknuto na početnoj strani
-          </label>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="warranty_months">Garancija (meseci)</label>
+          <input id="warranty_months" name="warranty_months" type="number" min="1" step="1" placeholder="npr. 24" className="admin-input" />
         </div>
       </div>
 
-      {/* 3. Mase i Dimenzije */}
-      <h3 className="admin-form-section-title">3. Mase i Dimenzije</h3>
+      <h3 className="admin-form-section-title">3. Filteri i Oprema</h3>
       <div className="admin-form-grid">
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="gross_weight_kg">
-            Ukupna (Bruto) Masa (kg)
-          </label>
-          <input
-            id="gross_weight_kg"
-            name="gross_weight_kg"
-            type="number"
-            step="0.1"
-            defaultValue="750"
-            placeholder="npr. 750"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="curb_weight_kg">
-            Sopstvena Masa / Težina (kg)
-          </label>
-          <input
-            id="curb_weight_kg"
-            name="curb_weight_kg"
-            type="number"
-            step="0.1"
-            placeholder="npr. 168"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="payload_capacity_kg">
-            Korisna Nosivost po papirima (kg)
-          </label>
-          <input
-            id="payload_capacity_kg"
-            name="payload_capacity_kg"
-            type="number"
-            step="0.1"
-            placeholder="npr. 582"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="real_payload_capacity_kg">
-            Stvarna nosivost konstrukcije (kg)
-          </label>
-          <input
-            id="real_payload_capacity_kg"
-            name="real_payload_capacity_kg"
-            type="number"
-            step="0.1"
-            placeholder="npr. 1000"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="internal_length_mm">
-            Unutrašnja Dužina sanduka (mm)
-          </label>
-          <input
-            id="internal_length_mm"
-            name="internal_length_mm"
-            type="number"
-            placeholder="npr. 2330"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="internal_width_mm">
-            Unutrašnja Širina sanduka (mm)
-          </label>
-          <input
-            id="internal_width_mm"
-            name="internal_width_mm"
-            type="number"
-            placeholder="npr. 1320"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="internal_height_mm">
-            Unutrašnja Visina stranica (mm)
-          </label>
-          <input
-            id="internal_height_mm"
-            name="internal_height_mm"
-            type="number"
-            placeholder="npr. 390"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="loading_height_mm">
-            Utovarna Visina (mm)
-          </label>
-          <input
-            id="loading_height_mm"
-            name="loading_height_mm"
-            type="number"
-            placeholder="npr. 520"
-            className="admin-input"
-          />
-        </div>
+        {[
+          ["is_b_category", "B kategorija (do 750kg bruto)", true],
+          ["is_braked", "Kočioni sistem (kočiona)", false],
+          ["has_support_wheel", "Pomoćni točkić uključen", true],
+          ["has_winch", "Čekrk sa nosačem", false],
+          ["has_ramps", "Navozne rampe / staze", false],
+          ["is_featured", "Istaknuto na početnoj strani", false],
+        ].map(([id, label, checked]) => (
+          <div className="admin-form-group" style={{ display: "flex", alignItems: "center", gap: "10px" }} key={String(id)}>
+            <input id={String(id)} name={String(id)} type="checkbox" defaultChecked={Boolean(checked)} style={{ width: "18px", height: "18px", accentColor: "#d22e2e" }} />
+            <label className="admin-form-label" htmlFor={String(id)} style={{ margin: 0, cursor: "pointer" }}>{String(label)}</label>
+          </div>
+        ))}
       </div>
 
-      {/* 4. Mehanika i Materijali */}
-      <h3 className="admin-form-section-title">4. Konstrukcija i Mehanika</h3>
+      <h3 className="admin-form-section-title">4. Dodatni Tehnički Podaci</h3>
       <div className="admin-form-grid">
         <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="chassis">
-            Šasija
-          </label>
-          <input
-            id="chassis"
-            name="chassis"
-            type="text"
-            placeholder="npr. Toplocinkovana čelična šasija"
-            className="admin-input"
-          />
+          <label className="admin-form-label" htmlFor="payload_capacity_kg">Korisna nosivost po papirima (kg)</label>
+          <input id="payload_capacity_kg" name="payload_capacity_kg" type="number" step="0.1" placeholder="npr. 582" className="admin-input" />
         </div>
-
         <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="suspension">
-            Vešanje i Osovine
-          </label>
-          <input
-            id="suspension"
-            name="suspension"
-            type="text"
-            placeholder="npr. Torziona osovina Knott / AL-KO"
-            className="admin-input"
-          />
+          <label className="admin-form-label" htmlFor="real_payload_capacity_kg">Stvarna nosivost konstrukcije (kg)</label>
+          <input id="real_payload_capacity_kg" name="real_payload_capacity_kg" type="number" step="0.1" placeholder="npr. 1000" className="admin-input" />
         </div>
-
         <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="wheel_specs">
-            Točkovi i Gume
-          </label>
-          <input
-            id="wheel_specs"
-            name="wheel_specs"
-            type="text"
-            placeholder="npr. 155/80 R13 ili 165/70 R13"
-            className="admin-input"
-          />
+          <label className="admin-form-label" htmlFor="loading_height_mm">Utovarna visina (mm)</label>
+          <input id="loading_height_mm" name="loading_height_mm" type="number" placeholder="npr. 520" className="admin-input" />
         </div>
-
         <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="floor_type">
-            Pod Prikolice
-          </label>
-          <input
-            id="floor_type"
-            name="floor_type"
-            type="text"
-            placeholder="npr. Vodootporni protivklizajući šper"
-            className="admin-input"
-          />
+          <label className="admin-form-label" htmlFor="suspension">Vešanje</label>
+          <input id="suspension" name="suspension" type="text" placeholder="npr. Torziona osovina Knott" className="admin-input" />
         </div>
-
         <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="side_material">
-            Materijal Stranica
-          </label>
-          <input
-            id="side_material"
-            name="side_material"
-            type="text"
-            placeholder="npr. Pocinkovani lim / vodootporni šper"
-            className="admin-input"
-          />
+          <label className="admin-form-label" htmlFor="side_material">Materijal stranica</label>
+          <input id="side_material" name="side_material" type="text" placeholder="npr. Pocinkovani lim" className="admin-input" />
         </div>
-
         <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="sides_opening">
-            Otvaranje Stranica
-          </label>
-          <input
-            id="sides_opening"
-            name="sides_opening"
-            type="text"
-            placeholder="npr. Prednja i zadnja se otvaraju i skidaju"
-            className="admin-input"
-          />
+          <label className="admin-form-label" htmlFor="sides_opening">Otvaranje stranica</label>
+          <input id="sides_opening" name="sides_opening" type="text" placeholder="npr. Prednja i zadnja se otvaraju" className="admin-input" />
         </div>
       </div>
 

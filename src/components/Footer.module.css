@@ -426,7 +426,7 @@
 
   .serviceGrid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 24px;
   }
 
   .widgets {
@@ -442,6 +442,28 @@
     padding-right: 0;
   }
 
+  .servicePanel,
+  .aboutWidget,
+  .linkWidget,
+  .contactItem,
+  .footerBarInner {
+    min-width: 0;
+  }
+
+  .servicePanel h2,
+  .servicePanel p,
+  .aboutWidget p,
+  .contactItem span,
+  .linkWidget a,
+  .copyright,
+  .distributorText {
+    overflow-wrap: anywhere;
+  }
+
+  .socialButtons a {
+    min-height: 42px;
+  }
+
   .footerBarInner {
     flex-direction: column;
     align-items: flex-start;
@@ -450,5 +472,17 @@
 
   .legal {
     gap: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .socialButtons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .socialButtons a {
+    justify-content: center;
+    padding-inline: 10px;
   }
 }

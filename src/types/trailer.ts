@@ -2,6 +2,8 @@ export type TrailerBrand = 'Vesta' | 'Trigano';
 
 export type TrailerStatus = 'available' | 'on_order' | 'out_of_stock' | 'inactive';
 
+export type TrailerTiltType = 'mechanical' | 'hydraulic';
+
 export interface PovuciCategory {
   id: string; // e.g. 'lake-teretne', 'dvoosovinke', 'plato-slep', 'nautika-camci', 'moto-atv', 'kiper', 'cargo-teske'
   name: string;
@@ -33,8 +35,9 @@ export interface PovuciTrailer {
   // Filter Flags
   is_b_category: boolean; // <= 750kg bruto
   is_braked: boolean; // Kočiona / Nekočiona
-  axles_count: number; // 1, 2, 3
+  axles_count: number | null; // 1, 2, 3; null when unknown
   has_tilt: boolean; // Kipovanje
+  tilt_type: TrailerTiltType | null;
   has_support_wheel: boolean; // Pomoćni točkić
   has_winch: boolean; // Čekrk
   has_ramps: boolean; // Navozne rampe
@@ -44,7 +47,7 @@ export interface PovuciTrailer {
   price_eur: number | null;
   old_price_rsd: number | null;
   vat_included: boolean;
-  warranty_months: number;
+  warranty_months: number | null;
 
   // Mass & Capacity in kg
   gross_weight_kg: number | null; // Ukupna masa
@@ -57,11 +60,13 @@ export interface PovuciTrailer {
   internal_width_mm: number | null;
   internal_height_mm: number | null;
   loading_height_mm: number | null;
+  cargo_space_dimensions: string | null;
 
   // External Dimensions in mm & Boat Specs
   external_length_mm: number | null;
   external_width_mm: number | null;
   external_height_mm: number | null;
+  external_dimensions: string | null;
   boat_length_max_m: number | null;
 
   // Construction & Mechanics

@@ -439,7 +439,16 @@
 
 @media (max-width: 991px) {
   .header {
-    height: 144px;
+    height: 128px;
+  }
+
+  .navigationSpace,
+  .navigation {
+    height: 84px;
+  }
+
+  .navigationScrolled {
+    height: 76px;
   }
 
   .utilityContainer,
@@ -494,7 +503,7 @@
 
   .mobileNav {
     position: absolute;
-    top: 100px;
+    top: 100%;
     right: 0;
     left: 0;
     display: block;
@@ -519,7 +528,8 @@
 
   .mobileNav a {
     display: flex;
-    height: 38px;
+    min-height: 44px;
+    height: auto;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
@@ -528,7 +538,7 @@
     font-family: var(--font-raleway), Arial, sans-serif;
     font-size: 12.5px;
     font-weight: 700;
-    line-height: 38px;
+    line-height: 1.3;
   }
 
   .mobileNav a:hover,
@@ -549,8 +559,33 @@
 }
 
 @media (max-width: 540px) {
+  .header {
+    height: 116px;
+  }
+
+  .utilityBar,
+  .utilityContainer,
+  .contactLinks {
+    height: 40px;
+    line-height: 40px;
+  }
+
+  .navigation {
+    top: 40px;
+  }
+
+  .navigationSpace,
+  .navigation {
+    height: 76px;
+  }
+
+  .navigationScrolled {
+    top: 0;
+    height: 70px;
+  }
+
   .utilityContainer {
-    padding: 0 10px;
+    padding: 0 12px;
   }
 
   .contactLinks {
@@ -568,11 +603,24 @@
   }
 
   .brandTitle {
-    font-size: 22px;
+    font-size: 21px;
   }
 
   .brandSubtitle {
-    font-size: 9px;
+    font-size: 8.5px;
+    letter-spacing: 2px;
+  }
+
+  .mobileToggle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .mobileTools {
+    grid-template-columns: 1fr;
+  }
+
+  .mobileTools a:first-child {
+    border-right: 0;
   }
 }
-

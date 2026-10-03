@@ -143,6 +143,49 @@ for (let imageIndex = 1; imageIndex <= 9; imageIndex += 1) {
   assert(trigano39750.body.includes(`trigano-39750/${imageIndex}.webp`), `/prikolice/trigano-39750: nedostaje slika ${imageIndex}`);
 }
 
+const trigano2c250 = await request("/prikolice/trigano-2c250");
+const trigano2c250Html = trigano2c250.body.replaceAll("<!-- -->", "");
+assert(trigano2c250Html.includes("Mehanički"), "/prikolice/trigano-2c250: nedostaje mehanički kip");
+
+const trigano39560 = await request("/prikolice/trigano-tp39560-kiper");
+const trigano39560Html = trigano39560.body.replaceAll("<!-- -->", "");
+assert(trigano39560Html.includes("Hidraulični"), "/prikolice/trigano-tp39560-kiper: nedostaje hidraulični kip");
+
+const trigano2d250 = await request("/prikolice/trigano-2d250");
+const trigano2d250Html = trigano2d250.body.replaceAll("<!-- -->", "");
+assert(!trigano2d250Html.includes(">Kip:</span>"), "/prikolice/trigano-2d250: prikazan je nepostojeći kip");
+assert(!trigano2d250Html.includes("Standardno (fiksno)"), "/prikolice/trigano-2d250: prikazana je stara podrazumevana vrednost kipa");
+
+const vestaMarine750 = await request("/prikolice/vesta-marine-750");
+const vestaMarine750Html = vestaMarine750.body.replaceAll("<!-- -->", "");
+assert(!vestaMarine750Html.includes(">Pod:</span>"), "/prikolice/vesta-marine-750: prikazan je nepostojeći pod");
+assert(/>Točkovi:<\/span><span[^>]*>155\/80 R13<\/span>/.test(vestaMarine750Html), "/prikolice/vesta-marine-750: format točkova nije normalizovan");
+assert(!/>Točkovi:<\/span><span[^>]*>155\/ 80 R13<\/span>/.test(vestaMarine750Html), "/prikolice/vesta-marine-750: ostao je pogrešan razmak u dimenziji točkova");
+
+const triganoBoat750 = await request("/prikolice/trigano-za-amac-750");
+const triganoBoat750Html = triganoBoat750.body.replaceAll("<!-- -->", "");
+assert(triganoBoat750Html.includes("4300 × 1810 mm"), "/prikolice/trigano-za-amac-750: nedostaju spoljašnje dimenzije iz opisa");
+assert(!triganoBoat750Html.includes(">Pod:</span>"), "/prikolice/trigano-za-amac-750: prikazan je nepostojeći pod");
+
+const characteristicLabels = [
+  "Tovarni prostor",
+  "Spoljašnje dimenzije",
+  "Ukupna masa",
+  "Masa prikolice",
+  "Broj osovina",
+  "Kip",
+  "Točkovi",
+  "Pod",
+  "Konstrukcija šasije",
+  "Garancija",
+];
+let previousLabelIndex = -1;
+for (const label of characteristicLabels) {
+  const labelIndex = trigano2c250Html.indexOf(`>${label}:</span>`, previousLabelIndex + 1);
+  assert(labelIndex > previousLabelIndex, `/prikolice/trigano-2c250: pogrešan redosled ili nedostaje karakteristika ${label}`);
+  if (labelIndex !== -1) previousLabelIndex = labelIndex;
+}
+
 const manifest = await request("/manifest.webmanifest");
 assert(manifest.response.status === 200, `/manifest.webmanifest: dobijen ${manifest.response.status}`);
 try {

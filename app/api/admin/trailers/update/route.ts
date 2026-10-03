@@ -7,6 +7,13 @@ import {
   parseTrailerCategoryIds,
   syncTrailerCategories,
 } from "@/lib/admin/trailer-categories";
+import {
+  nullableInteger,
+  nullableNumber,
+  nullableText,
+  parseSimpleDimensions,
+  trailerTiltType,
+} from "@/lib/admin/trailer-characteristics";
 
 export const dynamic = "force-dynamic";
 
@@ -51,45 +58,33 @@ export async function POST(req: NextRequest) {
 
     const isBCategory = formData.get("is_b_category") === "on";
     const isBraked = formData.get("is_braked") === "on";
-    const axlesCount = parseInt((formData.get("axles_count") as string) || "1", 10);
-    const hasTilt = formData.get("has_tilt") === "on";
+    const axlesCount = nullableInteger(formData, "axles_count");
+    const tiltType = trailerTiltType(formData);
+    const hasTilt = tiltType !== null;
     const hasSupportWheel = formData.get("has_support_wheel") === "on";
     const hasWinch = formData.get("has_winch") === "on";
     const hasRamps = formData.get("has_ramps") === "on";
     const isFeatured = formData.get("is_featured") === "on";
 
-    const grossWeightKg = formData.get("gross_weight_kg")
-      ? parseFloat(formData.get("gross_weight_kg") as string)
-      : null;
-    const curbWeightKg = formData.get("curb_weight_kg")
-      ? parseFloat(formData.get("curb_weight_kg") as string)
-      : null;
-    const payloadCapacityKg = formData.get("payload_capacity_kg")
-      ? parseFloat(formData.get("payload_capacity_kg") as string)
-      : null;
-    const realPayloadCapacityKg = formData.get("real_payload_capacity_kg")
-      ? parseFloat(formData.get("real_payload_capacity_kg") as string)
-      : null;
+    const grossWeightKg = nullableNumber(formData, "gross_weight_kg");
+    const curbWeightKg = nullableNumber(formData, "curb_weight_kg");
+    const payloadCapacityKg = nullableNumber(formData, "payload_capacity_kg");
+    const realPayloadCapacityKg = nullableNumber(formData, "real_payload_capacity_kg");
+    const loadingHeightMm = nullableNumber(formData, "loading_height_mm");
+    const warrantyMonths = nullableInteger(formData, "warranty_months");
+    const cargoSpaceDimensions = nullableText(formData, "cargo_space_dimensions");
+    const externalDimensions = nullableText(formData, "external_dimensions");
+    const internal = parseSimpleDimensions(cargoSpaceDimensions);
+    const external = parseSimpleDimensions(externalDimensions);
 
-    const internalLengthMm = formData.get("internal_length_mm")
-      ? parseFloat(formData.get("internal_length_mm") as string)
-      : null;
-    const internalWidthMm = formData.get("internal_width_mm")
-      ? parseFloat(formData.get("internal_width_mm") as string)
-      : null;
-    const internalHeightMm = formData.get("internal_height_mm")
-      ? parseFloat(formData.get("internal_height_mm") as string)
-      : null;
-    const loadingHeightMm = formData.get("loading_height_mm")
-      ? parseFloat(formData.get("loading_height_mm") as string)
-      : null;
-
-    const suspension = (formData.get("suspension") as string) || null;
-    const wheelSpecs = (formData.get("wheel_specs") as string) || null;
-    const chassis = (formData.get("chassis") as string) || null;
-    const floorType = (formData.get("floor_type") as string) || null;
-    const sideMaterial = (formData.get("side_material") as string) || null;
-    const sidesOpening = (formData.get("sides_opening") as string) || null;
+    const suspension = nullableText(formData, "suspension");
+    const wheelSpecs = nullableText(formData, "wheel_specs");
+    const chassis = nullableText(formData, "chassis");
+    const floorType = categoryIds.includes("nautika-camci")
+      ? null
+      : nullableText(formData, "floor_type");
+    const sideMaterial = nullableText(formData, "side_material");
+    const sidesOpening = nullableText(formData, "sides_opening");
 
     const description = (formData.get("description") as string) || null;
 
@@ -177,6 +172,7 @@ export async function POST(req: NextRequest) {
       is_braked: isBraked,
       axles_count: axlesCount,
       has_tilt: hasTilt,
+      tilt_type: tiltType,
       has_support_wheel: hasSupportWheel,
       has_winch: hasWinch,
       has_ramps: hasRamps,
@@ -185,9 +181,15 @@ export async function POST(req: NextRequest) {
       curb_weight_kg: curbWeightKg,
       payload_capacity_kg: payloadCapacityKg,
       real_payload_capacity_kg: realPayloadCapacityKg,
-      internal_length_mm: internalLengthMm,
-      internal_width_mm: internalWidthMm,
-      internal_height_mm: internalHeightMm,
+      warranty_months: warrantyMonths,
+      cargo_space_dimensions: cargoSpaceDimensions,
+      external_dimensions: externalDimensions,
+      internal_length_mm: internal.length,
+      internal_width_mm: internal.width,
+      internal_height_mm: internal.height,
+      external_length_mm: external.length,
+      external_width_mm: external.width,
+      external_height_mm: external.height,
       loading_height_mm: loadingHeightMm,
       suspension,
       wheel_specs: wheelSpecs,

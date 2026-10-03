@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { PovuciTrailer } from "../types/trailer";
 import type { CatalogTrailer } from "../data/trailers";
-import { parseTechSpecsFromDescription } from "../lib/trailer-utils";
+import { getPovuciTrailerCharacteristicRows } from "../lib/trailer-characteristics";
 import {
   PhoneIcon,
   WhatsAppIcon,
@@ -14,7 +14,9 @@ import {
   TruckIcon,
   TrailerIcon,
   ChevronIcon,
+  SearchIcon,
 } from "./icons";
+import ImageLightbox from "./ImageLightbox";
 import styles from "./TrailerDetail.module.css";
 
 interface TrailerDetailProps {
@@ -27,6 +29,9 @@ export default function TrailerDetail({
   relatedTrailers,
 }: TrailerDetailProps) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const openLightbox = useCallback(() => setIsLightboxOpen(true), []);
+  const closeLightbox = useCallback(() => setIsLightboxOpen(false), []);
 
   const images =
     trailer.images && trailer.images.length > 0
@@ -47,6 +52,11 @@ export default function TrailerDetail({
       : [];
 
   const currentImage = images[activeImageIndex] || images[0];
+  const lightboxImages = images.map((image, index) => ({
+    id: image.id || `${trailer.id}-${index}`,
+    src: image.image_url,
+    alt: image.alt_text || `${trailer.title} fotografija ${index + 1}`,
+  }));
 
   const handlePrevImage = () => {
     setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
@@ -56,7 +66,7 @@ export default function TrailerDetail({
     setActiveImageIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
   };
 
-  const parsedSpecs = parseTechSpecsFromDescription(trailer.description);
+  const characteristicRows = getPovuciTrailerCharacteristicRows(trailer);
 
   const whatsappMessage = encodeURIComponent(
     `Pozdrav, interesuje me prikolica ${trailer.title} (${
@@ -65,54 +75,6 @@ export default function TrailerDetail({
         : "cena na upit"
     }). Da li je dostupna na stanju?`
   );
-
-  const internalDimensions =
-    parsedSpecs["Dimenzije tovarnog prostora (mm)"] ||
-    parsedSpecs["Unutrašnje dimenzije"] ||
-    (trailer.internal_length_mm
-      ? `${trailer.internal_length_mm} x ${trailer.internal_width_mm} mm`
-      : null);
-
-  const externalDimensions =
-    parsedSpecs["Gabaritne dimenzije (mm)"] ||
-    parsedSpecs["Spoljašnje dimenzije"] ||
-    null;
-
-  const grossWeight =
-    parsedSpecs["Bruto masa (kg)"] ||
-    parsedSpecs["Ukupna masa"] ||
-    (trailer.gross_weight_kg ? `${trailer.gross_weight_kg} kg` : "750 kg");
-
-  const curbWeight =
-    parsedSpecs["Masa prazne prikolice (kg)"] ||
-    parsedSpecs["Težina prikolice"] ||
-    (trailer.curb_weight_kg ? `${trailer.curb_weight_kg} kg` : null);
-
-  const payload =
-    parsedSpecs["Neto nosivost (kg)"] ||
-    parsedSpecs["Nosivost"] ||
-    (trailer.payload_capacity_kg ? `${trailer.payload_capacity_kg} kg` : null);
-
-  const wheels =
-    parsedSpecs["Točkovi"] ||
-    parsedSpecs["Čelična felna R13 sa gumom"] ||
-    "155/80 R13 ili 165/70 R13";
-
-  const suspension =
-    parsedSpecs["Osovine"] ||
-    parsedSpecs["Vešanje"] ||
-    trailer.suspension ||
-    (trailer.axles_count === 2
-      ? "Dve torzione osovine (Knott / AL-KO)"
-      : "Jedna torziona osovina (Knott / AL-KO)");
-
-  const chassis =
-    parsedSpecs["Šasija"] || "Toplocinkovani čelik visoke otpornosti";
-
-  const floor =
-    parsedSpecs["Ispuna poda"] ||
-    parsedSpecs["Pod prikolice"] ||
-    "Vodootporni neklizajući šper";
 
   return (
     <div className={styles.wrapper}>
@@ -194,14 +156,26 @@ export default function TrailerDetail({
                 )}
 
                 {currentImage?.image_url ? (
-                  <Image
-                    src={currentImage.image_url}
-                    alt={currentImage.alt_text || trailer.title}
-                    fill
-                    priority
-                    sizes="(max-width: 900px) 100vw, 520px"
-                    className={styles.mainImage}
-                  />
+                  <button
+                    type="button"
+                    className={styles.mainImageButton}
+                    onClick={openLightbox}
+                    aria-label={`Uvećaj fotografiju modela ${trailer.title}`}
+                  >
+                    <Image
+                      src={currentImage.image_url}
+                      alt={currentImage.alt_text || trailer.title}
+                      fill
+                      loading="eager"
+                      fetchPriority="high"
+                      sizes="(max-width: 900px) 100vw, 520px"
+                      className={styles.mainImage}
+                    />
+                    <span className={styles.zoomHint} aria-hidden="true">
+                      <SearchIcon />
+                      <span>Uvećaj fotografiju</span>
+                    </span>
+                  </button>
                 ) : (
                   <div
                     style={{
@@ -346,84 +320,12 @@ export default function TrailerDetail({
               </div>
 
               <div className={styles.specsTable}>
-                {internalDimensions && (
-                  <div className={styles.tableRow}>
-                    <span className={styles.rowLabel}>Tovarni prostor (unutrašnje):</span>
-                    <span className={styles.rowValue}>{internalDimensions}</span>
+                {characteristicRows.map((row) => (
+                  <div className={styles.tableRow} key={row.key}>
+                    <span className={styles.rowLabel}>{row.label}:</span>
+                    <span className={styles.rowValue}>{row.value}</span>
                   </div>
-                )}
-
-                {externalDimensions && (
-                  <div className={styles.tableRow}>
-                    <span className={styles.rowLabel}>Spoljašnje gabaritne dimenzije:</span>
-                    <span className={styles.rowValue}>{externalDimensions}</span>
-                  </div>
-                )}
-
-                <div className={styles.tableRow}>
-                  <span className={styles.rowLabel}>Ukupna (bruto) masa:</span>
-                  <span className={styles.rowValue}>{grossWeight}</span>
-                </div>
-
-                {curbWeight && (
-                  <div className={styles.tableRow}>
-                    <span className={styles.rowLabel}>Masa prazne prikolice:</span>
-                    <span className={styles.rowValue}>{curbWeight}</span>
-                  </div>
-                )}
-
-                {payload && (
-                  <div className={styles.tableRow}>
-                    <span className={styles.rowLabel}>Korisna nosivost:</span>
-                    <span className={styles.rowValue}>{payload}</span>
-                  </div>
-                )}
-
-                <div className={styles.tableRow}>
-                  <span className={styles.rowLabel}>Broj osovina & vešanje:</span>
-                  <span className={styles.rowValue}>{suspension}</span>
-                </div>
-
-                <div className={styles.tableRow}>
-                  <span className={styles.rowLabel}>Kipovanje tereta:</span>
-                  <span className={styles.rowValue}>
-                    {trailer.has_tilt ? "Da (Kiper mehanizam)" : "Standardno (fiksno)"}
-                  </span>
-                </div>
-
-                <div className={styles.tableRow}>
-                  <span className={styles.rowLabel}>Točkovi i gume:</span>
-                  <span className={styles.rowValue}>{wheels}</span>
-                </div>
-
-                <div className={styles.tableRow}>
-                  <span className={styles.rowLabel}>Konstrukcija šasije:</span>
-                  <span className={styles.rowValue}>{chassis}</span>
-                </div>
-
-                <div className={styles.tableRow}>
-                  <span className={styles.rowLabel}>Pod prikolice:</span>
-                  <span className={styles.rowValue}>{floor}</span>
-                </div>
-
-                <div className={styles.tableRow}>
-                  <span className={styles.rowLabel}>Dozvola za vožnju:</span>
-                  <span className={styles.rowValue}>
-                    {trailer.is_b_category
-                      ? "B kategorija (nije potrebna E)"
-                      : "Potrebna BE / CE kategorija"}
-                  </span>
-                </div>
-
-                <div className={styles.tableRow}>
-                  <span className={styles.rowLabel}>Pomoćni točkić:</span>
-                  <span className={styles.rowValue}>Uključen uz prikolicu</span>
-                </div>
-
-                <div className={styles.tableRow}>
-                  <span className={styles.rowLabel}>Garancija:</span>
-                  <span className={styles.rowValue}>24 meseca (fabrička)</span>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -570,6 +472,15 @@ export default function TrailerDetail({
           </section>
         )}
       </div>
+
+      <ImageLightbox
+        images={lightboxImages}
+        activeIndex={activeImageIndex}
+        isOpen={isLightboxOpen}
+        title={trailer.title}
+        onIndexChange={setActiveImageIndex}
+        onClose={closeLightbox}
+      />
 
       {/* Sticky Mobile CTA Bar */}
       <div className={styles.mobileStickyBar}>

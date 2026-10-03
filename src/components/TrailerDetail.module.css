@@ -50,6 +50,16 @@
   margin-bottom: 30px;
 }
 
+.leftColumn,
+.rightColumn,
+.galleryCard,
+.priceAndCtaBox,
+.specsContainer,
+.sectionCard,
+.relatedCard {
+  min-width: 0;
+}
+
 /* Left 50% Column (Gallery & Trust) */
 .leftColumn {
   display: flex;
@@ -82,6 +92,56 @@
   object-fit: contain;
   padding: 10px;
   transition: transform 250ms ease;
+}
+
+.mainImageButton {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.mainImageButton:focus-visible {
+  outline: 3px solid #d22e2e;
+  outline-offset: -4px;
+}
+
+.zoomHint {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.78);
+  color: #ffffff;
+  font-family: var(--font-ubuntu), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(6px);
+  backdrop-filter: blur(5px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.zoomHint svg {
+  width: 15px;
+  height: 15px;
+}
+
+.mainImageButton:hover .zoomHint,
+.mainImageButton:focus-visible .zoomHint {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .mainImageWrap:hover .mainImage {
@@ -132,6 +192,7 @@
   font-family: var(--font-ubuntu), Arial, sans-serif;
   font-weight: 600;
   backdrop-filter: blur(4px);
+  z-index: 2;
 }
 
 /* Nav arrows */
@@ -334,6 +395,8 @@
   display: flex;
   align-items: baseline;
   gap: 8px;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 
 .priceRsd {
@@ -541,12 +604,15 @@
 .rowLabel {
   color: #64748b;
   font-weight: 500;
+  min-width: 0;
 }
 
 .rowValue {
   color: #0f172a;
   font-weight: 700;
   text-align: right;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* Content Sections Below Split */
@@ -833,6 +899,7 @@
 @media (max-width: 900px) {
   .splitGrid {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
   .mainImageWrap {
     height: 280px;
@@ -850,7 +917,7 @@
     display: block;
   }
   .wrapper {
-    padding-bottom: 110px;
+    padding-bottom: calc(106px + env(safe-area-inset-bottom));
   }
   .mainImageWrap {
     height: 240px;
@@ -869,5 +936,286 @@
   }
   .trustGrid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .breadcrumbNav {
+    margin-bottom: 14px;
+    padding: 10px 0;
+  }
+
+  .breadcrumbList {
+    gap: 5px 6px;
+    font-size: 11.5px;
+    line-height: 1.35;
+  }
+
+  .splitGrid {
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .leftColumn {
+    gap: 12px;
+  }
+
+  .galleryCard {
+    padding: 8px;
+    border-radius: 9px;
+  }
+
+  .mainImageWrap {
+    height: auto;
+    min-height: 210px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .mainImage {
+    padding: 6px;
+  }
+
+  .zoomHint {
+    left: 8px;
+    bottom: 8px;
+    padding: 7px;
+  }
+
+  .zoomHint span {
+    display: none;
+  }
+
+  .badgeOverlay {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .brandBadge,
+  .bCategoryBadge {
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  .navArrowLeft,
+  .navArrowRight {
+    width: 40px;
+    height: 40px;
+  }
+
+  .thumbnailsList {
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .thumbnailBtn {
+    width: 58px;
+    height: 46px;
+  }
+
+  .trustBanner {
+    padding: 12px;
+  }
+
+  .trustBannerItem {
+    align-items: flex-start;
+    line-height: 1.45;
+  }
+
+  .rightColumn {
+    padding: 16px;
+    border-radius: 9px;
+  }
+
+  .headerRow {
+    align-items: flex-start;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .categoryEyebrow {
+    max-width: 100%;
+    font-size: 11px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .inStockBadge {
+    flex: 0 0 auto;
+  }
+
+  .title {
+    font-size: clamp(20px, 6.8vw, 25px);
+    line-height: 1.18;
+    overflow-wrap: anywhere;
+  }
+
+  .priceAndCtaBox {
+    padding: 14px;
+    border-left-width: 3px;
+  }
+
+  .priceRow {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .priceAmounts {
+    align-items: baseline;
+    gap: 5px 8px;
+  }
+
+  .priceRsd {
+    font-size: clamp(21px, 7.2vw, 26px);
+    line-height: 1.12;
+    overflow-wrap: anywhere;
+  }
+
+  .vatNotice {
+    line-height: 1.45;
+  }
+
+  .phoneCallBtn,
+  .whatsappBtn {
+    min-height: 48px;
+    padding: 11px 10px;
+    line-height: 1.25;
+  }
+
+  .specsHeading {
+    align-items: flex-start;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .tableRow {
+    align-items: flex-start;
+    padding: 9px 10px;
+    gap: 12px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .rowLabel {
+    flex: 0 1 46%;
+  }
+
+  .rowValue {
+    flex: 1 1 54%;
+  }
+
+  .sectionCard {
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 9px;
+  }
+
+  .sectionHeader {
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .sectionTitle {
+    font-size: 16px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .optionsGrid {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .optionCard {
+    align-items: flex-start;
+    padding: 11px 12px;
+  }
+
+  .optionName {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .optionPrice {
+    font-size: 13px;
+  }
+
+  .descriptionBox {
+    padding: 14px;
+    border-left-width: 3px;
+    font-size: 13px;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+
+  .trustItem {
+    padding: 14px;
+  }
+
+  .relatedImgWrap {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .relatedPriceRow {
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .mobileStickyBar {
+    padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
+  }
+
+  .mobileStickyInner {
+    gap: 8px;
+  }
+
+  .mobilePriceWrap {
+    min-width: 0;
+  }
+
+  .mobilePrice {
+    font-size: clamp(14px, 4.4vw, 17px);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+
+  .mobileCallBtn {
+    min-height: 46px;
+    min-width: 0;
+    padding: 9px 10px;
+    font-size: 11.5px;
+    line-height: 1.2;
+    text-align: center;
+  }
+}
+
+@media (hover: none) {
+  .zoomHint {
+    opacity: 0.86;
+    transform: none;
+  }
+}
+
+@media (max-width: 359px) {
+  .mainImageWrap {
+    min-height: 190px;
+  }
+
+  .tableRow {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .rowValue {
+    text-align: left;
+  }
+
+  .mobileCallBtn {
+    font-size: 10.5px;
+    padding-inline: 8px;
   }
 }

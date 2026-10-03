@@ -17,7 +17,7 @@ export default async function AdminPrikoliceListPage({
 
   let query = supabaseAdmin
     .from("povuci_trailers")
-    .select("id, brand, model, title, price_rsd, status, gross_weight_kg, payload_capacity_kg, internal_length_mm, internal_width_mm, is_b_category, axles_count, created_at, filter_categories:povuci_trailer_categories(category_id)")
+    .select("id, brand, model, title, price_rsd, status, gross_weight_kg, payload_capacity_kg, cargo_space_dimensions, is_b_category, axles_count, created_at, filter_categories:povuci_trailer_categories(category_id)")
     .order("created_at", { ascending: false });
 
   if (brandFilter) {
@@ -123,11 +123,15 @@ export default async function AdminPrikoliceListPage({
                     </div>
                   </td>
                   <td>
-                    {t.internal_length_mm && t.internal_width_mm
-                      ? `${t.internal_length_mm} x ${t.internal_width_mm} mm`
-                      : "-"}
+                    {t.cargo_space_dimensions || "-"}
                   </td>
-                  <td>{t.axles_count === 2 ? "2 osovine" : "1 osovina"}</td>
+                  <td>
+                    {t.axles_count == null
+                      ? "-"
+                      : t.axles_count === 1
+                        ? "1 osovina"
+                        : `${t.axles_count} osovine`}
+                  </td>
                   <td>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
                       {(t.filter_categories || []).map((category) => (

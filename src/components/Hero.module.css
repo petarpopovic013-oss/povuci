@@ -328,26 +328,44 @@
 }
 
 @media (max-width: 767px) {
+  .hero,
+  .slide {
+    height: 590px;
+  }
+
   .content {
-    width: min(360px, calc(100% - 30px));
+    width: min(520px, calc(100% - 40px));
   }
 
   .iconTile {
-    margin-bottom: 30px;
+    width: 70px;
+    height: 70px;
+    margin-bottom: 22px;
+  }
+
+  .iconTile svg {
+    width: 42px;
+    height: 42px;
   }
 
   .eyebrow {
-    font-size: 16px;
+    margin-bottom: 14px;
+    font-size: 12px;
+    line-height: 1.45;
+    letter-spacing: 1.4px;
   }
 
   .title {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    font-size: clamp(27px, 8.5vw, 40px);
+    line-height: 1.08;
+    overflow-wrap: anywhere;
   }
 
   .description {
-    margin-bottom: 30px;
-    font-size: 13px;
-    line-height: 24px;
+    margin-bottom: 24px;
+    font-size: 13.5px;
+    line-height: 1.65;
   }
 
   .actions {
@@ -355,7 +373,11 @@
   }
 
   .button {
-    width: min(170px, calc(50vw - 22px));
+    width: min(180px, calc(50vw - 28px));
+    min-height: 46px;
+    height: auto;
+    padding: 8px 10px;
+    line-height: 1.2;
   }
 
   .arrow {
@@ -363,7 +385,25 @@
   }
 
   .dots {
-    bottom: 20px;
+    bottom: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero,
+  .slide {
+    height: 620px;
+  }
+
+  .actions {
+    width: min(100%, 270px);
+    margin-inline: auto;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .button {
+    width: 100%;
   }
 }
 

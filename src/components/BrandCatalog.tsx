@@ -10,6 +10,7 @@ import {
   TRAILER_FILTER_CATEGORIES,
   type TrailerFilterCategoryId,
 } from "../lib/trailer-filter-categories";
+import { getCatalogTrailerCharacteristicRows } from "../lib/trailer-characteristics";
 import styles from "./BrandCatalog.module.css";
 
 interface BrandCatalogProps {
@@ -112,7 +113,10 @@ export default function BrandCatalog({
           </div>
         ) : (
           <div className={styles.grid}>
-            {filteredTrailers.map((trailer) => (
+            {filteredTrailers.map((trailer) => {
+              const characteristicRows = getCatalogTrailerCharacteristicRows(trailer);
+
+              return (
               <article className={styles.card} key={trailer.id}>
                 {trailer.mainImageUrl ? (
                   <Link href={`/prikolice/${trailer.slug}`} className={styles.cardImageWrap}>
@@ -151,38 +155,12 @@ export default function BrandCatalog({
                   </h3>
 
                   <div className={styles.specsList}>
-                    <div className={styles.specItem}>
-                      <span className={styles.specLabel}>Ukupna masa:</span>
-                      <span className={styles.specValue}>{trailer.grossWeightKg} kg</span>
-                    </div>
-
-                    <div className={styles.specItem}>
-                      <span className={styles.specLabel}>Nosivost:</span>
-                      <span className={styles.specValue}>
-                        {trailer.payloadCapacityKg ? `${trailer.payloadCapacityKg} kg` : "Po specifikaciji"}
-                      </span>
-                    </div>
-
-                    <div className={styles.specItem}>
-                      <span className={styles.specLabel}>Osovine:</span>
-                      <span className={styles.specValue}>
-                        {trailer.axlesCount === 2 ? "Dve osovine" : "Jedna osovina"}
-                      </span>
-                    </div>
-
-                    <div className={styles.specItem}>
-                      <span className={styles.specLabel}>Kipovanje:</span>
-                      <span className={styles.specValue}>
-                        {trailer.hasTilt ? "Da (Kiper)" : "Standardno"}
-                      </span>
-                    </div>
-
-                    {trailer.dimensions && (
-                      <div className={styles.specItem} style={{ gridColumn: "span 2" }}>
-                        <span className={styles.specLabel}>Dimenzije tovarnog prostora:</span>
-                        <span className={styles.specValue}>{trailer.dimensions}</span>
+                    {characteristicRows.map((row) => (
+                      <div className={styles.specItem} key={row.key}>
+                        <span className={styles.specLabel}>{row.label}:</span>
+                        <span className={styles.specValue}>{row.value}</span>
                       </div>
-                    )}
+                    ))}
                   </div>
 
                   <div className={styles.priceBlock}>
@@ -212,7 +190,8 @@ export default function BrandCatalog({
                   </div>
                 </div>
               </article>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

@@ -122,7 +122,6 @@ export default function Brands() {
                   alt={brand.alt}
                   width={110}
                   height={50}
-                  priority={index < 8}
                   style={{ width: "auto", height: "auto" }}
                 />
               </div>

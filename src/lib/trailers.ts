@@ -4,37 +4,85 @@ import { supabaseAdmin } from "./supabase/admin";
 import type { PovuciTrailer, PovuciTrailerImage } from "../types/trailer";
 import { parseOptionsFromDescription } from "./trailer-utils";
 import { getDefaultFilterCategoryIds } from "./trailer-filter-categories";
+import {
+  cleanTrailerDescription,
+  deriveTrailerCharacteristics,
+} from "./trailer-characteristics";
+
+function parseSimpleDimensions(value: string | null): Array<number | null> {
+  if (!value || value.includes("–")) return [null, null, null];
+  const values = value
+    .replace(/ mm$/, "")
+    .split(" × ")
+    .map((part) => Number(part));
+  return [0, 1, 2].map((index) =>
+    Number.isFinite(values[index]) ? values[index] : null
+  );
+}
+
+function enrichStaticCatalogTrailer(cat: CatalogTrailer): CatalogTrailer {
+  const characteristics = deriveTrailerCharacteristics({
+    slug: cat.slug,
+    description: cat.description,
+    fallbackGrossWeightKg: cat.grossWeightKg,
+    fallbackCurbWeightKg: cat.curbWeightKg,
+  });
+
+  return {
+    ...cat,
+    description: cleanTrailerDescription(cat.slug, cat.description),
+    grossWeightKg: characteristics.grossWeightKg,
+    curbWeightKg: characteristics.curbWeightKg,
+    axlesCount: characteristics.axlesCount,
+    hasTilt: characteristics.tiltType !== null,
+    cargoSpaceDimensions: characteristics.cargoSpaceDimensions,
+    externalDimensions: characteristics.externalDimensions,
+    tiltType: characteristics.tiltType,
+    wheelSpecs: characteristics.wheelSpecs,
+    floorType: characteristics.floorType,
+    chassis: characteristics.chassis,
+    warrantyMonths: characteristics.warrantyMonths,
+    dimensions: characteristics.cargoSpaceDimensions,
+  };
+}
 
 function mapCatalogToPovuciTrailer(cat: CatalogTrailer): PovuciTrailer {
+  const enriched = enrichStaticCatalogTrailer(cat);
   const images: PovuciTrailerImage[] = [];
 
-  if (cat.mainImageUrl) {
+  if (enriched.mainImageUrl) {
     images.push({
       id: "img-1",
-      trailer_id: cat.id,
-      image_url: cat.mainImageUrl,
+      trailer_id: enriched.id,
+      image_url: enriched.mainImageUrl,
       storage_path: null,
       is_main: true,
       sort_order: 0,
-      alt_text: cat.title,
+      alt_text: enriched.title,
       created_at: new Date().toISOString(),
     });
   }
 
-  const desc = cat.description || null;
+  const desc = enriched.description || null;
   const parsedOptions = parseOptionsFromDescription(desc);
+  const [internalLength, internalWidth, internalHeight] = parseSimpleDimensions(
+    enriched.cargoSpaceDimensions || null
+  );
+  const [externalLength, externalWidth, externalHeight] = parseSimpleDimensions(
+    enriched.externalDimensions || null
+  );
 
   return {
-    id: cat.id,
-    brand: cat.brand,
-    category_id: cat.categoryId,
-    filter_categories: getDefaultFilterCategoryIds(cat).map((category_id) => ({
+    id: enriched.id,
+    brand: enriched.brand,
+    category_id: enriched.categoryId,
+    filter_categories: getDefaultFilterCategoryIds(enriched).map((category_id) => ({
       category_id,
     })),
     category: {
-      id: cat.categoryId,
-      name: cat.categoryName,
-      slug: cat.categoryId,
+      id: enriched.categoryId,
+      name: enriched.categoryName,
+      slug: enriched.categoryId,
       description: null,
       icon: null,
       sort_order: 0,
@@ -42,56 +90,61 @@ function mapCatalogToPovuciTrailer(cat: CatalogTrailer): PovuciTrailer {
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     },
-    model: cat.model,
-    slug: cat.slug,
-    title: cat.title,
-    subtitle: `${cat.brand} prikolica vrhunskog kvaliteta sa garancijom od 24 meseca`,
+    model: enriched.model,
+    slug: enriched.slug,
+    title: enriched.title,
+    subtitle: `${enriched.brand} prikolica vrhunskog kvaliteta`,
     sku: null,
     kp_ad_id: null,
     source_url: null,
     status: "available",
     is_featured: false,
-    is_b_category: cat.isBCategory,
-    is_braked: cat.isBraked,
-    axles_count: cat.axlesCount,
-    has_tilt: cat.hasTilt,
+    is_b_category: enriched.isBCategory,
+    is_braked: enriched.isBraked,
+    axles_count: enriched.axlesCount,
+    has_tilt: enriched.hasTilt,
+    tilt_type: enriched.tiltType || null,
     has_support_wheel: true,
     has_winch:
-      cat.title.toLowerCase().includes("marine") ||
-      cat.title.toLowerCase().includes("šlep") ||
-      cat.title.toLowerCase().includes("slep"),
+      enriched.title.toLowerCase().includes("marine") ||
+      enriched.title.toLowerCase().includes("šlep") ||
+      enriched.title.toLowerCase().includes("slep"),
     has_ramps:
-      cat.title.toLowerCase().includes("šlep") ||
-      cat.title.toLowerCase().includes("slep") ||
-      cat.title.toLowerCase().includes("transporter"),
-    price_rsd: cat.priceRsd,
-    price_eur: Math.round(cat.priceRsd / 117.2),
+      enriched.title.toLowerCase().includes("šlep") ||
+      enriched.title.toLowerCase().includes("slep") ||
+      enriched.title.toLowerCase().includes("transporter"),
+    price_rsd: enriched.priceRsd,
+    price_eur: Math.round(enriched.priceRsd / 117.2),
     old_price_rsd: null,
     vat_included: true,
-    warranty_months: 24,
-    gross_weight_kg: cat.grossWeightKg,
-    curb_weight_kg: cat.curbWeightKg,
-    payload_capacity_kg: cat.payloadCapacityKg,
+    warranty_months: enriched.warrantyMonths || null,
+    gross_weight_kg: enriched.grossWeightKg,
+    curb_weight_kg: enriched.curbWeightKg,
+    payload_capacity_kg: enriched.payloadCapacityKg,
     real_payload_capacity_kg: null,
-    internal_length_mm: null,
-    internal_width_mm: null,
-    internal_height_mm: null,
+    internal_length_mm: internalLength,
+    internal_width_mm: internalWidth,
+    internal_height_mm: internalHeight,
     loading_height_mm: null,
-    external_length_mm: null,
-    external_width_mm: null,
-    external_height_mm: null,
+    cargo_space_dimensions: enriched.cargoSpaceDimensions || null,
+    external_length_mm: externalLength,
+    external_width_mm: externalWidth,
+    external_height_mm: externalHeight,
+    external_dimensions: enriched.externalDimensions || null,
     boat_length_max_m: null,
     suspension:
-      cat.axlesCount > 1
+      enriched.axlesCount != null && enriched.axlesCount > 1
         ? "Dve torzione osovine (Knott / AL-KO)"
-        : "Torziona osovina (Knott / AL-KO)",
-    wheel_specs: "155/80 R13 ili 165/70 R13",
-    chassis: "Toplocinkovani čelični ram visoke čvrstoće",
-    floor_type: "Vodootporni neklizajući šper",
+        : enriched.axlesCount === 1
+          ? "Torziona osovina (Knott / AL-KO)"
+          : null,
+    wheel_specs: enriched.wheelSpecs || null,
+    chassis: enriched.chassis || null,
+    floor_type: enriched.floorType || null,
     side_material: "Pocinkovani profilni lim / šper",
     sides_opening: "Prednja i zadnja stranica se otvaraju i skidaju",
     tie_down_points: 4,
-    main_image_url: cat.mainImageUrl || null,
+    main_image_url: enriched.mainImageUrl || null,
     description: desc,
     homologation_info: "Izdaje se kompletan COC i homologacija za registraciju",
     sort_order: 0,
@@ -119,7 +172,14 @@ type DatabaseCatalogTrailer = {
   internal_length_mm: number | null;
   internal_width_mm: number | null;
   internal_height_mm: number | null;
+  cargo_space_dimensions: string | null;
+  external_dimensions: string | null;
   has_tilt: boolean | null;
+  tilt_type: "mechanical" | "hydraulic" | null;
+  wheel_specs: string | null;
+  floor_type: string | null;
+  chassis: string | null;
+  warranty_months: number | null;
   main_image_url: string | null;
   description: string | null;
   filter_categories?: { category_id: string }[] | null;
@@ -133,7 +193,9 @@ export const getCatalogTrailers = cache(async (): Promise<CatalogTrailer[]> => {
         id, brand, model, slug, title, category_id, price_rsd,
         gross_weight_kg, curb_weight_kg, payload_capacity_kg,
         axles_count, is_b_category, is_braked, internal_length_mm,
-        internal_width_mm, internal_height_mm, has_tilt, main_image_url,
+        internal_width_mm, internal_height_mm, cargo_space_dimensions,
+        external_dimensions, has_tilt, tilt_type, wheel_specs, floor_type,
+        chassis, warranty_months, main_image_url,
         description, filter_categories:povuci_trailer_categories(category_id)
       `)
       .eq("status", "available")
@@ -148,17 +210,6 @@ export const getCatalogTrailers = cache(async (): Promise<CatalogTrailer[]> => {
           (category) => category.category_id
         );
         const fallbackCategoryId = trailer.category_id || "ostalo";
-        const dimensions =
-          trailer.internal_length_mm && trailer.internal_width_mm
-            ? [
-                trailer.internal_length_mm,
-                trailer.internal_width_mm,
-                trailer.internal_height_mm,
-              ]
-                .filter((value): value is number => value != null)
-                .join("x") + " mm"
-            : null;
-
         return {
           id: trailer.id,
           brand: trailer.brand,
@@ -169,14 +220,21 @@ export const getCatalogTrailers = cache(async (): Promise<CatalogTrailer[]> => {
           categoryName: fallbackCategoryId,
           categoryIds,
           priceRsd: trailer.price_rsd || 0,
-          grossWeightKg: trailer.gross_weight_kg || 0,
+          grossWeightKg: trailer.gross_weight_kg,
           curbWeightKg: trailer.curb_weight_kg,
           payloadCapacityKg: trailer.payload_capacity_kg,
-          axlesCount: trailer.axles_count || 1,
+          axlesCount: trailer.axles_count,
           isBCategory: Boolean(trailer.is_b_category),
           isBraked: Boolean(trailer.is_braked),
-          dimensions,
+          dimensions: trailer.cargo_space_dimensions,
           hasTilt: Boolean(trailer.has_tilt),
+          cargoSpaceDimensions: trailer.cargo_space_dimensions,
+          externalDimensions: trailer.external_dimensions,
+          tiltType: trailer.tilt_type,
+          wheelSpecs: trailer.wheel_specs,
+          floorType: trailer.floor_type,
+          chassis: trailer.chassis,
+          warrantyMonths: trailer.warranty_months,
           mainImageUrl: trailer.main_image_url,
           description: trailer.description,
         };
@@ -186,10 +244,13 @@ export const getCatalogTrailers = cache(async (): Promise<CatalogTrailer[]> => {
     console.warn("Supabase catalog fetch error, using static catalog:", error);
   }
 
-  return ALL_TRAILERS.map((trailer) => ({
-    ...trailer,
-    categoryIds: getDefaultFilterCategoryIds(trailer),
-  }));
+  return ALL_TRAILERS.map((trailer) => {
+    const enriched = enrichStaticCatalogTrailer(trailer);
+    return {
+      ...enriched,
+      categoryIds: getDefaultFilterCategoryIds(enriched),
+    };
+  });
 });
 
 export async function getAllTrailerSlugs(): Promise<string[]> {
@@ -279,6 +340,16 @@ export const getTrailerBySlug = cache(async (slug: string): Promise<PovuciTraile
     if (trailer) {
       if (trailer.status !== "available") return null;
 
+      // Keep statically generated pages correct even if Next serves a cached
+      // Supabase response created before the characteristic columns existed.
+      const derivedCharacteristics = deriveTrailerCharacteristics({
+        slug: trailer.slug,
+        description: trailer.description,
+        fallbackGrossWeightKg: trailer.gross_weight_kg,
+        fallbackCurbWeightKg: trailer.curb_weight_kg,
+      });
+      const tiltType = trailer.tilt_type ?? derivedCharacteristics.tiltType;
+
       // If DB has trailer, sort images
       const images: PovuciTrailerImage[] = (trailer.images || []).sort(
         (a: PovuciTrailerImage, b: PovuciTrailerImage) => a.sort_order - b.sort_order
@@ -292,6 +363,26 @@ export const getTrailerBySlug = cache(async (slug: string): Promise<PovuciTraile
 
       return {
         ...trailer,
+        description: cleanTrailerDescription(trailer.slug, trailer.description),
+        cargo_space_dimensions:
+          trailer.cargo_space_dimensions ?? derivedCharacteristics.cargoSpaceDimensions,
+        external_dimensions:
+          trailer.external_dimensions ?? derivedCharacteristics.externalDimensions,
+        gross_weight_kg:
+          trailer.gross_weight_kg ?? derivedCharacteristics.grossWeightKg,
+        curb_weight_kg:
+          trailer.curb_weight_kg ?? derivedCharacteristics.curbWeightKg,
+        axles_count: trailer.axles_count ?? derivedCharacteristics.axlesCount,
+        tilt_type: tiltType,
+        has_tilt: tiltType !== null,
+        wheel_specs: trailer.wheel_specs ?? derivedCharacteristics.wheelSpecs,
+        floor_type:
+          trailer.category_id === "nautika-camci"
+            ? null
+            : trailer.floor_type ?? derivedCharacteristics.floorType,
+        chassis: trailer.chassis ?? derivedCharacteristics.chassis,
+        warranty_months:
+          trailer.warranty_months ?? derivedCharacteristics.warrantyMonths,
         images,
         options,
       };

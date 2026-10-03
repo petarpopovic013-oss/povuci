@@ -58,6 +58,16 @@
   justify-content: space-between;
 }
 
+.filterRow,
+.categoryButtons,
+.grid,
+.card,
+.cardHeader,
+.cardBody,
+.priceBlock {
+  min-width: 0;
+}
+
 .searchInput {
   flex: 1 1 260px;
   padding: 10px 18px;
@@ -158,6 +168,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .categoryTag {
@@ -237,6 +249,8 @@
   align-items: baseline;
   justify-content: space-between;
   margin-bottom: 14px;
+  gap: 8px 12px;
+  flex-wrap: wrap;
 }
 
 .priceLabel {
@@ -342,10 +356,111 @@
 }
 
 @media (max-width: 650px) {
+  .catalogSection {
+    padding: 28px 0 56px;
+  }
+
+  .header {
+    margin-bottom: 28px;
+  }
+
+  .brandBadge {
+    max-width: 100%;
+    padding: 6px 12px;
+    font-size: 11.5px;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
   .grid {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
+
   .title {
-    font-size: 26px;
+    font-size: clamp(25px, 8vw, 32px);
+    line-height: 1.12;
+    overflow-wrap: anywhere;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .filterBar {
+    padding: 14px;
+    margin-bottom: 24px;
+    border-radius: 10px;
+  }
+
+  .filterRow {
+    display: block;
+  }
+
+  .searchInput {
+    width: 100%;
+    min-height: 44px;
+    padding-inline: 14px;
+    border-radius: 9px;
+  }
+
+  .categoryButtons {
+    margin-top: 12px;
+    padding: 2px 0 6px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+
+  .catBtn {
+    min-height: 42px;
+    flex: 0 0 auto;
+    padding: 8px 13px;
+  }
+
+  .cardImageWrap {
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .cardHeader {
+    padding: 14px 16px 8px;
+  }
+
+  .cardBody {
+    padding: 0 16px 18px;
+  }
+
+  .modelTitle {
+    font-size: 18px;
+    line-height: 1.25;
+  }
+
+  .specsList {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .priceValue {
+    font-size: clamp(17px, 5.5vw, 20px);
+    overflow-wrap: anywhere;
+  }
+
+  .actions a {
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 359px) {
+  .specsList {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
   }
 }

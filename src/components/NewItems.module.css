@@ -173,6 +173,40 @@
   .section {
     padding: 60px 0;
   }
+
+  .carousel {
+    margin-inline: -8px;
+  }
+
+  .slot {
+    padding-inline: 8px;
+  }
+
+  .bio {
+    padding: 20px 16px;
+  }
+
+  .bio h3 a {
+    font-size: 18px;
+    overflow-wrap: anywhere;
+  }
+
+  .overlay {
+    opacity: 1;
+    background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.72) 100%);
+  }
+
+  .actions {
+    bottom: 14px;
+    gap: 10px;
+  }
+
+  .actions a {
+    min-height: 42px;
+    height: auto;
+    transform: none;
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

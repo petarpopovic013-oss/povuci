@@ -14,6 +14,7 @@ import {
   getTrailerSeoDescription,
   serializeJsonLd,
 } from "../../../src/lib/seo";
+import { getPovuciTrailerCharacteristicRows } from "../../../src/lib/trailer-characteristics";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -110,9 +111,10 @@ export default async function TrailerPage({ params }: PageProps) {
   const productUrl = absoluteUrl(`/prikolice/${trailer.slug}`);
   const productId = `${productUrl}#product`;
   const breadcrumbId = `${productUrl}#breadcrumb`;
+  const characteristicRows = getPovuciTrailerCharacteristicRows(trailer);
   const structuredDescription = compactText(
     trailer.description ||
-      `${trailer.title} auto prikolica brenda ${trailer.brand} sa 24 meseca garancije.`
+      `${trailer.title} auto prikolica brenda ${trailer.brand}.`
   );
 
   const productJsonLd = {
@@ -141,53 +143,11 @@ export default async function TrailerPage({ params }: PageProps) {
         name: "Bruto masa",
       },
     }),
-    additionalProperty: [
-      ...(trailer.axles_count
-        ? [
-            {
-              "@type": "PropertyValue",
-              name: "Broj osovina",
-              value: trailer.axles_count,
-            },
-          ]
-        : []),
-      ...(trailer.is_b_category !== undefined
-        ? [
-            {
-              "@type": "PropertyValue",
-              name: "B kategorija vozačke dozvole",
-              value: trailer.is_b_category ? "Da" : "Ne",
-            },
-          ]
-        : []),
-      ...(trailer.is_braked !== undefined
-        ? [
-            {
-              "@type": "PropertyValue",
-              name: "Kočiona prikolica",
-              value: trailer.is_braked ? "Da" : "Ne",
-            },
-          ]
-        : []),
-      ...(trailer.internal_length_mm && trailer.internal_width_mm
-        ? [
-            {
-              "@type": "PropertyValue",
-              name: "Dimenzije tovarnog prostora (mm)",
-              value: `${trailer.internal_length_mm} x ${trailer.internal_width_mm}${trailer.internal_height_mm ? ` x ${trailer.internal_height_mm}` : ""}`,
-            },
-          ]
-        : []),
-      ...(trailer.payload_capacity_kg
-        ? [
-            {
-              "@type": "PropertyValue",
-              name: "Neto nosivost",
-              value: `${trailer.payload_capacity_kg} kg`,
-            },
-          ]
-        : []),
-    ],
+    additionalProperty: characteristicRows.map((row) => ({
+      "@type": "PropertyValue",
+      name: row.label,
+      value: row.value,
+    })),
     ...(trailer.price_rsd > 0 && {
       offers: {
         "@type": "Offer",

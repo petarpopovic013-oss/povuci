@@ -314,12 +314,53 @@
   }
 
   .brandCard {
-    height: 280px;
-    padding: 24px 20px;
+    height: 300px;
+    padding: 24px 18px;
   }
 
   .brandTitle {
     font-size: 24px;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+
+  .brandSubtitle {
+    font-size: 13px;
+  }
+
+  .carousel {
+    margin-inline: -8px;
+  }
+
+  .productSlot {
+    padding-inline: 8px;
+  }
+
+  .productBio {
+    padding: 20px 16px;
+  }
+
+  .productBio h3 a {
+    font-size: 18px;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .productOverlay {
+    opacity: 1;
+    background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.72) 100%);
+  }
+
+  .productActions {
+    bottom: 14px;
+    gap: 10px;
+  }
+
+  .productActions a {
+    min-height: 42px;
+    height: auto;
+    transform: none;
+    opacity: 1;
   }
 }
 

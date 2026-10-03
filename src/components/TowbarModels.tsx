@@ -59,7 +59,7 @@ export default function TowbarModels() {
         </div>
 
         <div className={styles.grid}>
-          {towbarModels.map((model, index) => (
+          {towbarModels.map((model) => (
             <article className={`${styles.card} reveal`} key={model.code}>
               <div className={styles.imageWrap}>
                 <Image
@@ -68,7 +68,6 @@ export default function TowbarModels() {
                   fill
                   sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 50vw, 380px"
                   className={styles.image}
-                  priority={index === 0}
                 />
                 <span className={styles.modelCode}>{model.code}</span>
               </div>

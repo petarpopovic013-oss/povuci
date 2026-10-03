@@ -135,6 +135,29 @@
     flex-direction: column;
     gap: 9px;
   }
+
+  .vehicleCoverage strong {
+    max-width: 100%;
+    min-height: 0;
+    padding: 9px 12px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .vehicleCoverage span,
+  .description {
+    overflow-wrap: anywhere;
+  }
+
+  .rail,
+  .track,
+  .logoCell {
+    height: 104px;
+  }
+
+  .logoCell {
+    padding-inline: 14px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

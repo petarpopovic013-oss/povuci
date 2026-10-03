@@ -202,28 +202,67 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
         </div>
       </div>
 
-      {/* 2. Osobine i filteri */}
-      <h3 className="admin-form-section-title">2. Osobine i Karakteristike</h3>
+      <h3 className="admin-form-section-title">2. Javne Karakteristike</h3>
+      <p className="admin-header-desc">
+        Prazna vrednost se neće prikazivati na sajtu. Polja su poređana kao na javnoj stranici.
+      </p>
+      <div className="admin-form-grid">
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="cargo_space_dimensions">Tovarni prostor</label>
+          <input id="cargo_space_dimensions" name="cargo_space_dimensions" type="text" defaultValue={trailer.cargo_space_dimensions || ""} placeholder="npr. 2530 × 1340 × 550 mm" className="admin-input" />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="external_dimensions">Spoljašnje dimenzije</label>
+          <input id="external_dimensions" name="external_dimensions" type="text" defaultValue={trailer.external_dimensions || ""} placeholder="npr. 3720 × 1850 mm" className="admin-input" />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="gross_weight_kg">Ukupna masa (kg)</label>
+          <input id="gross_weight_kg" name="gross_weight_kg" type="number" step="0.1" defaultValue={trailer.gross_weight_kg ?? ""} placeholder="npr. 750" className="admin-input" />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="curb_weight_kg">Masa prikolice (kg)</label>
+          <input id="curb_weight_kg" name="curb_weight_kg" type="number" step="0.1" defaultValue={trailer.curb_weight_kg ?? ""} placeholder="npr. 168" className="admin-input" />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="axles_count">Broj osovina</label>
+          <select id="axles_count" name="axles_count" defaultValue={trailer.axles_count ?? ""} className="admin-select">
+            <option value="">Nije navedeno</option>
+            <option value="1">1 osovina</option>
+            <option value="2">2 osovine</option>
+            <option value="3">3 osovine</option>
+          </select>
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="tilt_type">Kip</label>
+          <select id="tilt_type" name="tilt_type" defaultValue={trailer.tilt_type || ""} className="admin-select">
+            <option value="">Bez kipa</option>
+            <option value="mechanical">Mehanički</option>
+            <option value="hydraulic">Hidraulični</option>
+          </select>
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="wheel_specs">Točkovi</label>
+          <input id="wheel_specs" name="wheel_specs" type="text" defaultValue={trailer.wheel_specs || ""} placeholder="npr. 155/80 R13" className="admin-input" />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="floor_type">Pod</label>
+          <input id="floor_type" name="floor_type" type="text" defaultValue={trailer.floor_type || ""} placeholder="Ostavite prazno ako prikolica nema pod" className="admin-input" />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="chassis">Konstrukcija šasije</label>
+          <input id="chassis" name="chassis" type="text" defaultValue={trailer.chassis || ""} placeholder="npr. Toplocinkovana" className="admin-input" />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label" htmlFor="warranty_months">Garancija (meseci)</label>
+          <input id="warranty_months" name="warranty_months" type="number" min="1" step="1" defaultValue={trailer.warranty_months ?? ""} placeholder="npr. 24" className="admin-input" />
+        </div>
+      </div>
+
+      <h3 className="admin-form-section-title">3. Filteri i Oprema</h3>
       <div
         className="admin-form-grid"
         style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}
       >
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="axles_count">
-            Broj Osovina
-          </label>
-          <select
-            id="axles_count"
-            name="axles_count"
-            defaultValue={trailer.axles_count || 1}
-            className="admin-select"
-          >
-            <option value="1">1 osovina (jednoosovinka)</option>
-            <option value="2">2 osovine (dvoosovinka)</option>
-            <option value="3">3 osovine (troosovinka)</option>
-          </select>
-        </div>
-
         <div
           className="admin-form-group"
           style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "24px" }}
@@ -261,26 +300,6 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
             style={{ margin: 0, cursor: "pointer" }}
           >
             Kočioni sistem (kočiona)
-          </label>
-        </div>
-
-        <div
-          className="admin-form-group"
-          style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "24px" }}
-        >
-          <input
-            id="has_tilt"
-            name="has_tilt"
-            type="checkbox"
-            defaultChecked={trailer.has_tilt}
-            style={{ width: "18px", height: "18px", accentColor: "#d22e2e" }}
-          />
-          <label
-            className="admin-form-label"
-            htmlFor="has_tilt"
-            style={{ margin: 0, cursor: "pointer" }}
-          >
-            Kipovanje tereta (kiper)
           </label>
         </div>
 
@@ -365,39 +384,8 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
         </div>
       </div>
 
-      {/* 3. Mase i Dimenzije */}
-      <h3 className="admin-form-section-title">3. Mase i Dimenzije</h3>
+      <h3 className="admin-form-section-title">4. Dodatni Tehnički Podaci</h3>
       <div className="admin-form-grid">
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="gross_weight_kg">
-            Ukupna (Bruto) Masa (kg)
-          </label>
-          <input
-            id="gross_weight_kg"
-            name="gross_weight_kg"
-            type="number"
-            step="0.1"
-            defaultValue={trailer.gross_weight_kg || ""}
-            placeholder="npr. 750"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="curb_weight_kg">
-            Sopstvena Masa / Težina (kg)
-          </label>
-          <input
-            id="curb_weight_kg"
-            name="curb_weight_kg"
-            type="number"
-            step="0.1"
-            defaultValue={trailer.curb_weight_kg || ""}
-            placeholder="npr. 168"
-            className="admin-input"
-          />
-        </div>
-
         <div className="admin-form-group">
           <label className="admin-form-label" htmlFor="payload_capacity_kg">
             Korisna Nosivost po papirima (kg)
@@ -429,48 +417,6 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
         </div>
 
         <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="internal_length_mm">
-            Unutrašnja Dužina sanduka (mm)
-          </label>
-          <input
-            id="internal_length_mm"
-            name="internal_length_mm"
-            type="number"
-            defaultValue={trailer.internal_length_mm || ""}
-            placeholder="npr. 2330"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="internal_width_mm">
-            Unutrašnja Širina sanduka (mm)
-          </label>
-          <input
-            id="internal_width_mm"
-            name="internal_width_mm"
-            type="number"
-            defaultValue={trailer.internal_width_mm || ""}
-            placeholder="npr. 1320"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="internal_height_mm">
-            Unutrašnja Visina stranica (mm)
-          </label>
-          <input
-            id="internal_height_mm"
-            name="internal_height_mm"
-            type="number"
-            defaultValue={trailer.internal_height_mm || ""}
-            placeholder="npr. 390"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
           <label className="admin-form-label" htmlFor="loading_height_mm">
             Utovarna Visina (mm)
           </label>
@@ -485,23 +431,8 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
         </div>
       </div>
 
-      {/* 4. Mehanika i Materijali */}
-      <h3 className="admin-form-section-title">4. Konstrukcija i Mehanika</h3>
+      <h3 className="admin-form-section-title">5. Ostala Konstrukcija i Mehanika</h3>
       <div className="admin-form-grid">
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="chassis">
-            Šasija
-          </label>
-          <input
-            id="chassis"
-            name="chassis"
-            type="text"
-            defaultValue={trailer.chassis || ""}
-            placeholder="npr. Toplocinkovana čelična šasija"
-            className="admin-input"
-          />
-        </div>
-
         <div className="admin-form-group">
           <label className="admin-form-label" htmlFor="suspension">
             Vešanje i Osovine
@@ -512,34 +443,6 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
             type="text"
             defaultValue={trailer.suspension || ""}
             placeholder="npr. Torziona osovina Knott / AL-KO"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="wheel_specs">
-            Točkovi i Gume
-          </label>
-          <input
-            id="wheel_specs"
-            name="wheel_specs"
-            type="text"
-            defaultValue={trailer.wheel_specs || ""}
-            placeholder="npr. 155/80 R13 ili 165/70 R13"
-            className="admin-input"
-          />
-        </div>
-
-        <div className="admin-form-group">
-          <label className="admin-form-label" htmlFor="floor_type">
-            Pod Prikolice
-          </label>
-          <input
-            id="floor_type"
-            name="floor_type"
-            type="text"
-            defaultValue={trailer.floor_type || ""}
-            placeholder="npr. Vodootporni protivklizajući šper"
             className="admin-input"
           />
         </div>
@@ -573,8 +476,7 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
         </div>
       </div>
 
-      {/* 5. Postojeće i Nove Fotografije */}
-      <h3 className="admin-form-section-title">5. Fotografije Prikolice</h3>
+      <h3 className="admin-form-section-title">6. Fotografije Prikolice</h3>
 
       {images.length > 0 && (
         <div style={{ marginBottom: "20px" }}>
@@ -643,9 +545,9 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
         </span>
       </div>
 
-      {/* 6. Opis */}
+      {/* 7. Opis */}
       <h3 className="admin-form-section-title" style={{ marginTop: "30px" }}>
-        6. Detaljan Tekstualni Opis
+        7. Detaljan Tekstualni Opis
       </h3>
       <div className="admin-form-group">
         <label className="admin-form-label" htmlFor="description">
