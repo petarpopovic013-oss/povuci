@@ -149,7 +149,7 @@ export default function ContactPage() {
             </div>
 
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Dr+Svetislava+Kasapinovica+9,+21000+Novi+Sad"
+              href="https://www.google.com/maps/search/?api=1&query=DDM+Company+Novi+Sad"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.openMapsBtn}
@@ -161,8 +161,8 @@ export default function ContactPage() {
 
           <div className={styles.mapFrameWrapper}>
             <iframe
-              title="Google Mapa Lokacija - Dr Svetislava Kasapinovića 9, Novi Sad"
-              src="https://maps.google.com/maps?q=Dr+Svetislava+Kasapinovica+9,+Novi+Sad,+Serbia&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              title="Google mapa lokacije DDM Company Novi Sad"
+              src="https://maps.google.com/maps?q=DDM+Company,+Novi+Sad,+Serbia&t=&z=16&ie=UTF8&iwloc=&output=embed"
               className={styles.mapFrame}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

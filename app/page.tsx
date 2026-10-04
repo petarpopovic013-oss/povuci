@@ -54,11 +54,6 @@ const organizationJsonLd = {
     postalCode: "21000",
     addressCountry: "RS",
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 45.2671,
-    longitude: 19.8335,
-  },
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -75,7 +70,7 @@ const organizationJsonLd = {
   ],
   sameAs: [INSTAGRAM_URL, FACEBOOK_URL],
   hasMap:
-    "https://www.google.com/maps/search/?api=1&query=Dr+Svetislava+Kasapinovica+9,+21000+Novi+Sad",
+    "https://www.google.com/maps/search/?api=1&query=DDM+Company+Novi+Sad",
   priceRange: "$$",
   currenciesAccepted: "RSD",
   paymentAccepted: "Cash, Credit Card, Bank Transfer",
