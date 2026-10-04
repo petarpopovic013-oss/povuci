@@ -121,7 +121,15 @@ assert(sitemapLocations.length >= 75, `/sitemap.xml: očekivano najmanje 75 URL-
 assert(new Set(sitemapLocations).size === sitemapLocations.length, "/sitemap.xml: pronađeni duplirani URL-ovi");
 assert(sitemapLocations.every((url) => url.startsWith("https://povuci.rs/")), "/sitemap.xml: pronađen URL van produkcijskog domena");
 assert(sitemapLocations.every((url) => !url.includes("/admin") && !url.includes("/api/")), "/sitemap.xml: pronađena interna ruta");
-assert((sitemap.body.match(/<image:image>/g) || []).length >= 400, "/sitemap.xml: očekivano najmanje 400 product slika");
+const productLocations = sitemapLocations.filter((location) => {
+  const pathname = new URL(location).pathname;
+  return /^\/prikolice\/[^/]+$/.test(pathname);
+});
+const sitemapImageCount = (sitemap.body.match(/<image:image>/g) || []).length;
+assert(
+  sitemapImageCount >= productLocations.length,
+  `/sitemap.xml: očekivana je najmanje jedna slika po proizvodu (${productLocations.length}), pronađeno ${sitemapImageCount}`
+);
 assert((sitemap.body.match(/<lastmod>/g) || []).length >= 60, "/sitemap.xml: nedostaju datumi izmene modela");
 for (const category of ["lake-teretne", "cargo-teske", "nautika-camci", "kiper", "moto-atv", "plato-slep"]) {
   assert(sitemapLocations.includes(`https://povuci.rs/prikolice/kategorija/${category}`), `/sitemap.xml: nedostaje kategorija ${category}`);

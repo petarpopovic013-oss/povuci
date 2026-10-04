@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AlertIcon, CheckIcon, SaveIcon } from "@/components/icons";
 import { TrailerCategoryCheckboxes } from "@/components/TrailerCategoryCheckboxes";
+import { readAdminApiResponse } from "@/lib/admin/client-api";
+import { optimizeImageForUpload } from "@/lib/images/client-optimize";
 
 interface CreateTrailerFormProps {
   categories: { id: string; name: string }[] | null;
@@ -15,6 +17,7 @@ export function CreateTrailerForm({ categories }: CreateTrailerFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [progress, setProgress] = useState<string | null>(null);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,27 +28,70 @@ export function CreateTrailerForm({ categories }: CreateTrailerFormProps) {
     try {
       const formElement = e.currentTarget;
       const formData = new FormData(formElement);
+      const imageFiles = formData
+        .getAll("images")
+        .filter((value): value is File => value instanceof File && value.size > 0);
+
+      // Kreiranje prikolice ne sme zavisiti od zbirne veličine galerije.
+      formData.delete("images");
+      setProgress("Čuvanje podataka prikolice...");
 
       const res = await fetch("/api/admin/trailers/create", {
         method: "POST",
         body: formData,
       });
 
-      const data = await res.json();
+      const data = await readAdminApiResponse(res);
 
-      if (!res.ok || !data.success) {
+      if (!res.ok || !data.success || !data.trailerId) {
         throw new Error(data.error || "Došlo je do greške pri dodavanju prikolice.");
       }
 
-      setSuccess(data.message || "Prikolica je uspešno dodata!");
+      const imageErrors: string[] = [];
+
+      for (let index = 0; index < imageFiles.length; index++) {
+        setProgress(`Slanje fotografije ${index + 1} od ${imageFiles.length}...`);
+
+        try {
+          const optimizedImage = await optimizeImageForUpload(imageFiles[index]);
+          const imageFormData = new FormData();
+          imageFormData.set("trailerId", data.trailerId);
+          imageFormData.set("image", optimizedImage);
+
+          const imageResponse = await fetch("/api/admin/trailers/images", {
+            method: "POST",
+            body: imageFormData,
+          });
+          const imageResult = await readAdminApiResponse(imageResponse);
+
+          if (!imageResponse.ok || !imageResult.success) {
+            throw new Error(imageResult.error || "Fotografija nije mogla biti sačuvana.");
+          }
+        } catch (imageError) {
+          imageErrors.push(
+            imageError instanceof Error
+              ? imageError.message
+              : "Fotografija nije mogla biti sačuvana."
+          );
+        }
+      }
+
+      const baseMessage = data.message || "Prikolica je uspešno dodata!";
+      const finalMessage = imageErrors.length
+        ? `${baseMessage} ${imageErrors.length} fotografija nije dodato i može se naknadno dodati kroz izmenu.`
+        : baseMessage;
+
+      setProgress(null);
+      setSuccess(finalMessage);
 
       setTimeout(() => {
-        router.push("/admin/prikolice?success=" + encodeURIComponent(data.message || "Prikolica dodata"));
+        router.push("/admin/prikolice?success=" + encodeURIComponent(finalMessage));
         router.refresh();
       }, 700);
     } catch (err: unknown) {
       console.error("Form submit error:", err);
       setError(err instanceof Error ? err.message : "Greška pri čuvanju podataka.");
+      setProgress(null);
       setLoading(false);
     }
   }
@@ -328,7 +374,7 @@ export function CreateTrailerForm({ categories }: CreateTrailerFormProps) {
           style={{ minWidth: "180px", opacity: loading ? 0.7 : 1, cursor: loading ? "wait" : "pointer" }}
         >
           <SaveIcon style={{ width: "16px", height: "16px" }} aria-hidden="true" />
-          <span>{loading ? "Čuvanje i optimizacija..." : "Sačuvaj Prikolicu"}</span>
+          <span>{loading ? progress || "Čuvanje..." : "Sačuvaj Prikolicu"}</span>
         </button>
       </div>
     </form>

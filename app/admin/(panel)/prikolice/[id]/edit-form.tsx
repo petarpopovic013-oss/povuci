@@ -8,6 +8,7 @@ import { AlertIcon, CheckIcon, SaveIcon, TrashIcon } from "@/components/icons";
 import { TrailerCategoryCheckboxes } from "@/components/TrailerCategoryCheckboxes";
 import type { PovuciTrailer } from "@/types/trailer";
 import { deleteTrailerImageAction } from "../../../actions";
+import { readAdminApiResponse } from "@/lib/admin/client-api";
 
 interface EditTrailerFormProps {
   trailer: PovuciTrailer;
@@ -82,7 +83,7 @@ export function EditTrailerForm({ trailer, categories }: EditTrailerFormProps) {
         body: formData,
       });
 
-      const data = await res.json();
+      const data = await readAdminApiResponse(res);
 
       if (!res.ok || !data.success) {
         throw new Error(data.error || "Došlo je do greške pri čuvanju izmena.");

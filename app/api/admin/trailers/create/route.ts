@@ -1,7 +1,7 @@
+import { randomUUID } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { hasAdminSession } from "@/lib/admin/session";
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import { optimizeImageToWebp } from "@/lib/images/optimize";
 import { revalidateCatalogPages } from "@/lib/admin/revalidate-catalog";
 import {
   parseTrailerCategoryIds,
@@ -84,64 +84,7 @@ export async function POST(req: NextRequest) {
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "");
-    const slug = `${slugBase}-${Date.now().toString().slice(-4)}`;
-
-    // Handle Image Uploads & Optimization (WebP compression via Sharp)
-    const imageFiles = formData.getAll("images") as File[];
-    const uploadedImages: {
-      image_url: string;
-      storage_path: string;
-      is_main: boolean;
-      sort_order: number;
-    }[] = [];
-
-    const BUCKET_NAME = "povuci-trailer-images";
-
-    for (let i = 0; i < imageFiles.length; i++) {
-      const file = imageFiles[i];
-      if (file && file.size > 0 && typeof file.arrayBuffer === "function") {
-        try {
-          const arrayBuffer = await file.arrayBuffer();
-
-          const { buffer: webpBuffer, contentType } = await optimizeImageToWebp(
-            arrayBuffer,
-            {
-              maxWidth: 1920,
-              maxHeight: 1440,
-              quality: 80,
-            }
-          );
-
-          const storagePath = `${brand.toLowerCase()}/${slug}/${Date.now()}-${i + 1}.webp`;
-
-          const { error: uploadErr } = await supabaseAdmin.storage
-            .from(BUCKET_NAME)
-            .upload(storagePath, webpBuffer, {
-              contentType,
-              upsert: true,
-            });
-
-          if (!uploadErr) {
-            const { data: pubData } = supabaseAdmin.storage
-              .from(BUCKET_NAME)
-              .getPublicUrl(storagePath);
-
-            uploadedImages.push({
-              image_url: pubData.publicUrl,
-              storage_path: storagePath,
-              is_main: i === 0,
-              sort_order: i,
-            });
-          } else {
-            console.error("Storage upload error:", uploadErr);
-          }
-        } catch (err) {
-          console.error("Optimization error:", err);
-        }
-      }
-    }
-
-    const mainImageUrl = uploadedImages.length > 0 ? uploadedImages[0].image_url : null;
+    const slug = `${slugBase}-${randomUUID().slice(0, 8)}`;
 
     const { data: trailer, error } = await supabaseAdmin
       .from("povuci_trailers")
@@ -185,7 +128,7 @@ export async function POST(req: NextRequest) {
         side_material: sideMaterial,
         sides_opening: sidesOpening,
         description,
-        main_image_url: mainImageUrl,
+        main_image_url: null,
       })
       .select()
       .single();
@@ -198,20 +141,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (trailer?.id) {
-      await syncTrailerCategories(trailer.id, categoryIds);
+    if (!trailer?.id) {
+      throw new Error("Baza nije vratila identifikator nove prikolice.");
     }
 
-    if (uploadedImages.length > 0 && trailer?.id) {
-      const imagesToInsert = uploadedImages.map((img) => ({
-        trailer_id: trailer.id,
-        image_url: img.image_url,
-        storage_path: img.storage_path,
-        is_main: img.is_main,
-        sort_order: img.sort_order,
-      }));
-
-      await supabaseAdmin.from("povuci_trailer_images").insert(imagesToInsert);
+    try {
+      await syncTrailerCategories(trailer.id, categoryIds);
+    } catch (categoryError) {
+      await supabaseAdmin.from("povuci_trailers").delete().eq("id", trailer.id);
+      throw categoryError;
     }
 
     revalidateCatalogPages();
@@ -219,7 +157,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       message: `Prikolica "${title}" je uspešno dodata u bazu!`,
-      trailerId: trailer?.id,
+      trailerId: trailer.id,
     });
   } catch (err: unknown) {
     console.error("API Create Trailer Error:", err);
